@@ -1,0 +1,27 @@
+{
+  "name": "yii-admin",
+  "homepage": "https://github.com/mro1127/yii-admin",
+  "description": "yii-admin 的前端资源库",
+  "main": "",
+  "keywords": [
+    "yii2",
+    "adminlte",
+    "bower"
+  ],
+  "authors": [
+    "Armo"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor/bower",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "admin-lte": "^2.4.2",
+    "bootstrap-table": "^1.11.1"
+  }
+}
