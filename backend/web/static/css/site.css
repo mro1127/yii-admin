@@ -1,0 +1,16 @@
+html,body{height: 100%}
+
+.login-page{
+	height: 100%;
+}
+
+.login-box{
+	margin-top: 0px;
+	position: relative;
+	top: 100px;
+	border: 1px solid #eee;
+}
+
+.login-logo img{
+	width: 318px;
+}
