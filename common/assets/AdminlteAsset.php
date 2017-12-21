@@ -12,6 +12,6 @@ class AdminlteAsset extends AssetBundle
         'css/skins/_all-skins.min.css',
     ];
     public $js = [
-        'js/app.min.js',
+        'js/adminlte.min.js',
     ];
 }

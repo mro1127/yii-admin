@@ -15,10 +15,8 @@ class AppAsset extends AssetBundle
         'css/site.css',
     ];
     public $js = [
+        'js/common.js',
     ];
-    public $depends = [
-        'common\assets\BootstrapAsset',
-        'common\assets\AdminlteAsset',
-    ];
+    public $depends = ['JQuery', 'Bootstrap', 'Adminlte', 'JQueryForm'];
 
 }

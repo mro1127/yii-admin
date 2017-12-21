@@ -9,5 +9,6 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'assetManager' => require(__DIR__ . '/asset.php'),
     ],
 ];

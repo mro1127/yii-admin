@@ -10,4 +10,8 @@ class BootstrapAsset extends AssetBundle
     public $css = [
         'css/bootstrap.css',
     ];
+
+    public $js = [
+        'js/bootstrap.min.js',
+    ];
 }
