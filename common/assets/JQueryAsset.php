@@ -8,6 +8,6 @@ class JQueryAsset extends AssetBundle
 {
     public $sourcePath = '@bower/jquery/dist';
     public $js = [
-        'jquery.min.js',
+        YII_DEBUG ? 'jquery.js':'jquery.min.js',
     ];
 }

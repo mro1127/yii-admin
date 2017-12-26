@@ -8,10 +8,11 @@ class BootstrapAsset extends AssetBundle
 {
     public $sourcePath = '@bower/bootstrap/dist';
     public $css = [
-        'css/bootstrap.css',
+        YII_DEBUG ? 'css/bootstrap.css':'css/bootstrap.min.css',
     ];
 
     public $js = [
-        'js/bootstrap.min.js',
+        YII_DEBUG ? 'js/bootstrap.js':'js/bootstrap.min.js',
     ];
+    public $depends = ['JQuery'];
 }

@@ -20,9 +20,15 @@ return [
         'BootstrapTable'=> [
             'class' => 'yii\web\AssetBundle',
             'sourcePath' => '@bower/bootstrap-table/dist',
-            'css' => ['bootstrap-table.min.css'],
-            'js' => ['bootstrap-table.min.js'],
+            'css' => [YII_DEBUG ? 'bootstrap-table.css' : 'bootstrap-table.min.css'],
+            'js' => [YII_DEBUG ? 'bootstrap-table.js' : 'bootstrap-table.min.js'],
             'depends' => ['Bootstrap']
+        ],
+        'Layer'=> [
+            'class' => 'yii\web\AssetBundle',
+            'sourcePath' => '@bower/layer/dist',
+            'js' => ['layer.js'],
+            'depends' => ['JQuery']
         ],
     ],
 ];
