@@ -1,35 +1,47 @@
-<?php
+<?php 
+use yii\helpers\Url;
 
-/* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
-/* @var $model \common\models\LoginForm */
 
-use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
+$this->registerAssetBundle('BootstrapTable');
 
-$this->title = 'Login';
-$this->params['breadcrumbs'][] = $this->title;
-?>
-<div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
+ ?>
+<div class="hold-transition login-page">
+    <div class="login-box">
+        <!-- /.login-logo -->
+        <div class="login-box-body">
 
-    <p>Please fill out the following fields to login:</p>
-
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
-
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
-
-                <?= $form->field($model, 'password')->passwordInput() ?>
-
-                <?= $form->field($model, 'rememberMe')->checkbox() ?>
-
-                <div class="form-group">
-                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+            <form action="<?= Url::to(['site/login']); ?>" method="post" id="form">
+                <div class="login-logo">
+                    <img src="<?=yii\helpers\Url::to('@static/images/logo.png')?>"/>
                 </div>
-
-            <?php ActiveForm::end(); ?>
+                <div class="form-group has-feedback">
+                    <input name="username" type="text" class="form-control" placeholder="账号">
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input name="password" type="password" class="form-control" placeholder="密码">
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-7">
+                        <!-- <img src="" alt=""> -->
+                    </div>
+                    <div class="col-xs-5">
+                        <button class="btn btn-primary btn-block btn-flat common-ajax-submit">登录</button>
+                    </div>
+                </div>
+            </form>
         </div>
+        <!-- /.login-box-body -->
     </div>
 </div>
+
+<?php
+\Yii::$app->view->on($this::EVENT_END_PAGE, function () {
+ ?>
+<script type="text/javascript">
+    $('body').layout({resetHeight:false})
+</script>
+<?php
+});
+?>

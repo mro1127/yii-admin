@@ -1,5 +1,5 @@
 <?php
-namespace common\models;
+namespace backend\models;
 
 use Yii;
 use yii\base\NotSupportedException;
@@ -10,16 +10,20 @@ use yii\web\IdentityInterface;
 /**
  * User model
  *
- * @property integer $id
- * @property string $username
- * @property string $password_hash
- * @property string $password_reset_token
- * @property string $email
- * @property string $auth_key
- * @property integer $status
- * @property integer $created_at
- * @property integer $updated_at
+ * @property integer $u_id
+ * @property string $u_username
+ * @property string $u_password_hash
+ * @property string $u_password_reset_token
+ * @property string $u_email
+ * @property string $u_auth_key
+ * @property integer $u_status
+ * @property integer $u_created_at
+ * @property integer $u_updated_at
  * @property string $password write-only password
+ * @property string $u_tel
+ * @property string $u_sex
+ * @property string $u_birthday
+ * @property string $u_name
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -32,9 +36,9 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function tableName()
     {
-        return '{{%user}}';
+        return 'sys_user';
     }
-
+ 
     /**
      * @inheritdoc
      */
@@ -51,8 +55,8 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            ['u_status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['u_status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
         ];
     }
 
@@ -61,7 +65,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentity($id)
     {
-        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['u_id' => $id, 'u_status' => self::STATUS_ACTIVE]);
     }
 
     /**
@@ -80,7 +84,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByUsername($username)
     {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['u_username' => $username, 'u_status' => self::STATUS_ACTIVE]);
     }
 
     /**
@@ -96,8 +100,8 @@ class User extends ActiveRecord implements IdentityInterface
         }
 
         return static::findOne([
-            'password_reset_token' => $token,
-            'status' => self::STATUS_ACTIVE,
+            'u_password_reset_token' => $token,
+            'u_status' => self::STATUS_ACTIVE,
         ]);
     }
 
@@ -131,7 +135,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getAuthKey()
     {
-        return $this->auth_key;
+        return $this->u_auth_key;
     }
 
     /**
@@ -139,7 +143,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function validateAuthKey($authKey)
     {
-        return $this->getAuthKey() === $authKey;
+        return $this->getAuthKey() === $u_auth_key;
     }
 
     /**
@@ -150,7 +154,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function validatePassword($password)
     {
-        return Yii::$app->security->validatePassword($password, $this->password_hash);
+        return Yii::$app->security->validatePassword($password, $this->u_password_hash);
     }
 
     /**
@@ -160,7 +164,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function setPassword($password)
     {
-        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
+        $this->u_password_hash = Yii::$app->security->generatePasswordHash($password);
     }
 
     /**
@@ -168,7 +172,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function generateAuthKey()
     {
-        $this->auth_key = Yii::$app->security->generateRandomString();
+        $this->u_auth_key = Yii::$app->security->generateRandomString();
     }
 
     /**
@@ -176,7 +180,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function generatePasswordResetToken()
     {
-        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
+        $this->u_password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
     }
 
     /**
@@ -184,6 +188,29 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function removePasswordResetToken()
     {
-        $this->password_reset_token = null;
+        $this->u_password_reset_token = null;
     }
+    /**
+     * 登录
+     * @Author   Armo
+     * @DateTime 2017-12-22
+     * @param    string     $username 用户名
+     * @param    string     $password 密码，明文
+     * @return   array                结果、提示
+     */
+    public function loginByUsername($username, $password)
+    {
+        $_user = $this->findByUsername($username);
+        if (empty($_user)) 
+            return ['status'=>0, 'info'=> '找不到该用户！'];
+            
+        
+        if(false === $_user->validatePassword($password))
+            return ['status'=>0, 'info'=> '密码错误！'];
+
+        if(false === Yii::$app->user->login($_user))
+            return ['status'=>0, 'info'=> '登录失败，请重试！'];
+        return ['status'=>1, 'info'=> '登录成功！'];
+    }
+
 }
