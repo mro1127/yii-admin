@@ -41,6 +41,19 @@ $this->registerAssetBundle('BootstrapTable');
  ?>
 <script type="text/javascript">
     $('body').layout({resetHeight:false})
+
+
+    initValidate({
+        rules: {
+            username: "required",
+            password: "required",
+        },
+        messages: {
+            username: "请输入账号",
+            password: "请输入密码",
+        },
+    });
+
 </script>
 <?php
 });
