@@ -90,10 +90,10 @@ function stopLoading(btn) {
  * @param    {object}   options option.elm 为需要验证的表单， 其他为validate的参数，一般传rules跟messages即可
  */
 function initValidate(options) {
-    if (!option.elm || option.elm == '') 
-        option.elm = 'form';
+    if (!options.elm || options.elm == '') 
+        options.elm = 'form';
     var tip = {};
-    $(option.elm).validate($.extend({
+    $(options.elm).validate($.extend({
         errorPlacement: function ( error, element ) {
             var name = $(element).attr('name');
             if (this.errorMap[name]) {
