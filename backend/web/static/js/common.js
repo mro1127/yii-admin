@@ -99,12 +99,13 @@ function initValidate(options) {
             if (this.errorMap[name]) {
                 if (!tip[name]) 
                     tip[name] = layer.tips(this.errorMap[name], $(element), {tipsMore:true, time:0, tips: [2, '#DD4B39'], id:name});
-            }else{
-                layer.close(tip[name]);
-                delete tip[name];
             }
         },
-        success: function ( label, element ) {},
+        success: function ( label, element ) {
+            var name = $(element).attr('name');
+            layer.close(tip[name]);
+            delete tip[name];
+        },
         highlight: function ( element, errorClass, validClass ) {
             $( element ).parents( ".form-group" ).addClass( "has-error" ).removeClass( "has-success" );
         },
