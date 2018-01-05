@@ -5,17 +5,35 @@ return [
         'Adminlte' => [
             'class' => 'common\assets\AdminlteAsset',
         ],
+        // JQuery 及 JQuery插件
         'JQuery' => [
             'class' => 'common\assets\JQueryAsset',
-        ],
-        'Bootstrap' => [
-            'class' => 'common\assets\BootstrapAsset',
         ],
         'JQueryForm'=> [
             'class' => 'yii\web\AssetBundle',
             'sourcePath' => '@bower/jquery-form/dist',
             'js' => ['jquery.form.min.js'],
             'depends' => ['JQuery']
+        ],
+        'JQueryValidation'=> [
+            'class' => 'yii\web\AssetBundle',
+            'sourcePath' => '@bower/jquery-validation/dist',
+            'js' => [
+                        YII_DEBUG ? 'jquery.validate.js' : 'jquery.validate.min.js',
+                        // YII_DEBUG ? 'additional-methods.js' : 'additional-methods.min.js',
+                    ],
+            'depends' => ['JQuery']
+        ],
+        'Layer'=> [
+            'class' => 'yii\web\AssetBundle',
+            'sourcePath' => '@bower/layer/dist',
+            'js' => ['layer.js'],
+            'depends' => ['JQuery']
+        ],
+
+        // Bootstrap 及 Bootstrap插件
+        'Bootstrap' => [
+            'class' => 'common\assets\BootstrapAsset',
         ],
         'BootstrapTable'=> [
             'class' => 'yii\web\AssetBundle',
@@ -24,11 +42,6 @@ return [
             'js' => [YII_DEBUG ? 'bootstrap-table.js' : 'bootstrap-table.min.js'],
             'depends' => ['Bootstrap']
         ],
-        'Layer'=> [
-            'class' => 'yii\web\AssetBundle',
-            'sourcePath' => '@bower/layer/dist',
-            'js' => ['layer.js'],
-            'depends' => ['JQuery']
-        ],
+
     ],
 ];
