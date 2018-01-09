@@ -18,10 +18,7 @@ return [
         'JQueryValidation'=> [
             'class' => 'yii\web\AssetBundle',
             'sourcePath' => '@bower/jquery-validation/dist',
-            'js' => [
-                        YII_DEBUG ? 'jquery.validate.js' : 'jquery.validate.min.js',
-                        // YII_DEBUG ? 'additional-methods.js' : 'additional-methods.min.js',
-                    ],
+            'js' => [YII_DEBUG ? 'jquery.validate.js' : 'jquery.validate.min.js'],
             'depends' => ['JQuery']
         ],
         'Layer'=> [
