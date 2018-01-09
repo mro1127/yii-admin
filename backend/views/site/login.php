@@ -1,46 +1,54 @@
 <?php 
 use yii\helpers\Url;
-
-
-$this->registerAssetBundle('BootstrapTable');
-
  ?>
-<div class="hold-transition login-page">
-    <div class="login-box">
-        <!-- /.login-logo -->
-        <div class="login-box-body">
+<div class="hold-transition login-page ">
+    <div class="canvas-wrap">
+        
+        <div class="canvas-content">
+            <div class="login-box "> 
+                <!-- /.login-logo -->
+                <div class="login-box-body">
 
-            <form action="<?= Url::to(['site/login']); ?>" method="post" id="form">
-                <div class="login-logo">
-                    <img src="<?=yii\helpers\Url::to('@static/images/logo.png')?>"/>
+                    <form action="<?= Url::to(['site/login']); ?>" method="post" id="form">
+                        <div class="login-logo">
+                            <img src="<?=yii\helpers\Url::to('@static/images/logo.png')?>"/>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input name="username" type="text" class="form-control" placeholder="账号">
+                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input name="password" type="password" class="form-control" placeholder="密码">
+                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-7">
+                                <!-- <img src="" alt=""> -->
+                            </div>
+                            <div class="col-xs-5">
+                                <button class="btn btn-primary btn-block btn-flat common-ajax-submit">登录</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group has-feedback">
-                    <input name="username" type="text" class="form-control" placeholder="账号">
-                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                </div>
-                <div class="form-group has-feedback">
-                    <input name="password" type="password" class="form-control" placeholder="密码">
-                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                </div>
-                <div class="row">
-                    <div class="col-xs-7">
-                        <!-- <img src="" alt=""> -->
-                    </div>
-                    <div class="col-xs-5">
-                        <button class="btn btn-primary btn-block btn-flat common-ajax-submit">登录</button>
-                    </div>
-                </div>
-            </form>
+                <!-- /.login-box-body -->
+            </div>
         </div>
-        <!-- /.login-box-body -->
+        <div id="canvas" class="gradient"></div>
     </div>
+        
 </div>
 
 <?php
 \Yii::$app->view->on($this::EVENT_END_PAGE, function () {
+    $this->registerJsFile('@static/js/3d-lines/three.min.js');
+    $this->registerJsFile('@static/js/3d-lines/projector.js');
+    $this->registerJsFile('@static/js/3d-lines/canvas-renderer.js');
+    $this->registerJsFile('@static/js/3d-lines/3d-lines-animation.js');
+    $this->registerJsFile('@static/js/3d-lines/color.js');
  ?>
 <script type="text/javascript">
-    $('body').layout({resetHeight:false})
+    $('body').layout({resetHeight:false})   
 
 
     initValidate({
