@@ -7,6 +7,7 @@ use backend\assets\AppAsset;
 use yii\helpers\Html;
 
 AppAsset::register($this);
+// Yii::trace('2222', '22');
 // $this->registerAssetBundle('Adminlte');
 $this->beginPage();
 ?>

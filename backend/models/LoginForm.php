@@ -54,7 +54,7 @@ class LoginForm extends Model
         }
             
         
-        if(false === $this->_user->validatePassword($password)){
+        if(false === $this->_user->validatePassword($this->password)){
             $this->addError('password', '密码错误！');
             return false;
         }
