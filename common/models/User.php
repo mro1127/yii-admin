@@ -1,12 +1,11 @@
 <?php
-namespace backend\models;
+namespace common\models;
 
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
-
 /**
  * User model
  *
@@ -190,27 +189,6 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->u_password_reset_token = null;
     }
-    /**
-     * 登录
-     * @Author   Armo
-     * @DateTime 2017-12-22
-     * @param    string     $username 用户名
-     * @param    string     $password 密码，明文
-     * @return   array                结果、提示
-     */
-    public function loginByUsername($username, $password)
-    {
-        $_user = $this->findByUsername($username);
-        if (empty($_user)) 
-            return ['status'=>0, 'info'=> '找不到该用户！'];
-            
-        
-        if(false === $_user->validatePassword($password))
-            return ['status'=>0, 'info'=> '密码错误！'];
 
-        if(false === Yii::$app->user->login($_user))
-            return ['status'=>0, 'info'=> '登录失败，请重试！'];
-        return ['status'=>1, 'info'=> '登录成功！'];
-    }
 
 }
