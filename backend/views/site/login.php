@@ -39,8 +39,7 @@ use yii\helpers\Url;
         
 </div>
 
-<?php
-\Yii::$app->view->on($this::EVENT_END_PAGE, function () {
+<?php \Yii::$app->view->on($this::EVENT_END_PAGE, function () {
     $this->registerJsFile('@static/js/3d-lines/three.min.js');
     $this->registerJsFile('@static/js/3d-lines/projector.js');
     $this->registerJsFile('@static/js/3d-lines/canvas-renderer.js');
@@ -63,6 +62,4 @@ use yii\helpers\Url;
     });
 
 </script>
-<?php
-});
-?>
+<?php }); ?>
