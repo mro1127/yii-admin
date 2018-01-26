@@ -148,3 +148,85 @@ html,body{height: 100%}
   text-align:center;
   padding-top:30px;
 }
+
+/*tab*/
+.sly-tab{
+  padding: 0;
+}
+
+.sly-tab > button,
+.sly-tab > .btn-group > button{
+  display: inline-block;
+  padding: 12px;
+  background-color: #FFF;
+  border: 0;
+  border-radius: 0;
+}
+
+
+.sly-tab > .forward{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.sly-tab > .sly-frame{
+  margin: 0;
+  height: 44px;
+  margin-left: 73px;
+  margin-right: 37px;
+  background-color: #FFF;
+  border-right: 1px solid #eee;
+  border-left: 1px solid #eee;
+}
+
+
+.sly-tab > .nav-tabs-custom > .nav-tabs > li {
+  margin: 0;
+  border-top: 0;
+  border-bottom: 3px solid transparent;
+}
+
+.sly-tab > .nav-tabs-custom > .nav-tabs > li > a > .tab-icon {
+  margin-right: 2px;
+  color: #999;
+}
+.sly-tab > .nav-tabs-custom > .nav-tabs > li.active > a > .tab-icon {
+  margin-right: 2px;
+  color: #666;
+}
+
+.sly-tab > .nav-tabs-custom > .nav-tabs > li > a > .tab-close {
+  margin-left: 8px;
+  color: #CCC;
+}
+.sly-tab > .nav-tabs-custom > .nav-tabs > li > a > .tab-close:hover{
+  color: #999;
+}
+
+.nav-tabs-custom > .nav-tabs > li:hover > a {
+  color: #000;
+}
+
+.sly-tab > .nav-tabs-custom > .nav-tabs > li.active {
+  font-weight: bold;
+  border-bottom-color: #3c8dbc;
+}
+
+.sly-tab > .nav-tabs-custom.tab-primary > .nav-tabs > li.active {
+  border-bottom-color: #3c8dbc;
+}
+.sly-tab > .nav-tabs-custom.tab-info > .nav-tabs > li.active {
+  border-bottom-color: #00c0ef;
+}
+.sly-tab > .nav-tabs-custom.tab-danger > .nav-tabs > li.active {
+  border-bottom-color: #dd4b39;
+}
+.sly-tab > .nav-tabs-custom.tab-warning > .nav-tabs > li.active {
+  border-bottom-color: #f39c12;
+}
+.sly-tab > .nav-tabs-custom.tab-success > .nav-tabs > li.active {
+  border-bottom-color: #00a65a;
+}
+.sly-tab > .nav-tabs-custom.tab-default > .nav-tabs > li.active {
+  border-bottom-color: #d2d6de;
+}

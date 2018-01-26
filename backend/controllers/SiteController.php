@@ -5,24 +5,29 @@ use Yii;
 use yii\web\Controller;
 use yii\helpers\Url;
 use backend\models\LoginForm;
+use common\models\Menu;
 /**
  * Site controller
  */
 class SiteController extends Controller
 {
-    /**
-     * Displays homepage.   
-     *
-     * @return string
-     */
+
     public function actionIndex()
     {
         if (Yii::$app->user->isGuest) 
             return $this->redirect(['site/login']);
 
-        return $this->render('index');
+
+        $menu = (new Menu())->getMenu([], 'system');
+        return $this->render('index', ['menu'=>$menu]);
     }
 
+    public function actionHome()
+    {
+        $menu_model = new Menu();
+        $menu = $menu_model->getMenu([], 'system');
+        print_r($menu);
+    }
 
     public function actionLogin()
     {
