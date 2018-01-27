@@ -3,6 +3,7 @@ use yii\helpers\Url;
 use common\widgets\Menu;
 $this->registerAssetBundle('JQuerySlimscroll');
 $this->registerAssetBundle('Sly');
+// $this->registerAssetBundle('Vue');
 
  ?>
 <div class="wrapper">
@@ -277,61 +278,33 @@ $this->registerAssetBundle('Sly');
     </aside>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="content-wrapper" id="main-content">
         <!-- Content Header (Page header) -->
         <section class="content-header sly-tab">
-            
             <div class="btn-group pull-left">
                 <button class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-toggle-down"></i>
+                    <i class="fa fa-toggle-down"></i>
                 </button>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Dropdown link</a></li>
-                  <li><a href="#">Dropdown link</a></li>
+                    <li><a class="tab-info"><i class="fa fa-file-text-o"></i>页面信息</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a class="tab-refresh"><i class="fa fa-refresh"></i>刷新</a></li>
+                    <li><a class="tab-back-all"><i class="fa fa-reply-all"></i>返回原始页</a></li>
+                    <li><a class="tab-back"><i class="fa fa-chevron-left"></i>后退</a></li>
+                    <li><a class="tab-forward"><i class="fa fa-chevron-right"></i>前进</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a class="close-all-tab"><i class="fa fa-close"></i>全部关闭</a></li>
+                    <li><a class="close-other-tab"><i class="fa fa-window-close-o"></i>关闭其他页面</a></li>
                 </ul>
             </div>
             <button class="btn backward pull-left"><i class="fa fa-backward"></i></button>
             <div class="nav-tabs-custom sly-frame">
-                <ul class="nav nav-tabs">
-                    <li><a href="#activity" data-toggle="tab"><i class="fa fa-lg fa-home tab-icon"></i>Activity<i class="fa fa-lg fa-times-circle tab-close"></i></a></li>
-                    <li><a href="#timeline" data-toggle="tab"><i class="fa fa-lg fa-home tab-icon"></i>Timeline<i class="fa fa-lg fa-times-circle tab-close"></i></a></li>
-                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-lg fa-home tab-icon"></i>Settings<i class="fa fa-lg fa-times-circle tab-close"></i></a></li>
-                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-lg fa-home tab-icon"></i>Settings<i class="fa fa-lg fa-times-circle tab-close"></i></a></li>
-                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-lg fa-home tab-icon"></i>Settings<i class="fa fa-lg fa-times-circle tab-close"></i></a></li>
-                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-lg fa-home tab-icon"></i>Settings<i class="fa fa-lg fa-times-circle tab-close"></i></a></li>
-                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-lg fa-home tab-icon"></i>Settings<i class="fa fa-lg fa-times-circle tab-close"></i></a></li>
-                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-lg fa-home tab-icon"></i>Settings<i class="fa fa-lg fa-times-circle tab-close"></i></a></li>
-                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-lg fa-home tab-icon"></i>Settings<i class="fa fa-lg fa-times-circle tab-close"></i></a></li>
-                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-lg fa-home tab-icon"></i>Settings<i class="fa fa-lg fa-times-circle tab-close"></i></a></li>
-                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-lg fa-home tab-icon"></i>Settings<i class="fa fa-lg fa-times-circle tab-close"></i></a></li>
-                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-lg fa-home tab-icon"></i>Settings<i class="fa fa-lg fa-times-circle tab-close"></i></a></li>
-                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-lg fa-home tab-icon"></i>Settings<i class="fa fa-lg fa-times-circle tab-close"></i></a></li>
-                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-lg fa-home tab-icon"></i>Settings<i class="fa fa-lg fa-times-circle tab-close"></i></a></li>
-                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-lg fa-home tab-icon"></i>Settings<i class="fa fa-lg fa-times-circle tab-close"></i></a></li>
-                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-lg fa-home tab-icon"></i>Settings<i class="fa fa-lg fa-times-circle tab-close"></i></a></li>
-                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-lg fa-home tab-icon"></i>Settings<i class="fa fa-lg fa-times-circle tab-close"></i></a></li>
-                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-lg fa-home tab-icon"></i>Settings<i class="fa fa-lg fa-times-circle tab-close"></i></a></li>
-                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-lg fa-home tab-icon"></i>Settings<i class="fa fa-lg fa-times-circle tab-close"></i></a></li>
-                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-lg fa-home tab-icon"></i>Settings<i class="fa fa-lg fa-times-circle tab-close"></i></a></li>
-                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-lg fa-home tab-icon"></i>Settings<i class="fa fa-lg fa-times-circle tab-close"></i></a></li>
-                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-lg fa-home tab-icon"></i>Settings<i class="fa fa-lg fa-times-circle tab-close"></i></a></li>
-                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-lg fa-home tab-icon"></i>Settings<i class="fa fa-lg fa-times-circle tab-close"></i></a></li>
-                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-lg fa-home tab-icon"></i>Settings<i class="fa fa-lg fa-times-circle tab-close"></i></a></li>
-                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-lg fa-home tab-icon"></i>Settings<i class="fa fa-lg fa-times-circle tab-close"></i></a></li>
-                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-lg fa-home tab-icon"></i>Settings<i class="fa fa-lg fa-times-circle tab-close"></i></a></li>
-                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-lg fa-home tab-icon"></i>Settings<i class="fa fa-lg fa-times-circle tab-close"></i></a></li>
-                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-lg fa-home tab-icon"></i>Settings<i class="fa fa-lg fa-times-circle tab-close"></i></a></li>
-                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-lg fa-home tab-icon"></i>Settings<i class="fa fa-lg fa-times-circle tab-close"></i></a></li>
-                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-lg fa-home tab-icon"></i>Settings<i class="fa fa-lg fa-times-circle tab-close"></i></a></li>
-                    <li><a href="#settings" data-toggle="tab"><i class="fa fa-lg fa-home tab-icon"></i>Settings<i class="fa fa-lg fa-times-circle tab-close"></i></a></li>
-                </ul>
+                <ul class="nav nav-tabs"></ul>
             </div>
             <button class="btn forward"><i class="fa fa-forward"></i></button>
         </section>
         <!-- Main content -->
-        <section class="content-iframe">
-            <iframe src="<?= Url::to(['site/home']) ?>" frameborder="0" style="width: 100%;height: 100%"></iframe>
-        </section>
+        <section class="content-iframe"></section>
         <!-- /.content -->
     </div>
 
@@ -346,25 +319,14 @@ $this->registerAssetBundle('Sly');
         }
         setIframeH();
 
-
-        var options = {
-            horizontal: 1,
-            itemNav: 'basic',
-            speed: 300,
-            mouseDragging: 1,
-            touchDragging: 1,
-
-            prevPage: $('.backward'),
-            nextPage: $('.forward')
-        };
-        var frame = new Sly('.sly-frame', options).init();
-
         $(window).resize(function() {
             setIframeH();
-            frame.reload();
         });
 
-   
+        initTab()
+        $.TAB.add("<?= Url::to(['site/home']) ?>", '首页', 'fa fa-home', 1);
+
+
     })
 
 </script>
