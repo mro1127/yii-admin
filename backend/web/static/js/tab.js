@@ -196,10 +196,19 @@ function initTab() {
         var html = '<table class="table table-bordered"><tr><th>标题</th><td>'+title+'</td></tr><tr><th>原始地址</th><td>'+url+'</td></tr><tr><th>当前地址</th><td>'+src+'</td></tr></table>';
         layer.open({
             title: '页面信息',
-          type: 1,
-          skin: 'layui-layer-rim', //加上边框
-          area: ['420px', '220px'], //宽高
-          content: html
+            type: 1,
+            shadeClose: 1,
+            skin: 'layui-layer-rim', //加上边框
+            area: ['420px', '220px'], //宽高
+            content: html
+        });
+    })
+
+    // 信息
+    $('.tab-new').click(function() {
+        layer.prompt({title: '请输入打开的页面链接', formType: 2}, function(url, index){
+            $.TAB.add(url, '新增页面', 'fa fa-plus', 0);
+            layer.close(index);
         });
     })
 
@@ -211,7 +220,7 @@ function initTab() {
 
 }
 
-function initTabChild() {
+$(function() {
     // 子页面打开tab，有则显示无则添加
     $('.open-tab-c').click(function() {
         var icon = $(this).attr('icon'),
@@ -257,4 +266,20 @@ function initTabChild() {
         if (index == -1) return false;
         return index;
     }
-}
+
+    $(document).on('click', '.yii-debug-toolbar__title', function() {
+        console.log(1)
+        var icon = 'fa fa-bug',
+            bind = 0,
+            link = $(this).find('a').attr('href'),
+            title= 'Yii-debug';
+        if ($.TAB) {
+            $.TAB.open(link, title, icon, bind);
+            return false;
+        }else if(parent.$.TAB){
+            parent.$.TAB.open(link, title, icon, bind);
+            return false;
+        }
+            return false;
+    });
+})

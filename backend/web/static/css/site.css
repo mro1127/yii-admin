@@ -163,7 +163,6 @@ html,body{height: 100%}
   border-radius: 0;
 }
 
-
 .sly-tab > .forward{
   position: absolute;
   top: 0;
@@ -178,7 +177,6 @@ html,body{height: 100%}
   border-right: 1px solid #eee;
   border-left: 1px solid #eee;
 }
-
 
 .sly-tab > .nav-tabs-custom > .nav-tabs {
   display: block; 
@@ -227,7 +225,6 @@ html,body{height: 100%}
 }
 
 .sly-tab > .nav-tabs-custom > .nav-tabs > li.active {
-  font-weight: bold;
   border-bottom-color: #3c8dbc;
 }
 

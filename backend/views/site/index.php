@@ -5,7 +5,10 @@ $this->registerAssetBundle('JQuerySlimscroll');
 $this->registerAssetBundle('Sly');
 // $this->registerAssetBundle('Vue');
 
+$this->title = '后台管理';
+
  ?>
+<style>.yii-debug-toolbar{left: 0 !important} </style>
 <div class="wrapper">
 
     <header class="main-header">
@@ -287,11 +290,12 @@ $this->registerAssetBundle('Sly');
                 </button>
                 <ul class="dropdown-menu">
                     <li><a class="tab-info"><i class="fa fa-file-text-o"></i>页面信息</a></li>
+                    <li><a class="tab-new"><i class="fa fa-plus"></i>打开页面</a></li>
                     <li role="separator" class="divider"></li>
                     <li><a class="tab-refresh"><i class="fa fa-refresh"></i>刷新</a></li>
-                    <li><a class="tab-back-all"><i class="fa fa-reply-all"></i>返回原始页</a></li>
                     <li><a class="tab-back"><i class="fa fa-chevron-left"></i>后退</a></li>
                     <li><a class="tab-forward"><i class="fa fa-chevron-right"></i>前进</a></li>
+                    <li><a class="tab-back-all"><i class="fa fa-reply-all"></i>返回原始页</a></li>
                     <li role="separator" class="divider"></li>
                     <li><a class="close-all-tab"><i class="fa fa-close"></i>全部关闭</a></li>
                     <li><a class="close-other-tab"><i class="fa fa-window-close-o"></i>关闭其他页面</a></li>
