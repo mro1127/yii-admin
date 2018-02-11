@@ -64,7 +64,7 @@ function initTab() {
 
             // iframe
             var iframe = $('<iframe></iframe>')
-            $(iframe).attr({ src: url, index: index });
+            $(iframe).attr({ src: url, link: url, index: index });
             $('.content-iframe').append($(iframe));
             this.change(index);
             this.index ++;
@@ -166,9 +166,10 @@ function initTab() {
 
     // 回到菜单原始页面
     $('.tab-back-all').click(function() {
+        console.log(1)
         var choose = $('.sly-frame').find("li.active").attr('index');
         var i = $('.content-iframe').find("iframe[index="+choose+"]");
-        i.attr('src', i.attr('src'));
+        i.attr('src', i.attr('link'));
     })
     // 后退
     $('.tab-back').click(function() {
