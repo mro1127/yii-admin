@@ -12,6 +12,15 @@ use common\models\Menu;
 class SiteController extends Controller
 {
 
+    public function actions()
+    {
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ]
+        ];
+    }
+
     public function actionIndex()
     {
         if (Yii::$app->user->isGuest) 
@@ -24,9 +33,7 @@ class SiteController extends Controller
 
     public function actionHome()
     {
-        $menu_model = new Menu();
-        $menu = $menu_model->getMenu([], 'system');
-        print_r($menu);
+        return $this->render('home');
     }
 
     public function actionLogin()
