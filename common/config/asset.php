@@ -5,6 +5,14 @@ return [
         'Adminlte' => [
             'class' => 'common\assets\AdminlteAsset',
         ],
+
+        'iCheck'=> [
+            'class' => 'yii\web\AssetBundle',
+            'sourcePath' => '@bower/admin-lte/plugins/iCheck',
+            'js' => [YII_DEBUG ? 'icheck.min.js':'icheck.js'],
+            'css' => ['all.css'],
+            // 'depends' => ['Adminlte']
+        ],
         // JQuery 及 JQuery插件
         'JQuery' => [
             'class' => 'common\assets\JQueryAsset',
@@ -40,6 +48,13 @@ return [
             'js' => ['layer.js'],
             'depends' => ['JQuery']
         ],
+        'Select2'=> [
+            'class' => 'yii\web\AssetBundle',
+            'sourcePath' => '@bower/select2/dist',
+            'js' => ['js/select2.min.js'],
+            'css' => ['css/select2.min.css'],
+            'depends' => ['JQuery']
+        ],
 
         // Bootstrap 及 Bootstrap插件
         'Bootstrap' => [
@@ -57,6 +72,12 @@ return [
             'class' => 'yii\web\AssetBundle',
             'sourcePath' => '@bower/font-awesome',
             'css' => [YII_DEBUG ? 'css/font-awesome.css' : 'css/font-awesome.min.css'],
+        ],
+
+        'Vue'=> [
+            'class' => 'yii\web\AssetBundle',
+            'sourcePath' => '@bower/vue/dist',
+            'js' => [YII_DEBUG ? 'vue.js' : 'vue.min.js'],
         ],
     ],
 ];
