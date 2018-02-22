@@ -1,6 +1,21 @@
 if (typeof jQuery === "undefined") {
     throw new Error("TAB requires jQuery");
 }
+function getIndex() {
+    var index = -1,
+    code = Math.random();
+    $("body").attr("code", code);
+    $(window.parent.document).find("iframe").each(function(i){
+        var frameCode=$(this.contentWindow.document).find("body").attr("code");
+        if (frameCode == code) {
+            index = i;
+            return false;
+        }
+    });
+    if (index == -1) return false;
+    return index;
+}
+
 function initTab() {
     var options = {
         horizontal: 1,
@@ -166,7 +181,6 @@ function initTab() {
 
     // 回到菜单原始页面
     $('.tab-back-all').click(function() {
-        console.log(1)
         var choose = $('.sly-frame').find("li.active").attr('index');
         var i = $('.content-iframe').find("iframe[index="+choose+"]");
         i.attr('src', i.attr('link'));
@@ -253,23 +267,7 @@ $(function() {
         parent.$.TAB.warn(parent.$('.sly-frame').find("li").eq(index).attr('index'));
     })
 
-    function getIndex() {
-        var index = -1,
-        code = Math.random();
-        $("body").attr("code", code);
-        $(window.parent.document).find("iframe").each(function(i){
-            var frameCode=$(this.contentWindow.document).find("body").attr("code");
-            if (frameCode == code) {
-                index = i;
-                return false;
-            }
-        });
-        if (index == -1) return false;
-        return index;
-    }
-
     $(document).on('click', '.yii-debug-toolbar__title', function() {
-        console.log(1)
         var icon = 'fa fa-bug',
             bind = 0,
             link = $(this).find('a').attr('href'),

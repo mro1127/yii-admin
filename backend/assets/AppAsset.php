@@ -15,8 +15,8 @@ class AppAsset extends AssetBundle
         'css/site.css',
     ];
     public $js = [
-        'js/common.js',
         'js/tab.js',
+        'js/common.js',
     ];
     public $depends = ['JQuery', 'Bootstrap', 'Adminlte', 'JQueryForm','JQueryValidation', 'Layer', 'FontAwesome'];
 

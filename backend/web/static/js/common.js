@@ -5,7 +5,6 @@
  * @param  {function} callback 回调方法，不传则一秒后跳转到data.url，data.url也没有则不处理
  * @param  int        notice   是否弹窗提示， 1是0否，默认是
  * @param  {function} validate 自定义验证方法，返回fasle则中断提交
- * 
  */
 function initSubmit(btn, callback, notice, validate) {
     if (!notice || notice == '')
@@ -18,7 +17,7 @@ function initSubmit(btn, callback, notice, validate) {
             var pass = validate();
             if (!pass) return false;
         }else{
-            if (!$form.valid()) return false;   // 默认 JQueryValidation 验证，不需要则不初始化JQueryValidation
+            if (!$form.valid()) return false;   // 默认 JQueryValidation  
         }
 
         loading($this);
@@ -34,7 +33,6 @@ function initSubmit(btn, callback, notice, validate) {
             data: data,
             success: function (data, textStatus, errorThrown, form) {
                 if (data.status == 1) {
-                    if (notice !=0) 
                         layer.msg(data.info, {icon: 1});
                 } else {
                     layer.msg(data.info, {icon: 2});    
@@ -57,9 +55,48 @@ function initSubmit(btn, callback, notice, validate) {
         return false;
     })
 }
-// 默认绑定 common-ajax-submit
-initSubmit('.common-ajax-submit');
 
+/**
+ * 初始化ajax提交方法，适用于弹窗，成功提示之后，会关闭弹窗，并刷新父页面的boostrap-table
+ * @param  {string} btn 提交按钮的jq选择器，默认 .common-ajax-submit ， 按钮必须放在form内
+ */
+function initSubmitWinTable(btn) {
+    if (!btn || btn == '')
+        btn = '.ajax-submit';
+    initSubmit(btn, function (data) {
+        if (data.status == 1) {
+            setTimeout(function () {
+                parent.$('table').bootstrapTable('refresh', {silent: true});
+                closeWin();
+            }, 1000)
+        }
+    });
+}
+
+/**
+ * 初始化ajax提交方法，适用于tab，成功提示之后，会关闭tab
+ * @param  {string} btn 提交按钮的jq选择器，默认 .common-ajax-submit ， 按钮必须放在form内
+ */
+function initSubmitTab(btn) {
+    if (!btn || btn == '')
+        btn = '.ajax-submit';
+    initSubmit(btn, function (data) {
+        if (data.status == 1) {
+            setTimeout(function () {
+                var index = getIndex();
+                parent.$.TAB.warn(parent.$('.sly-frame').find("li").eq(index).attr('index'));
+            }, 1000)
+        }
+    });
+}
+
+// 关闭当前弹窗口
+function closeWin() {
+    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+    parent.layer.close(index);
+}
+
+// loading一个按钮
 function loading(btn) {
     btn.attr('disabled','disabled');
     var text = btn.text();
@@ -74,7 +111,7 @@ function loading(btn) {
                     '</div>');
     btn.append($loading);
 }
-
+// 停止loading一个按钮
 function stopLoading(btn) {
     btn.removeAttr('disabled');
     btn.find('.spinner').remove();
@@ -82,6 +119,46 @@ function stopLoading(btn) {
     btn.text(text);
 }
 
+
+// 询问窗回调方法：刷新table，刷新窗口
+function cbRefreshTable(data) {
+    console.log(1)
+    if (data.status)
+        $('table').bootstrapTable('refresh', {silent: true});
+}
+function cbRefreshWin(data) {
+    if (data.status)
+        window.location.reload();
+}
+
+function openConfirm(btn, param) {
+    if (!btn || btn == '') 
+        btn = '.open-confirm';
+    $(document).on('click', btn, function() {
+        var param_default = {
+            title : $(this).attr('title'),
+            msg : $(this).attr('msg'),
+            link : $(this).attr('link'),
+            callback : $(this).attr('callback'),
+        }
+        param = $.extend(param_default, param);
+        if (!param.callback || param.callback == '') param.callback = 'cbRefreshWin';
+
+        layer.confirm(param.msg, {icon: 3, title: param.title}, function(index){
+            $.get(param.link, function (data) {
+                if (data.status) {
+                    layer.msg(data.info, {icon: 1});
+                } else {
+                    layer.msg(data.info, {icon: 2});    
+                }
+                if (param.callback)
+                    window[param.callback](data);
+            });
+            layer.close(index);
+        });
+        return false;
+    })
+}
 
 /**
  * 初始化 Validate，
@@ -114,3 +191,38 @@ function initValidate(options) {
         }
     }, options));
 }
+
+
+
+/**
+ * 一些默认的绑定
+ * @Author   Armo
+ * @DateTime 2018-02-12
+ */
+$(function () {
+    // 默认绑定 common-ajax-submit
+    if ($('.common-ajax-submit').length > 0) {
+        initSubmit('.common-ajax-submit');
+    }
+
+    openConfirm('.open-confirm');
+
+    if ($('.select2').length > 0) {
+        $('.select2').select2();
+    }
+
+    // 初始化minimal类的checkbox跟radio
+    if ($('input[type="checkbox"].icheck-minimal, input[type="radio"].icheck-minimal').length > 0) {
+        $('input[type="checkbox"].icheck-minimal, input[type="radio"].icheck-minimal').iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'iradio_minimal-blue'
+        });
+    }
+    // 初始化minimal-c下面的checkbox跟radio
+    if ($('.icheck-minimal-c input[type="checkbox"], .icheck-minimal-c input[type="radio"]').length > 0) {
+        $('.icheck-minimal-c input[type="checkbox"], .icheck-minimal-c input[type="radio"]').iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'iradio_minimal-blue'
+        });
+    }
+})  
