@@ -12,7 +12,11 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'modules' => [],
+    'modules' => [
+        'auth' => [
+            'class' => 'backend\modules\auth\Module',
+        ],
+    ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
@@ -48,4 +52,8 @@ return [
         */
     ],
     'params' => $params,
+
+    'on beforeAction' => function ($event) {
+        
+    },
 ];
