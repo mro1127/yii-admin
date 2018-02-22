@@ -98,25 +98,15 @@ function closeWin() {
 
 // loading一个按钮
 function loading(btn) {
-    btn.attr('disabled','disabled');
     var text = btn.text();
-    btn.text("").attr('text', text);
-    var $loading = $('<div class="spinner">'+
-                        '<div class="spinner-container container1">'+
-                        '<div class="circle1"></div><div class="circle2"></div><div class="circle3"></div><div class="circle4"></div>'+
-                        '</div>'+
-                        '<div class="spinner-container container2">'+
-                        '<div class="circle1"></div><div class="circle2"></div><div class="circle3"></div><div class="circle4"></div>'+
-                        '</div>'+
-                    '</div>');
-    btn.append($loading);
+    btn.text("").attr('text', text).attr('disabled','disabled');
+    btn.append('<i class="fa fa-spinner fa-spin"></i>');
 }
 // 停止loading一个按钮
 function stopLoading(btn) {
-    btn.removeAttr('disabled');
-    btn.find('.spinner').remove();
+    btn.find('i').remove();
     var text = btn.attr('text');
-    btn.text(text);
+    btn.text(text).removeAttr('disabled');
 }
 
 
