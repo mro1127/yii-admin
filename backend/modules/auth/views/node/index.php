@@ -30,7 +30,7 @@ $this->title = '节点列表';
                     <th data-align="center" data-field="system">系统</th>
                     <th data-align="center" data-field="status" data-formatter="int2status">状态</th>
                     <th data-align="center" data-field="sort">排序</th>
-                    <th data-align="center" data-field="id" data-formatter="get_btn">按钮</th>
+                    <th data-align="center" data-field="id" data-formatter="get_btn">操作</th>
                 </tr>
                 </thead>
             </table>
