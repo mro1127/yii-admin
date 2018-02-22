@@ -34,7 +34,7 @@ $this->title = Yii::$app->controller->action->id == 'add'? '添加节点':'编�
                         <option value="0">根节点</option>
                         <?php 
                             foreach ($node as $k => $v) { 
-                                if ($v['id'] == $info->node_pid) {
+                                if ($v['id'] == $info->node_pid || $v['id'] == $pid) {
                         ?>
                             <option value="<?= $v['id'] ?>" selected><?= $v['title'] ?></option>
                         <?php }else{ ?>
@@ -58,7 +58,7 @@ $this->title = Yii::$app->controller->action->id == 'add'? '添加节点':'编�
         </div>
 
         <div class="form-footer">
-            <button type="submit" class="btn btn-primary common-ajax-submit">提交</button>
+            <button type="submit" class="btn btn-primary btn-flat common-ajax-submit">提交</button>
         </div>
     </form>
 </section>

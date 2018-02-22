@@ -14,7 +14,7 @@ $this->title = '节点列表';
 <section class="content">
     <div class="row mr-b-10 pull-right">
         <div class="col-xs-12">
-            <a class="btn btn-primary" href="<?= Url::to(['node/add'])?>">添加节点</a>
+            <a class="btn btn-success btn-flat" href="<?= Url::to(['node/add'])?>">添加节点</a>
         </div>
     </div>
     <div class="row">
@@ -55,12 +55,15 @@ $this->title = '节点列表';
     }
 
     var editUrl = "<?= Url::to(['node/edit', 'id'=>'NODE_ID']); ?>";
+    var addUrl = "<?= Url::to(['node/add', 'pid'=>'NODE_ID']); ?>";
     var delUrl = "<?= Url::to(['node/delete', 'id'=>'NODE_ID']); ?>";
     function get_btn(value, row, index) {
         var url1 = editUrl.replace(/NODE_ID/, value);
-        var url2 = delUrl.replace(/NODE_ID/, value);
-        var html = '<a class="btn btn-default btn-xs " title="编辑节点 - '+row.name+'" href="'+url1+'">编辑</a> ';
-        html += '<a class="btn btn-danger btn-xs open-confirm" title="删除节点" msg="确认删除节点【'+row.name+'】及其所有子节点？" link="'+url2+'" callback="cbRefreshTable">删除</a>';
+        var url2 = addUrl.replace(/NODE_ID/, value);
+        var url3 = delUrl.replace(/NODE_ID/, value);
+        var html = '<a class="btn btn-primary btn-flat btn-xs " title="编辑节点 - '+row.name+'" href="'+url1+'">编辑</a> ';
+        html += '<a class="btn btn-success btn-flat btn-xs " title="添加子节点 - '+row.name+'" href="'+url2+'">添加子节点</a> ';
+        html += '<a class="btn btn-danger btn-flat btn-xs open-confirm" title="删除节点" msg="确认删除节点【'+row.name+'】及其所有子节点？" link="'+url3+'" callback="cbRefreshTable">删除</a>';
         return html;
     }
 

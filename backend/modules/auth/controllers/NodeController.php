@@ -22,7 +22,7 @@ class NodeController extends Controller
         return $this->asJson($node);
     }
 
-    public function actionAdd()
+    public function actionAdd($pid=NULL)
     {
         $request = Yii::$app->request;
         if ($request->isPost) {
@@ -35,7 +35,7 @@ class NodeController extends Controller
             return $this->asJson($ret);
         }else{
             $node = (new Node())->getNodeList();
-            return $this->render('add',['node'=>$node]);
+            return $this->render('add',['node'=>$node, 'pid'=>$pid]);
         }
     }
 
