@@ -30,7 +30,7 @@ $this->title = '节点列表';
                     <th data-align="center" data-field="system">系统</th>
                     <th data-align="center" data-field="status" data-formatter="int2status">状态</th>
                     <th data-align="center" data-field="sort">排序</th>
-                    <th data-align="center" data-field="id" data-formatter="get_btn">操作</th>
+                    <th data-align="center" data-field="id" data-formatter="getBtn">操作</th>
                 </tr>
                 </thead>
             </table>
@@ -57,7 +57,7 @@ $this->title = '节点列表';
     var editUrl = "<?= Url::to(['node/edit', 'id'=>'NODE_ID']); ?>";
     var addUrl = "<?= Url::to(['node/add', 'pid'=>'NODE_ID']); ?>";
     var delUrl = "<?= Url::to(['node/delete', 'id'=>'NODE_ID']); ?>";
-    function get_btn(value, row, index) {
+    function getBtn(value, row, index) {
         var url1 = editUrl.replace(/NODE_ID/, value);
         var url2 = addUrl.replace(/NODE_ID/, value);
         var url3 = delUrl.replace(/NODE_ID/, value);

@@ -81,11 +81,11 @@ $(function() {
         messages: {
             name: {
                 required: "请输入节点名称",
-                maxlength: "节点名称不能超过15个字符",
+                maxlength: "节点名称不能超过20个字符",
             },
             path: {
                 required: "请输入节点路径",
-                maxlength: "节点路径不能超过15个字符",
+                maxlength: "节点路径不能超过20个字符",
             },
         },
     });
