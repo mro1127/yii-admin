@@ -79,7 +79,7 @@ function initTab() {
 
             // iframe
             var iframe = $('<iframe></iframe>')
-            $(iframe).attr({ src: url, link: url, index: index });
+            $(iframe).attr({ src: url, link: url, index: index, id: 'iframe_'+index });
             $('.content-iframe').append($(iframe));
             this.change(index);
             this.index ++;
@@ -185,9 +185,12 @@ function initTab() {
         var i = $('.content-iframe').find("iframe[index="+choose+"]");
         i.attr('src', i.attr('link'));
     })
+
+    // 指定iframe前进后退功能无法实现，以下实现效果与浏览器前进后退功能一样
     // 后退
     $('.tab-back').click(function() {
         var choose = $('.sly-frame').find("li.active").attr('index');
+        console.log(choose)
         $('.content-iframe').find("iframe[index="+choose+"]")[0].contentWindow.history.back();
     })
     // 前进

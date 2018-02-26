@@ -301,7 +301,7 @@ $this->title = '后台管理';
                     <li><a class="close-other-tab"><i class="fa fa-window-close-o"></i>关闭其他页面</a></li>
                 </ul>
             </div>
-            <button class="btn tab-back pull-left"><i class="fa fa-arrow-left"></i></button>
+            <!-- <button class="btn tab-back pull-left"><i class="fa fa-arrow-left"></i></button> -->
             <button class="btn backward pull-left"><i class="fa fa-backward"></i></button>
             <div class="nav-tabs-custom sly-frame">
                 <ul class="nav nav-tabs"></ul>
