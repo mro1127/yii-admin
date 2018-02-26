@@ -37,6 +37,8 @@ $this->title = Yii::$app->controller->action->id == 'add'? '添加节点':'编�
                                 if ($v['id'] == $info->node_pid || $v['id'] == $pid) {
                         ?>
                             <option value="<?= $v['id'] ?>" selected><?= $v['title'] ?></option>
+                        <?php }elseif ($v['id'] == $info->node_id || $v['pid'] == $info->node_id ){ ?>
+                            <option value="<?= $v['id'] ?>" disabled><?= $v['title'] ?></option>
                         <?php }else{ ?>
                             <option value="<?= $v['id'] ?>" ><?= $v['title'] ?></option>
                         <?php } } ?>

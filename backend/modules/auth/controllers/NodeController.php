@@ -4,7 +4,7 @@ namespace backend\modules\auth\controllers;
 
 use Yii;
 use yii\web\Controller;
-use yii\helpers\Url;
+use yii\helpers\Url;    
 use common\models\Node;
 use backend\models\NodeForm;
 use yii\web\HttpException;
@@ -66,8 +66,7 @@ class NodeController extends Controller
     {
         $request = Yii::$app->request;
         $get = $request->get();
-        Yii::$app->response->format = 'json';
         $ret = (new NodeForm())->delete($get['id']);
-        return $ret;
+        return $this->asJson($ret);
     }
 }

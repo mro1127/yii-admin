@@ -268,8 +268,8 @@ class Node extends \yii\db\ActiveRecord
             $node->node_status = 1;
             $node->node_sort   = 100;
             $node->node_system = $system;
-            $node->created_at  = time();
-            if (defined('USER_ID')) $node->created_id = USER_ID;
+            $node->created_at  = date('Y-m-d H:i:s');
+            if (defined('USER_ID')) $node->created_id = Yii::$app->user->id;
             $node->insert();
             $pid = $node->node_id;
             $id  = $node->node_id;

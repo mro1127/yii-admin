@@ -110,8 +110,8 @@ class NodeForm extends Model
         $model->node_sort   = $this->sort;
         $model->node_status = $this->status;
 
-        $model->created_at  = date('Y-m-d H:i:s');
-        $model->created_id  = Yii::$app->user->id;
+        $model->updated_at  = date('Y-m-d H:i:s');
+        $model->updated_id  = Yii::$app->user->id;
 
         if ($model->node_pid == 0) {
             //根节点
@@ -128,7 +128,7 @@ class NodeForm extends Model
         }
 
         if(!$model->save()){
-            $this->addError('error', '添加失败！请重试。');
+            $this->addError('error', '编辑失败！请重试。');
             return false;
         }
         return true;
