@@ -3,13 +3,9 @@
  * 初始化ajax提交方法
  * @param  {string}   btn      提交按钮的jq选择器，默认 .common-ajax-submit ， 按钮必须放在form内
  * @param  {function} callback 回调方法，不传则一秒后跳转到data.url，data.url也没有则不处理
- * @param  int        notice   是否弹窗提示， 1是0否，默认是
  * @param  {function} validate 自定义验证方法，返回fasle则中断提交
  */
-function initSubmit(btn, callback, notice, validate) {
-    if (!notice || notice == '')
-        notice = 1;
-
+function initSubmit(btn, callback, validate) {
     $(btn).click(function () {
         $this = $(this);
         $form = $(this).parents('form');
@@ -125,13 +121,13 @@ function openConfirm(btn, param) {
     if (!btn || btn == '') 
         btn = '.open-confirm';
     $(document).on('click', btn, function() {
-        var param_default = {
+        var param_elm = {
             title : $(this).attr('title'),
             msg : $(this).attr('msg'),
             link : $(this).attr('link'),
             callback : $(this).attr('callback'),
         }
-        param = $.extend(param_default, param);
+        param = $.extend(param_elm, param);
         if (!param.callback || param.callback == '') param.callback = 'cbRefreshWin';
 
         layer.confirm(param.msg, {icon: 3, title: param.title}, function(index){
@@ -145,6 +141,42 @@ function openConfirm(btn, param) {
                     window[param.callback](data);
             });
             layer.close(index);
+        });
+        return false;
+    })
+}
+
+function openWindow(btn, param) {
+    var param_default = {
+        title       : '窗口',
+        link        : '/',
+        width       : '50%',
+        height      : '75%',
+        resize      : 0,
+        shadeClose  : 0,
+        maxmin      : 0,
+    }
+    $(document).on('click', btn, function() {
+        var param_elm = {
+            title       : $(this).attr('title'),
+            link        : $(this).attr('link'),
+            width       : $(this).attr('width'),
+            height      : $(this).attr('height'),
+            resize      : $(this).attr('resize'),
+            shadeClose  : $(this).attr('shadeClose'),
+            maxmin      : $(this).attr('maxmin'),
+        }
+        param = $.extend(param_default, param_elm , param);
+        
+        layer.open({
+            shade: 0.5,
+            type: 2,
+            resize: param.resize,
+            title: param.title,
+            shadeClose: param.shadeClose,
+            maxmin: param.maxmin,
+            area: [param.width, param.height],
+            content: param.link, //iframe的url，no代表不显示滚动条
         });
         return false;
     })
@@ -196,6 +228,7 @@ $(function () {
     }
 
     openConfirm('.open-confirm');
+    openWindow('.open-window');
 
     if ($('.select2').length > 0) {
         $('.select2').select2();
