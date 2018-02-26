@@ -143,13 +143,11 @@ html,body{height: 100%}
 }
 /* tab end */
 
-.mr-b-10 { margin-bottom: 10px;}
-.mr-t-6 { margin-top: 6px;}
 
+/* form */
 .form-body {
   margin-bottom: 55px;
 }
-/* form */
 .form-footer {
   position:fixed;
   bottom:0;
@@ -157,4 +155,38 @@ html,body{height: 100%}
   border-top: 1px solid #f4f4f4;
   background: #fff;
   padding: 10px;
+}
+/* form end */
+
+
+.mr-b-10 { margin-bottom: 10px;}
+.mr-t-6 { margin-top: 6px;}
+
+.icheck-minimal-c label + label {
+  margin-left: 10px;
+}
+
+/*font awesome 选择页面*/
+.fa-choose a {
+  line-height: 30px;
+  color: #666;
+  cursor: pointer;
+}
+
+.fa-choose i {
+  margin-right: 5px;
+}
+
+.fa-choose:hover {
+  color: #000;
+  font-size: 25px;
+}
+
+/*layer iframe 100%高度 */
+.layui-layer-content {
+  height: 100%
+}
+
+.layui-layer-content iframe{
+  height: 100% !important;
 }
