@@ -163,7 +163,7 @@ function openWindow(btn, param) {
             shadeClose  : $(this).attr('shadeClose'),
             maxmin      : $(this).attr('maxmin'),
         }
-        param = $.extend(param_default, param_elm , param);
+        param = $.extend(param_default, param , param_elm);
         
         layer.open({
             shade: 0.5,
