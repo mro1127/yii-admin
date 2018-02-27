@@ -117,7 +117,7 @@ class MenuForm extends Model
     public function edit()
     {
         if (!$this->validate()) 
-               return false;
+            return ['status'=>0, 'info'=>errorsToStr($this->getErrors())];
 
         $model = $this->getModel();
 
@@ -164,17 +164,17 @@ class MenuForm extends Model
 
         if(!$model->save())
             return ['status'=>0, 'info'=>errorsToStr($model->getErrors())];
-        
+
         return ['status'=>1, 'info'=>'编辑成功！'];
     }
 
     public function delete($menu_id)
     {
-        $model = $this->getModel();
+        // $model = $this->getModel();
         // 递归查找子菜单
         if (!is_array($menu_id)) $menu_id = [$menu_id];
         while (1) {
-            $child = $model->find()->distinct()->select('menu_id')
+            $child = Menu::find()->distinct()->select('menu_id')
                     ->where(['menu_pid'=>$menu_id])->andWhere(['not in', 'menu_id', $menu_id])
                     ->asArray()->all();
             if (empty($child)) break;
@@ -182,7 +182,12 @@ class MenuForm extends Model
             $menu_id = array_merge($menu_id, $child);
         }
         // 删除菜单
-        if(! $num = $model->deleteAll(['menu_id'=>$menu_id]))
+        $data = [
+            'updated_at' => date('Y-m-d H:i:s'),
+            'updated_id' => Yii::$app->user->id,
+            'status' => 0,
+        ];
+        if(! $num = Menu::updateAll($data, ['menu_id'=>$menu_id]))
             return ['status'=>0, 'info'=>'删除失败，请刷新页面重试！'];
         return ['status'=>1, 'info'=>'删除成功！共删除'.$num.'个菜单。'];
     }

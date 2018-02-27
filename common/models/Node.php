@@ -72,6 +72,8 @@ class Node extends \yii\db\ActiveRecord
     public function getNode($role=[], $system=[], $status=[])
     {
         $where = [];
+        $where['status'] = 1;
+        
         if (!empty($role)) {
             $node_id = $this->getNodeId($role);
             if (empty($node_id)) return NULL;
@@ -269,7 +271,7 @@ class Node extends \yii\db\ActiveRecord
             $node->node_sort   = 100;
             $node->node_system = $system;
             $node->created_at  = date('Y-m-d H:i:s');
-            if (defined('USER_ID')) $node->created_id = Yii::$app->user->id;
+            $node->created_id = Yii::$app->user->id;
             $node->insert();
             $pid = $node->node_id;
             $id  = $node->node_id;

@@ -71,6 +71,8 @@ class Menu extends \yii\db\ActiveRecord
     public function getMenu($node = [], $system=[], $filter=TRUE, $status=[])
     {
         $where = [];
+        $where['status'] = 1;
+        
         if (!empty($node)) {
             $node[] = 0;
             $where['node_id'] = $node;

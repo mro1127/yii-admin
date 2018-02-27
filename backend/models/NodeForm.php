@@ -119,7 +119,7 @@ class NodeForm extends Model
             $parent = $model->find()->where(['node_id' => $model->node_pid])->asArray()->one();
             if (empty($parent))
                 return ['status'=>0, 'info'=>'父节点不存在，请刷新页面重试！'];
-            
+
             $model->node_level = $parent['node_level'] + 1;
             $model->node_system= $parent['node_system'];
         }
@@ -137,7 +137,7 @@ class NodeForm extends Model
         if (!is_array($node_id)) $node_id = [$node_id];
         while (1) {
             $child = $model->find()->distinct()->select('node_id')
-                    ->where(['node_pid'=>$node_id])->andWhere(['not in', 'node_id', $node_id])
+                    ->where(['node_pid'=>$node_id, 'status'=>1])->andWhere(['not in', 'node_id', $node_id])
                     ->asArray()->all();
             if (empty($child)) break;
             $child = array_column($child,'node_id');
@@ -145,7 +145,12 @@ class NodeForm extends Model
         }
 
         // 删除节点
-        if(! $num = $model->deleteAll(['node_id'=>$node_id]))
+        $data = [
+            'updated_at' => date('Y-m-d H:i:s'),
+            'updated_id' => Yii::$app->user->id,
+            'status' => 0,
+        ];
+        if(! $num = Node::updateAll($data, ['node_id'=>$node_id]))
             return ['status'=>0, 'info'=>'删除失败，请刷新页面重试！'];
         return ['status'=>1, 'info'=>'删除成功！共删除'.$num.'个节点。'];
     }
