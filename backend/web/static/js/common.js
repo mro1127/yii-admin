@@ -118,8 +118,6 @@ function cbRefreshWin(data) {
 }
 
 function openConfirm(btn, param) {
-    if (!btn || btn == '') 
-        btn = '.open-confirm';
     $(document).on('click', btn, function() {
         var param_elm = {
             title : $(this).attr('title'),
@@ -127,9 +125,8 @@ function openConfirm(btn, param) {
             link : $(this).attr('link'),
             callback : $(this).attr('callback'),
         }
-        param = $.extend(param_elm, param);
+        param = $.extend(param, param_elm);
         if (!param.callback || param.callback == '') param.callback = 'cbRefreshWin';
-
         layer.confirm(param.msg, {icon: 3, title: param.title}, function(index){
             $.get(param.link, function (data) {
                 if (data.status) {
