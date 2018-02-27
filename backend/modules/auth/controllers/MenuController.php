@@ -1,15 +1,14 @@
 <?php
-
 namespace backend\modules\auth\controllers;
 
 use Yii;
 use yii\web\Controller;
-use yii\helpers\Url;    
-use common\models\Node;
-use backend\models\NodeForm;
+use common\models\Menu;
+use backend\models\MenuForm;
+use yii\helpers\Url;
 use yii\web\HttpException;
 
-class NodeController extends Controller
+class MenuController extends Controller
 {
     public function actionIndex()
     {
@@ -18,25 +17,26 @@ class NodeController extends Controller
 
     public function actionGetList()
     {
-        $node = (new Node())->getNodeList();
-        return $this->asJson($node);
+        $menu = (new Menu())->getMenuList([],[],[0,1]);
+        return $this->asJson($menu);
     }
 
     public function actionAdd($pid=NULL)
     {
         $request = Yii::$app->request;
         if ($request->isPost) {
-            $model = new NodeForm();
+            $model = new MenuForm();
             if (!$model->load($request->post(), '')) 
                 return $this->asJson(['status' => 0, 'info' => errorsToStr($model->getErrors())]);
     
             $ret = $model->add();
             if ($ret['status'])
-                $ret['url'] = Url::to(['node/index']);
+                $ret['url'] = Url::to(['menu/index']);
             return $this->asJson($ret);
         }else{
-            $node = (new Node())->getNodeList();
-            return $this->render('add',['node'=>$node, 'pid'=>$pid]);
+            $menu = (new Menu())->getMenuList();
+            Yii::trace($menu, 'menu');
+            return $this->render('add',['menu'=>$menu, 'pid'=>$pid]);
         }
     }
 
@@ -44,12 +44,12 @@ class NodeController extends Controller
     {
         $request = Yii::$app->request;
 
-        $info = (new Node())->findOne($id);
+        $info = (new Menu())->findOne($id);
         if (empty($info)) 
-            throw new HttpException(400, '找不到该节点！');
+            throw new HttpException(400, '找不到该菜单！');
 
         if ($request->isPost) {
-            $model = new NodeForm();
+            $model = new MenuForm();
             $model->setModel($info);
 
             if (!$model->load($request->post(), '')) 
@@ -57,11 +57,11 @@ class NodeController extends Controller
             
             $ret = $model->edit();
             if ($ret['status'])
-                $ret['url'] = Url::to(['node/index']);
+                $ret['url'] = Url::to(['menu/index']);
             return $this->asJson($ret);
         }else{
-            $node = $info->getNodeList();
-            return $this->render('add',['node'=>$node,'info'=>$info]);
+            $menu = (new Menu())->getMenuList();
+            return $this->render('add',['menu'=>$menu, 'info'=>$info]);
         }
     }
 
@@ -69,7 +69,8 @@ class NodeController extends Controller
     {
         $request = Yii::$app->request;
         $get = $request->get();
-        $ret = (new NodeForm())->delete($get['id']);
+        $ret = (new MenuForm())->delete($get['id']);
         return $this->asJson($ret);
     }
+
 }

@@ -57,7 +57,7 @@ class NodeForm extends Model
     public function add()
     {
         if (!$this->validate()) 
-            return false;
+            return ['status'=>0, 'info'=>errorsToStr($this->getErrors())];
 
         $model = $this->getModel();
 
@@ -76,10 +76,9 @@ class NodeForm extends Model
             $model->node_system = $model->node_path;
         }else{
             $parent = $model->find()->where(['node_id' => $model->node_pid])->asArray()->one();
-            if (empty($parent)){
-                $this->addError('error', '父节点不存在，请刷新页面重试！');
-                return false;
-            }
+            if (empty($parent))
+                return ['status'=>0, 'info'=>'父节点不存在，请刷新页面重试！'];
+            
             $model->node_level = $parent['node_level'] + 1;
             $model->node_system= $parent['node_system'];
         }
@@ -90,17 +89,16 @@ class NodeForm extends Model
             $model->node_sort = $last_sort? $last_sort+1:1;
         }
 
-        if(!$model->save()){
-            $this->addError('error', '添加失败！请重试。');
-            return false;
-        }
-        return true;
+        if(!$model->save())
+            return ['status'=>0, 'info'=>errorsToStr($model->getErrors())];
+        
+        return ['status'=>1, 'info'=>'添加成功！'];
     }
 
     public function edit()
     {
         if (!$this->validate()) 
-            return false;
+            return ['status'=>0, 'info'=>errorsToStr($this->getErrors())];
 
         $model = $this->getModel();
 
@@ -119,19 +117,17 @@ class NodeForm extends Model
             $model->node_system = $model->node_path;
         }else{
             $parent = $model->find()->where(['node_id' => $model->node_pid])->asArray()->one();
-            if (empty($parent)){
-                $this->addError('error', '父节点不存在，请刷新页面重试！');
-                return false;
-            }
+            if (empty($parent))
+                return ['status'=>0, 'info'=>'父节点不存在，请刷新页面重试！'];
+            
             $model->node_level = $parent['node_level'] + 1;
             $model->node_system= $parent['node_system'];
         }
 
-        if(!$model->save()){
-            $this->addError('error', '编辑失败！请重试。');
-            return false;
-        }
-        return true;
+        if(!$model->save())
+            return ['status'=>0, 'info'=>errorsToStr($model->getErrors())];
+        
+        return ['status'=>1, 'info'=>'编辑成功！'];
     }
 
     public function delete($node_id)

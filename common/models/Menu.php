@@ -38,7 +38,7 @@ class Menu extends \yii\db\ActiveRecord
     {
         return [
             [['menu_name'], 'required'],
-            [['menu_pid', 'menu_sort', 'menu_level', 'menu_status', 'node_id', 'created_at', 'created_id', 'updated_at', 'updated_id'], 'integer'],
+            [['menu_pid', 'menu_sort', 'menu_level', 'menu_status', 'node_id', 'created_id', 'updated_id'], 'integer'],
             [['menu_name', 'menu_system'], 'string', 'max' => 20],
             [['menu_icon'], 'string', 'max' => 50],
             [['menu_url'], 'string', 'max' => 255],
@@ -198,91 +198,4 @@ class Menu extends \yii\db\ActiveRecord
         return $arr;
     }
 
-   /**
-     * 添加菜单
-     * @param  array $data 前端表单
-     */
-    public function create($data)
-    {
-        $this->setAttributes($data);
-        $this->created_at = time();
-        $this->created_id = USER_ID;
-
-        if ($data['menu_pid']==0) {
-            if (empty($data['menu_system'])) 
-                return ['status'=>0, 'info'=>'系统不能为空！'];
-             
-            // 系统级菜单
-            $this->menu_level = 1;
-            $this->menu_system = $data['menu_system'];
-        }else{
-            $parent = $this->find()->where(['menu_id' => $data['menu_pid']])->asArray()->one();
-            if (empty($parent)) return ['status'=>0, 'info'=>'父菜单不存在，请刷新页面重试！'];
-            $this->menu_level = $parent['menu_level'] + 1;
-            $this->menu_system= $parent['menu_system'];
-        }
-
-        // 菜单关联节点
-        if (!empty($this->menu_url) && $this->menu_pid != 0 ) {
-            $url = $this->menu_system .'/'. $this->menu_url;
-            $this->node_id = (new Node())->url2node($url);
-        }
-
-        if(!$this->validate())
-            return ['status'=>0, 'info'=>errorToString($this->errors)];
-
-        if(!$this->save())
-            return ['status'=>0, 'info'=>'添加失败！'];
-        return ['status'=>1, 'info'=>'添加成功！'];
-    }
-
-    public function edit($data)
-    {
-        $this->setAttributes($data);
-        $this->updated_at = time();
-        $this->updated_id = USER_ID;
-
-        if ($data['menu_pid']==0) {
-            // 系统级菜单
-            $this->menu_level = 1;
-            $this->menu_system = $data['menu_system'];
-        }else{
-            $parent = $this->find()->where(['menu_id' => $data['menu_pid']])->asArray()->one();
-            if (empty($parent)) return ['status'=>0, 'info'=>'父菜单不存在，请刷新页面重试！'];
-            $this->menu_level = $parent['menu_level'] + 1;
-            $this->menu_system= $parent['menu_system'];
-        }
-
-        // 菜单关联节点
-        if (!empty($this->menu_url)) {
-            $url = $this->menu_system .'/'. $this->menu_url;
-            $this->node_id = (new Node())->url2node($url);
-        }
-
-        if(!$this->validate())
-            return ['status'=>0, 'info'=>errorToString($this->errors)];
-
-        if(!$this->save())
-            return ['status'=>0, 'info'=>'编辑失败！'];
-        return ['status'=>1, 'info'=>'编辑成功！'];
-    }
-
-    public function del($menu_id)
-    {
-        // 递归查找子节点
-        if (!is_array($menu_id)) $menu_id = [$menu_id];
-        while (1) {
-            $child = $this->find()->distinct()->select('menu_id')
-                    ->where(['menu_pid'=>$menu_id])->andWhere(['not in', 'menu_id', $menu_id])
-                    ->asArray()->all();
-            if (empty($child)) break;
-            $child = array_column($child,'menu_id');
-            $menu_id = array_merge($menu_id, $child);
-        }
-
-        // 删除节点
-        if(! $num = $this->deleteAll(['menu_id'=>$menu_id]))
-            return ['status'=>0, 'info'=>'删除失败，请刷新页面重试！'];
-        return ['status'=>1, 'info'=>'删除成功！共删除'.$num.'个菜单。'];
-    }
 }
