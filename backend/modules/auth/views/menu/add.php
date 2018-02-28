@@ -10,7 +10,7 @@ $this->title = Yii::$app->controller->action->id == 'add'? '添加菜单':'编�
 <section class="content-header">
     <div class="row">
         <div class="col-xs-6">
-            <h4><b><?= $this->title ?></b></h4>
+            <h4 class="content-header-title"><b><?= $this->title ?></b></h4>
         </div>
     </div>
 </section>

@@ -9,10 +9,10 @@ $this->title = '菜单列表';
 <section class="content-header">
     <div class="row">
         <div class="col-xs-6">
-            <h4><b><?= $this->title ?></b></h4>
+            <h4 class="content-header-title"><b><?= $this->title ?></b></h4>
         </div>
-        <div class="col-xs-6">
-            <a class="btn btn-success btn-flat pull-right" href="<?= Url::to(['menu/add'])?>">添加菜单</a>
+        <div class="col-xs-6 text-right">
+            <a class="btn btn-success btn-flat" href="<?= Url::to(['menu/add'])?>">添加菜单</a>
         </div>
     </div>
 </section>
