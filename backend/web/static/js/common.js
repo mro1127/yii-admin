@@ -218,6 +218,33 @@ function initValidate(options) {
 }
 
 
+/* 
+* 带有search-form类的form提交时会触发，获取表单参数
+* 重新赋值boostrap-table的queryParams参数
+*/ 
+function initSearch(form, table) {
+    $(form).submit(function() {
+        $(table).bootstrapTable('removeAll');
+        var keyword = $(form).serializeArray();
+
+        queryParams = function(params) {
+            for(i in keyword)
+                params[keyword[i].name] = keyword[i].value;
+            
+            params.limit = params.limit;
+            params.offset = params.offset;
+            params.order = params.order;
+            params.sort = params.sort;
+            return params;
+        }
+        $(table).bootstrapTable('refreshOptions', {queryParams: queryParams, pageNumber:1});
+        $(form).find('button').prop('disabled',true);
+        $(table).on('load-success.bs.table',function(data){
+            $(form).find('button').prop('disabled',false);
+        });
+        return false;
+    });
+}
 
 /**
  * 一些默认的绑定
@@ -228,6 +255,10 @@ $(function () {
     // 默认绑定 common-ajax-submit
     if ($('.common-ajax-submit').length > 0) {
         initSubmit('.common-ajax-submit');
+    }
+
+    if ($('.search-form').length > 0) {
+        initSearch('.search-form', 'table');
     }
 
     openConfirm('.open-confirm');
