@@ -193,14 +193,20 @@ function initValidate(options) {
         errorPlacement: function ( error, element ) {
             var name = $(element).attr('name');
             if (this.errorMap[name]) {
-                if (!tip[name]) 
+                console.log(window.innerWidth)
+                if (window.innerWidth < 768) {
+                    layer.msg(this.errorMap[name]);
+                }else if (!tip[name]) {
                     tip[name] = layer.tips(this.errorMap[name], $(element), {tipsMore:true, time:0, tips: [2, '#DD4B39'], id:name});
+                }
             }
         },
         success: function ( label, element ) {
             var name = $(element).attr('name');
-            layer.close(tip[name]);
-            delete tip[name];
+            if (tip[name]) {
+                layer.close(tip[name]);
+                delete tip[name];
+            }
         },
         highlight: function ( element, errorClass, validClass ) {
             $( element ).parents( ".form-group" ).addClass( "has-error" ).removeClass( "has-success" );
