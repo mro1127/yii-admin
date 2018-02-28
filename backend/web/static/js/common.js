@@ -108,7 +108,6 @@ function stopLoading(btn) {
 
 // 询问窗回调方法：刷新table，刷新窗口
 function cbRefreshTable(data) {
-    console.log(1)
     if (data.status)
         $('table').bootstrapTable('refresh', {silent: true});
 }
@@ -274,7 +273,7 @@ function initSearch(form, table) {
         $(table).bootstrapTable('removeAll');
         var keyword = $(form).serializeArray();
 
-        queryParams = function(params) {
+        var query_params = function(params) {
             for(i in keyword)
                 params[keyword[i].name] = keyword[i].value;
             
@@ -284,7 +283,7 @@ function initSearch(form, table) {
             params.sort = params.sort;
             return params;
         }
-        $(table).bootstrapTable('refreshOptions', {queryParams: queryParams, pageNumber:1});
+        $(table).bootstrapTable('refreshOptions', {queryParams: query_params, pageNumber:1});
         $(form).find('button').prop('disabled',true);
         $(table).on('load-success.bs.table',function(data){
             $(form).find('button').prop('disabled',false);
