@@ -143,6 +143,53 @@ function openConfirm(btn, param) {
     })
 }
 
+function batchConfirm(btn, param, get_post_data) {
+    $(document).on('click', btn, function() {
+        if (get_post_data){
+            var post_data = get_post_data();
+            if (post_data === false) return false;
+        }else{
+            // 默认获取 bootstrap-table的checkbox数据
+            var post_data = {},
+                selections = $('table').bootstrapTable('getSelections');
+            post_data.id = $.map(selections, function(item, index) {
+                return item.id;
+            });
+            if (post_data.id.length == 0) {
+                layer.msg('请选择数据！');    
+                return false;
+            }
+        }
+
+        var token = $('meta[name="csrf-token"]').attr('content');
+        if (token) {
+            var token_name = $('meta[name="csrf-param"]').attr('content');
+            post_data[token_name] = token;
+        }
+
+        var param_elm = {
+            title : $(this).attr('title'),
+            msg : $(this).attr('msg'),
+            link : $(this).attr('link'),
+            callback : $(this).attr('callback'),
+        }
+        param = $.extend(param, param_elm);
+
+        layer.confirm(param.msg, {icon: 3, title: param.title}, function(index){
+            $.post(param.link, post_data, function(data) {
+                if (data.status) {
+                    layer.msg(data.info, {icon: 1});
+                } else {
+                    layer.msg(data.info, {icon: 2});    
+                }
+                if (param.callback)
+                    window[param.callback](data);
+            }, "JSON");
+        });
+        return false;
+    })
+}
+
 function openWindow(btn, param) {
     var param_default = {
         title       : '窗口',
@@ -263,6 +310,7 @@ $(function () {
 
     openConfirm('.open-confirm');
     openWindow('.open-window');
+    batchConfirm('.batch-confirm');
 
     if ($('.select2').length > 0) {
         $('.select2').select2();
