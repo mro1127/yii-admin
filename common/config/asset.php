@@ -9,9 +9,9 @@ return [
         'iCheck'=> [
             'class' => 'yii\web\AssetBundle',
             'sourcePath' => '@bower/admin-lte/plugins/iCheck',
-            'js' => [YII_DEBUG ? 'icheck.min.js':'icheck.js'],
+            'js' => [YII_DEBUG ? 'icheck.js':'icheck.min.js'],
             'css' => ['all.css'],
-            // 'depends' => ['Adminlte']
+            'depends' => ['JQuery']
         ],
         // JQuery 及 JQuery插件
         'JQuery' => [
