@@ -8,7 +8,11 @@ $this->title = Yii::$app->controller->action->id == 'add'? '添加菜单':'编�
  ?>
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1><?= $this->title ?></h1>
+    <div class="row">
+        <div class="col-xs-6">
+            <h4><b><?= $this->title ?></b></h4>
+        </div>
+    </div>
 </section>
 
 <!-- Main content -->
@@ -17,20 +21,20 @@ $this->title = Yii::$app->controller->action->id == 'add'? '添加菜单':'编�
         <div class="form-body">
             <div class="form-group">
                 <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-red"></i> 名称 </label>
-                <div class="col-md-6">
+                <div class="col-sm-6">
                     <input type="text" name="name" value="<?= $info->menu_name ?>" class="form-control" placeholder="请输入菜单名称">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">链接</label>
-                <div class="col-md-6">
+                <div class="col-sm-6">
                     <input type="text" name="url" value="<?= $info->menu_url ?>" class="form-control" placeholder="请输入菜单路径，小写">
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-2 control-label">图标</label>
-                <div class="col-md-6">
+                <div class="col-sm-6">
                     <div class="mr-t-6">
                         <?php if (empty($info->menu_icon)) { ?>
                             <i class="fa fa-files-o fa-lg" id="icon"></i>
@@ -46,7 +50,7 @@ $this->title = Yii::$app->controller->action->id == 'add'? '添加菜单':'编�
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">父菜单</label>
-                <div class="col-md-6">
+                <div class="col-sm-6">
                     <select name="pid" value="<?= $info->menu_pid?>" class="form-control select2">
                         <option value="0">系统</option>
                         <?php 
@@ -64,25 +68,25 @@ $this->title = Yii::$app->controller->action->id == 'add'? '添加菜单':'编�
             </div>
             <div class="form-group" id="system">
                 <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-red"></i> 系统 </label>
-                <div class="col-md-6">
+                <div class="col-sm-6">
                     <input type="text" name="system" value="<?= $info->menu_system ?>" class="form-control" placeholder="请输入系统名称，小写英文">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">排序</label>
-                <div class="col-md-6">
+                <div class="col-sm-6">
                     <input type="number" name="sort" value="<?= $info->menu_sort?>" class="form-control" placeholder="请输入菜单排序，越小越靠前">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">状态</label>
-                <div class="col-md-6">
+                <div class="col-sm-6">
                      <?=yii\helpers\Html::radioList('status',isset($info->menu_status)? $info->menu_status:1,['1'=>'正常','0'=>'禁用'],['class'=>'icheck-minimal-c mr-t-6']);?>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">快捷操作</label>
-                <div class="col-md-6">
+                <div class="col-sm-6">
                      <?=yii\helpers\Html::radioList('shortcuts',isset($info->menu_shortcuts)? $info->menu_shortcuts:0,['1'=>'是','0'=>'否'],['class'=>'icheck-minimal-c mr-t-6']);?>
                 </div>
             </div>

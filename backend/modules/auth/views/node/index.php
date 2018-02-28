@@ -7,16 +7,17 @@ $this->title = '节点列表';
  ?>
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1><?= $this->title ?></h1>
-</section>
-
-<!-- Main content -->
-<section class="content">
-    <div class="row mr-b-10 pull-right">
-        <div class="col-xs-12">
-            <a class="btn btn-success btn-flat" href="<?= Url::to(['node/add'])?>">添加节点</a>
+    <div class="row">
+        <div class="col-xs-6">
+            <h4><b><?= $this->title ?></b></h4>
+        </div>
+        <div class="col-xs-6">
+            <a class="btn btn-success btn-flat pull-right" href="<?= Url::to(['node/add'])?>">添加节点</a>
         </div>
     </div>
+</section>
+<!-- Main content -->
+<section class="content">
     <div class="row">
         <div class="col-xs-12">
             <table id="table" data-toggle="table" data-url="<?= Url::to(['node/get-list'])?>" data-classes="table table-hover table-condensed">

@@ -8,8 +8,13 @@ $this->title = Yii::$app->controller->action->id == 'add'? '添加节点':'编�
  ?>
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1><?= $this->title ?></h1>
+    <div class="row">
+        <div class="col-xs-6">
+            <h4><b><?= $this->title ?></b></h4>
+        </div>
+    </div>
 </section>
+
 
 <!-- Main content -->
 <section class="content">
@@ -17,19 +22,19 @@ $this->title = Yii::$app->controller->action->id == 'add'? '添加节点':'编�
         <div class="form-body">
             <div class="form-group">
                 <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-red"></i> 名称 </label>
-                <div class="col-md-6">
+                <div class="col-sm-6">
                     <input type="text" name="name" value="<?= $info->node_name ?>" class="form-control" placeholder="请输入节点名称">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-red"></i> 路径</label>
-                <div class="col-md-6">
+                <div class="col-sm-6">
                     <input type="text" name="path" value="<?= $info->node_path ?>" class="form-control" placeholder="请输入节点路径，小写">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">父节点</label>
-                <div class="col-md-6">
+                <div class="col-sm-6">
                     <select name="pid" value="<?= $info->node_pid?>" class="form-control select2">
                         <option value="0">根节点</option>
                         <?php 
@@ -47,13 +52,13 @@ $this->title = Yii::$app->controller->action->id == 'add'? '添加节点':'编�
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">排序</label>
-                <div class="col-md-6">
+                <div class="col-sm-6">
                     <input type="number" name="sort" value="<?= $info->node_sort?>" class="form-control" placeholder="请输入节点排序，越小越靠前">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">状态</label>
-                <div class="col-md-6">
+                <div class="col-sm-6">
                      <?=yii\helpers\Html::radioList('status',isset($info->node_status)? $info->node_status:1,['1'=>'正常','0'=>'禁用'],['class'=>'icheck-minimal-c mr-t-6']);?>
                 </div>
             </div>
