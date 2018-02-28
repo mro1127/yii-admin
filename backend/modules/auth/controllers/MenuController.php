@@ -45,7 +45,7 @@ class MenuController extends Controller
         $request = Yii::$app->request;
 
         $info = (new Menu())->findOne($id);
-        if (empty($info)) 
+        if (empty($info) || $info['status']!=1) 
             throw new HttpException(400, '找不到该菜单！');
 
         if ($request->isPost) {
@@ -54,7 +54,7 @@ class MenuController extends Controller
 
             if (!$model->load($request->post(), '')) 
                 return $this->asJson(['status' => 0, 'info' => errorsToStr($model->getErrors())]);
-            
+
             $ret = $model->edit();
             if ($ret['status'])
                 $ret['url'] = Url::to(['menu/index']);

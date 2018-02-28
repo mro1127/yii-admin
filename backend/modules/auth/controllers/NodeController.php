@@ -45,7 +45,7 @@ class NodeController extends Controller
         $request = Yii::$app->request;
 
         $info = (new Node())->findOne($id);
-        if (empty($info)) 
+        if (empty($info) || $info['status']!=1) 
             throw new HttpException(400, '找不到该节点！');
 
         if ($request->isPost) {
