@@ -17,3 +17,13 @@ function errorsToStr($errors, $glue='')
         $val = implode($glue, $val);
     return implode($glue, $errors);
 }
+
+if (YII_DEBUG) {
+    function p($data)
+    {
+        echo '<pre>';
+        print_r($data);
+        echo '<pre>';
+        die;
+    }
+}
