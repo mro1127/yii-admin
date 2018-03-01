@@ -38,8 +38,8 @@ class RoleNode extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'role_id' => 'Role ID',
-            'node_id' => 'Node ID',
+            'role_id' => '角色ID',
+            'node_id' => '节点ID',
         ];
     }
 }
