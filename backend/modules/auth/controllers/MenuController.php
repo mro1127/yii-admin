@@ -2,13 +2,11 @@
 namespace backend\modules\auth\controllers;
 
 use Yii;
-use yii\web\Controller;
 use common\models\Menu;
 use backend\models\MenuForm;
 use yii\helpers\Url;
-use yii\web\HttpException;
 
-class MenuController extends Controller
+class MenuController extends \yii\web\Controller
 {
     public function actionIndex()
     {
@@ -46,7 +44,7 @@ class MenuController extends Controller
 
         $info = (new Menu())->findOne($id);
         if (empty($info) || $info['status']!=1) 
-            throw new HttpException(400, '找不到该菜单！');
+            throw new \yii\web\HttpException(400, '找不到该菜单！');
 
         if ($request->isPost) {
             $model = new MenuForm();

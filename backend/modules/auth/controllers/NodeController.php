@@ -3,13 +3,11 @@
 namespace backend\modules\auth\controllers;
 
 use Yii;
-use yii\web\Controller;
 use yii\helpers\Url;    
 use common\models\Node;
 use backend\models\NodeForm;
-use yii\web\HttpException;
 
-class NodeController extends Controller
+class NodeController extends \yii\web\Controller
 {
     public function actionIndex()
     {
@@ -46,7 +44,7 @@ class NodeController extends Controller
 
         $info = (new Node())->findOne($id);
         if (empty($info) || $info['status']!=1) 
-            throw new HttpException(400, '找不到该节点！');
+            throw new \yii\web\HttpException(400, '找不到该节点！');
 
         if ($request->isPost) {
             $model = new NodeForm();

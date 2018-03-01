@@ -3,14 +3,12 @@
 namespace backend\modules\auth\controllers;
 
 use Yii;
-use yii\web\Controller;
 use yii\helpers\Url; 
 use common\models\Role;
 use common\models\Node;
 use backend\models\RoleForm;
-use yii\web\HttpException;
 
-class RoleController extends Controller
+class RoleController extends \yii\web\Controller
 {
     public function actionIndex()
     {
@@ -19,24 +17,8 @@ class RoleController extends Controller
 
     public function actionGetList()
     {
-        $query_params = Yii::$app->request->queryParams;
-
-        $offset = empty($query_params['offset'])? 0:$query_params['offset'];
-        $limit = empty($query_params['limit'])? 20:$query_params['limit'];
-
-        $query = Role::find()->select('role_id AS id, role_name AS name, role_sort AS sort, role_status AS status')
-                            ->orderBy('role_id DESC')->offset($offset)->limit($limit);
-
-        $query->andFilterWhere([
-            'status' => 1,
-            'role_status' => $query_params['status'],
-        ]);
-        $query->andFilterWhere(['like', 'role_name', $query_params['name']]);
-
-        $ret['total'] = $query->count();
-        if ($ret['total'] > 0) 
-            $ret['rows'] = $query->asArray()->all();
-                // print_r($query->createCommand()->getRawSql());die;
+        $get = Yii::$app->request->queryParams;
+        $ret = (new Role())->getList($get);
         return $this->asJson($ret);
     }
 
@@ -63,7 +45,7 @@ class RoleController extends Controller
 
         $info = (new Role())->findOne($id);
         if (empty($info) || $info['status']!=1) 
-            throw new HttpException(400, '找不到该角色！');
+            throw new \yii\web\HttpException(400, '找不到该角色！');
 
         if ($request->isPost) {
             $model = new RoleForm();
@@ -97,7 +79,7 @@ class RoleController extends Controller
 
         $info = (new Role())->findOne($id);
         if (empty($info) || $info['status']!=1) 
-            throw new HttpException(400, '找不到该角色！');
+            throw new \yii\web\HttpException(400, '找不到该角色！');
 
         if ($request->isPost) {
             $model = new RoleForm();

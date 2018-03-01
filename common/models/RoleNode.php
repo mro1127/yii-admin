@@ -17,7 +17,7 @@ class RoleNode extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'role_node';
+        return '{{%role_node}}';
     }
 
     /**
