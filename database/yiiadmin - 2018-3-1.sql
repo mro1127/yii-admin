@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50720
 File Encoding         : 65001
 
-Date: 2018-03-01 21:33:20
+Date: 2018-03-01 21:43:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -230,14 +230,12 @@ CREATE TABLE `user` (
   `u_password_hash` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `u_password_reset_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `u_email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `u_status` smallint(6) NOT NULL DEFAULT '10',
-  `u_created_at` int(11) NOT NULL,
-  `u_updated_at` int(11) NOT NULL,
   `u_tel` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '联系电话',
   `u_sex` enum('男','女') COLLATE utf8_unicode_ci DEFAULT NULL,
   `u_birthday` date DEFAULT NULL,
   `u_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '姓名/昵称',
   `u_face` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '头像',
+  `u_status` tinyint(1) NOT NULL DEFAULT '10',
   `status` tinyint(1) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `created_id` int(11) DEFAULT NULL,
@@ -252,5 +250,5 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'admin', 'DQO5RgixU6dFkkHim7JJ4SPqvrSheXnF', '$2y$13$zVf.hmfUSTujlEh.RuRfvuN28cflRJUxjmg2A5E/lNd4OVGMpdzXO', '', 'admin@a.com', '10', '1512477453', '1512477453', null, null, '2018-02-28', null, null, null, null, null, '2018-03-01 12:51:32', null);
-INSERT INTO `user` VALUES ('5', 'test', 'DQO5RgixU6dFkkHim7JJ4SPqvrSheXnF', '$2y$13$zVf.hmfUSTujlEh.RuRfvuN28cflRJUxjmg2A5E/lNd4OVGMpdzXO', null, 'test@a.com', '10', '1512477453', '1512477453', null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `user` VALUES ('1', 'admin', 'DQO5RgixU6dFkkHim7JJ4SPqvrSheXnF', '$2y$13$zVf.hmfUSTujlEh.RuRfvuN28cflRJUxjmg2A5E/lNd4OVGMpdzXO', '', 'admin@a.com', null, null, '2018-02-28', null, null, '10', null, null, null, '2018-03-01 12:51:32', null);
+INSERT INTO `user` VALUES ('5', 'test', 'DQO5RgixU6dFkkHim7JJ4SPqvrSheXnF', '$2y$13$zVf.hmfUSTujlEh.RuRfvuN28cflRJUxjmg2A5E/lNd4OVGMpdzXO', null, 'test@a.com', null, null, null, null, null, '10', null, null, null, null, null);
