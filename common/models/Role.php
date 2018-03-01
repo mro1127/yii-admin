@@ -75,15 +75,11 @@ class Role extends \yii\db\ActiveRecord
 
     public function getList($get=[], $field=NULL)
     {
-        $get = Yii::$app->request->queryParams;
-
         $offset = empty($get['offset'])? 0:$get['offset'];
         $limit = empty($get['limit'])? 20:$get['limit'];
-
         empty($field) && $field = 'role_id AS id, role_name AS name, role_sort AS sort, role_status AS status';
 
         $query = Role::find()->select($field)->orderBy('role_id DESC')->offset($offset)->limit($limit);
-
         $query->andFilterWhere([
             'status' => 1,
             'role_status' => $get['status'],
@@ -93,7 +89,6 @@ class Role extends \yii\db\ActiveRecord
         $ret['total'] = $query->count();
         if ($ret['total'] > 0) 
             $ret['rows'] = $query->asArray()->all();
-
         return $ret;
     }
 }
