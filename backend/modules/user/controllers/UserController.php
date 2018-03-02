@@ -20,7 +20,7 @@ class UserController extends \yii\web\Controller
         return $this->asJson($user);
     }
 
-    public function actionAdd($pid=NULL)
+    public function actionAdd()
     {
         $request = Yii::$app->request;
         if ($request->isPost) {
@@ -33,9 +33,7 @@ class UserController extends \yii\web\Controller
                 $ret['url'] = Url::to(['menu/index']);
             return $this->asJson($ret);
         }else{
-            $menu = (new User())->getUserList();
-            Yii::trace($menu, 'menu');
-            return $this->render('add',['menu'=>$menu, 'pid'=>$pid]);
+            return $this->render('add');
         }
     }
 
@@ -59,7 +57,6 @@ class UserController extends \yii\web\Controller
                 $ret['url'] = Url::to(['menu/index']);
             return $this->asJson($ret);
         }else{
-            $menu = (new User())->getUserList();
             return $this->render('add',['menu'=>$menu, 'info'=>$info]);
         }
     }

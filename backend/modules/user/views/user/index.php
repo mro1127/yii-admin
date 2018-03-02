@@ -12,7 +12,7 @@ $this->title = '用户列表';
             <h4 class="content-header-title"><b><?= $this->title ?></b></h4>
         </div>
         <div class="col-xs-6 text-right">
-            <a class="btn btn-success btn-flat open-window" link="<?= Url::to(['user/add'])?>" title="添加用户" width="400px" height="500px">添加用户</a>
+            <a class="btn btn-success btn-flat" href="<?= Url::to(['user/add'])?>" title="添加用户">添加用户</a>
             <a class="btn btn-danger btn-flat batch-confirm" link="<?= Url::to(['user/delete'])?>" title="删除用户" msg="确认删除选中的用户？" callback="cbRefreshTable">删除</a>
         </div>
     </div>
@@ -29,10 +29,20 @@ $this->title = '用户列表';
                 <input type="text" class="form-control" name="username" placeholder="请输入账号" title="账号">
             </div>
             <div class="col-xs-3 col-lg-2 mr-b-10">
+                <input type="text" class="form-control" name="tel" placeholder="请输入联系电话" title="联系电话">
+            </div>
+            <div class="col-xs-3 col-lg-2 mr-b-10">
                 <select class="form-control" name="status" title="状态">
                     <option value="">状态</option>
                     <option value="1">启用</option>
                     <option value="0">禁用</option>
+                </select>
+            </div>
+            <div class="col-xs-3 col-lg-2 mr-b-10">
+                <select class="form-control" name="sex" title="性别">
+                    <option value="">性别</option>
+                    <option value="男">男</option>
+                    <option value="女">女</option>
                 </select>
             </div>
             <div class="col-xs-3 col-lg-2 mr-b-10">
@@ -79,13 +89,13 @@ $this->title = '用户列表';
         }
     }
 
-    var editUrl = "<?= Url::to(['user/edit', 'id'=>'ROLE_ID']); ?>";
-    var addUrl = "<?= Url::to(['user/allot', 'id'=>'ROLE_ID']); ?>";
-    var delUrl = "<?= Url::to(['user/delete', 'id'=>'ROLE_ID']); ?>";
+    var editUrl = "<?= Url::to(['user/edit', 'id'=>'DATA_ID']); ?>";
+    var addUrl = "<?= Url::to(['user/allot', 'id'=>'DATA_ID']); ?>";
+    var delUrl = "<?= Url::to(['user/delete', 'id'=>'DATA_ID']); ?>";
     function getBtn(value, row, index) {
-        var url1 = editUrl.replace(/ROLE_ID/, value);
-        var url2 = addUrl.replace(/ROLE_ID/, value);
-        var url3 = delUrl.replace(/ROLE_ID/, value);
+        var url1 = editUrl.replace(/DATA_ID/, value);
+        var url2 = addUrl.replace(/DATA_ID/, value);
+        var url3 = delUrl.replace(/DATA_ID/, value);
         var html = '<a class="btn btn-primary btn-flat btn-xs open-window" title="编辑用户 - '+row.name+'" link="'+url1+'" width="400px" height="500px">编辑</a> ';
         html += '<a class="btn btn-info btn-flat btn-xs" href="'+url2+'">用户授权</a> ';
         html += '<a class="btn btn-danger btn-flat btn-xs open-confirm" title="删除用户" msg="确认删除用户【'+row.name+'】？" link="'+url3+'" callback="cbRefreshTable">删除</a>';
