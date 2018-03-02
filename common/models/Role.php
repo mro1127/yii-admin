@@ -79,7 +79,7 @@ class Role extends \yii\db\ActiveRecord
         $limit = empty($get['limit'])? 20:$get['limit'];
         empty($field) && $field = 'role_id AS id, role_name AS name, role_sort AS sort, role_status AS status';
 
-        $query = Role::find()->select($field)->orderBy('role_id DESC')->offset($offset)->limit($limit);
+        $query = static::find()->select($field)->orderBy('role_id DESC')->offset($offset)->limit($limit);
         $query->andFilterWhere([
             'status' => 1,
             'role_status' => $get['status'],
