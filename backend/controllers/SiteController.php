@@ -27,7 +27,7 @@ class SiteController extends Controller
             return $this->redirect(['site/login']);
 
 
-        $menu = (new Menu())->getMenu([], 'system');
+        $menu = (new Menu())->getMenu([], 'backend');
         return $this->render('index', ['menu'=>$menu]);
     }
 
