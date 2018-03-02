@@ -11,23 +11,26 @@ use yii\web\IdentityInterface;
  *
  * @property integer $u_id
  * @property string $u_username
+ * @property string $u_auth_key
  * @property string $u_password_hash
  * @property string $u_password_reset_token
  * @property string $u_email
- * @property string $u_auth_key
- * @property integer $u_status
- * @property integer $u_created_at
- * @property integer $u_updated_at
- * @property string $password write-only password
  * @property string $u_tel
  * @property string $u_sex
  * @property string $u_birthday
  * @property string $u_name
+ * @property string $u_face
+ * @property integer $u_status
+ * @property string $created_at
+ * @property int $created_id
+ * @property string $updated_at
+ * @property int $updated_id
+ * @property int $status
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    const STATUS_DELETED = 0;
-    const STATUS_ACTIVE = 10;
+    const STATUS_DISABLED = 0;
+    const STATUS_ACTIVE = 1;
 
 
     /**
@@ -55,7 +58,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             ['u_status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['u_status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            ['u_status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DISABLED]],
         ];
     }
 
@@ -190,5 +193,23 @@ class User extends ActiveRecord implements IdentityInterface
         $this->u_password_reset_token = null;
     }
 
+    public function getList($get=[], $field=NULL)
+    {
+        $offset = empty($get['offset'])? 0:$get['offset'];
+        $limit = empty($get['limit'])? 20:$get['limit'];
+        empty($field) && $field = 'u_id AS id, u_username AS username, u_email AS email, u_tel AS tel, u_sex AS sex, u_birthday AS birthday, u_name AS name, u_face AS face, u_status AS status';
 
+        $query = static::find()->select($field)->orderBy('u_id DESC')->offset($offset)->limit($limit);
+        $query->andFilterWhere([
+            'status' => 1,
+            'u_status' => $get['status'],
+        ]);
+        $query->andFilterWhere(['like', 'u_name', $get['name']]);
+        $query->andFilterWhere(['like', 'u_username', $get['username']]);
+
+        $ret['total'] = $query->count();
+        if ($ret['total'] > 0) 
+            $ret['rows'] = $query->asArray()->all();
+        return $ret;
+    }
 }

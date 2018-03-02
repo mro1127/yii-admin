@@ -16,6 +16,9 @@ return [
         'auth' => [
             'class' => 'backend\modules\auth\Module',
         ],
+        'user' => [
+            'class' => 'backend\modules\user\Module',
+        ],
     ],
     'components' => [
         'request' => [
