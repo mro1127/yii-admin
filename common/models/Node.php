@@ -27,7 +27,7 @@ class Node extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'node';
+        return '{{%node}}';
     }
 
     /**
