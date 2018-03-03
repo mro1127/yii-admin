@@ -193,19 +193,21 @@ class User extends ActiveRecord implements IdentityInterface
         $this->u_password_reset_token = null;
     }
 
-    public function getList($get=[], $field=NULL)
+    public function getList($param=[], $field=NULL)
     {
-        $offset = empty($get['offset'])? 0:$get['offset'];
-        $limit = empty($get['limit'])? 20:$get['limit'];
+        $offset = empty($param['offset'])? 0:$param['offset'];
+        $limit = empty($param['limit'])? 20:$param['limit'];
         empty($field) && $field = 'u_id AS id, u_username AS username, u_email AS email, u_tel AS tel, u_sex AS sex, u_birthday AS birthday, u_name AS name, u_face AS face, u_status AS status';
 
         $query = static::find()->select($field)->orderBy('u_id DESC')->offset($offset)->limit($limit);
         $query->andFilterWhere([
             'status' => 1,
-            'u_status' => $get['status'],
+            'u_status' => $param['status'],
+            'u_sex' => $param['sex'],
         ]);
-        $query->andFilterWhere(['like', 'u_name', $get['name']]);
-        $query->andFilterWhere(['like', 'u_username', $get['username']]);
+        $query->andFilterWhere(['like', 'u_name', $param['name']]);
+        $query->andFilterWhere(['like', 'u_username', $param['username']]);
+        $query->andFilterWhere(['like', 'u_tel', $param['tel']]);
 
         $ret['total'] = $query->count();
         if ($ret['total'] > 0) 

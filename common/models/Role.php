@@ -73,18 +73,18 @@ class Role extends \yii\db\ActiveRecord
         return $role;
     }
 
-    public function getList($get=[], $field=NULL)
+    public function getList($param=[], $field=NULL)
     {
-        $offset = empty($get['offset'])? 0:$get['offset'];
-        $limit = empty($get['limit'])? 20:$get['limit'];
+        $offset = empty($param['offset'])? 0:$param['offset'];
+        $limit = empty($param['limit'])? 20:$param['limit'];
         empty($field) && $field = 'role_id AS id, role_name AS name, role_sort AS sort, role_status AS status';
 
         $query = static::find()->select($field)->orderBy('role_id DESC')->offset($offset)->limit($limit);
         $query->andFilterWhere([
             'status' => 1,
-            'role_status' => $get['status'],
+            'role_status' => $param['status'],
         ]);
-        $query->andFilterWhere(['like', 'role_name', $get['name']]);
+        $query->andFilterWhere(['like', 'role_name', $param['name']]);
 
         $ret['total'] = $query->count();
         if ($ret['total'] > 0) 
