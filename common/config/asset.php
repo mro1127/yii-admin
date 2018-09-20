@@ -79,5 +79,16 @@ return [
             'sourcePath' => '@bower/vue/dist',
             'js' => [YII_DEBUG ? 'vue.js' : 'vue.min.js'],
         ],
+        '3DLine' =>[
+            'class' => 'yii\web\AssetBundle',
+            'sourcePath' => '@commonStatic/lib/3d-lines',
+            'js' => [
+                'three.min.js',
+                'projector.js',
+                'canvas-renderer.js',
+                '3d-lines-animation.js',
+                'color.js',
+            ],
+        ],
     ],
 ];

@@ -1,5 +1,6 @@
 <?php 
 use yii\helpers\Url;
+$this->registerAssetBundle('3DLine');
  ?>
 <div class="hold-transition login-page ">
     <div class="canvas-wrap">
@@ -39,13 +40,7 @@ use yii\helpers\Url;
         
 </div>
 
-<?php \Yii::$app->view->on($this::EVENT_END_PAGE, function () {
-    $this->registerJsFile('@static/js/3d-lines/three.min.js');
-    $this->registerJsFile('@static/js/3d-lines/projector.js');
-    $this->registerJsFile('@static/js/3d-lines/canvas-renderer.js');
-    $this->registerJsFile('@static/js/3d-lines/3d-lines-animation.js');
-    $this->registerJsFile('@static/js/3d-lines/color.js');
- ?>
+<?php \Yii::$app->view->on($this::EVENT_END_PAGE, function () { ?>
 <script type="text/javascript">
     $('body').layout({resetHeight:false})   
 
