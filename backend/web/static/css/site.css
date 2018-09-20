@@ -178,8 +178,9 @@ html,body{height: 100%}
 }
 
 .fa-choose:hover {
-  color: #000;
-  font-size: 25px;
+  /*color: #000;*/
+  /*font-size: 25px;*/
+  color: red;
 }
 
 /*layer iframe 100%高度 */
@@ -261,8 +262,6 @@ html,body{height: 100%}
 .switch-tree li span.switch:hover {
     cursor: pointer;
 }
-
-
 .switch-tree>ul>li::before, .switch-tree>ul>li::after {
     border:0
 }
@@ -273,3 +272,9 @@ html,body{height: 100%}
     margin-right: 10px;
 }
 /*树形样式-end-*/
+
+.control-span {
+  display: inline-block;
+  margin-top: 7px;
+}
+
