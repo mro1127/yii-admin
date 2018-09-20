@@ -52,7 +52,7 @@ function initTab() {
             tabs: new Array(),
         },
         index: 0,
-        template : $('<li><a><span><i class="fa-lg tab-icon"></i></span><i class="fa fa-lg fa-times-circle tab-close"></i></a></li>'),
+        template : $('<li><a><span><i class="fa-lg tab-icon"></i></span><i class="fa fa-times-circle tab-close"></i></a></li>'),
         add : function(url, name, icon, bind){
             var $this = this,
                 index = this.index;
@@ -81,7 +81,12 @@ function initTab() {
             var iframe = $('<iframe></iframe>')
             $(iframe).attr({ src: url, link: url, index: index, id: 'iframe_'+index });
             $('.content-iframe').append($(iframe));
+            $(iframe).onload = function(){
+                console.log(111)
+            }
             this.change(index);
+            this.loading(index);
+
             this.index ++;
         },
         // 打开一个标签，有则显示无则添加
@@ -139,12 +144,24 @@ function initTab() {
         refresh : function(index) {
             var i = $('.content-iframe').find("iframe[index="+index+"]");
             i.attr('src', i.contents()[0].URL);
+            this.loading(index);
         },
 
         // 提醒高亮tab
         warn : function(index, url) {
             $('.sly-frame').find("li[index="+index+"]").addClass('tab-warn');
         },
+
+        // iframe加载时，图标loading
+        loading : function(index){
+            var icon = $('.sly-frame').find("li[index="+index+"]").find('.tab-icon'),
+                icon_class= icon.attr('class');
+            icon.attr('unloading-class', icon_class).attr('class', 'tab-icon fa fa-spinner  fa-spin');
+            $('.content-iframe').find("iframe[index="+index+"]").one("load",function(){
+                icon.attr('class', icon_class);
+            });
+        },
+
     }
 
     // 打开tab，有则显示无则添加
@@ -190,7 +207,6 @@ function initTab() {
     // 后退
     $('.tab-back').click(function() {
         var choose = $('.sly-frame').find("li.active").attr('index');
-        console.log(choose)
         $('.content-iframe').find("iframe[index="+choose+"]")[0].contentWindow.history.back();
     })
     // 前进
@@ -239,36 +255,39 @@ function initTab() {
 }
 
 $(function() {
-    // 子页面打开tab，有则显示无则添加
-    $('.open-tab-c').click(function() {
-        var icon = $(this).attr('icon'),
-            bind = $(this).attr('bind'),
-            link = $(this).attr('link'),
-            title= $(this).attr('title');
-        parent.$.TAB.open(link, title, icon, bind);
-        return false;
-    })
 
-    // 子页面打开tab，一定为新增页面
-    $('.add-tab-c').click(function() {
-        var icon = $(this).attr('icon'),
-            bind = $(this).attr('bind'),
-            link = $(this).attr('link'),
-            title= $(this).attr('title');
-        parent.$.TAB.add(link, title, icon, bind);
-        return false;
-    })
+    if (parent.$.TAB) {
+        // 子页面打开tab，有则显示无则添加
+        $('.open-tab-c').click(function() {
+            var icon = $(this).attr('icon'),
+                bind = $(this).attr('bind'),
+                link = $(this).attr('link'),
+                title= $(this).attr('title');
+            parent.$.TAB.open(link, title, icon, bind);
+            return false;
+        });
 
-    // 关闭当前tab
-    $('.close-self-tab').click(function() {
-        var index = getIndex();
-        parent.$.TAB.close(parent.$('.sly-frame').find("li").eq(index).attr('index'));
-    })
-    // 
-    $('.warn-self-tab').click(function() {
-        var index = getIndex();
-        parent.$.TAB.warn(parent.$('.sly-frame').find("li").eq(index).attr('index'));
-    })
+        // 子页面打开tab，一定为新增页面
+        $('.add-tab-c').click(function() {
+            var icon = $(this).attr('icon'),
+                bind = $(this).attr('bind'),
+                link = $(this).attr('link'),
+                title= $(this).attr('title');
+            parent.$.TAB.add(link, title, icon, bind);
+            return false;
+        });
+
+        // 关闭当前tab
+        $('.close-self-tab').click(function() {
+            var index = getIndex();
+            parent.$.TAB.close(parent.$('.sly-frame').find("li").eq(index).attr('index'));
+        });
+        // 
+        $('.warn-self-tab').click(function() {
+            var index = getIndex();
+            parent.$.TAB.warn(parent.$('.sly-frame').find("li").eq(index).attr('index'));
+        });
+    }
 
     $(document).on('click', '.yii-debug-toolbar__title', function() {
         var icon = 'fa fa-bug',
@@ -284,4 +303,5 @@ $(function() {
         }
             return false;
     });
+
 })
