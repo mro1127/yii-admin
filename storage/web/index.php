@@ -12,6 +12,6 @@ require(__DIR__ . '/../../vendor/yiisoft/yii2/Yii.php');
 require(__DIR__ . '/../../common/config/bootstrap.php');
 
 // App Config
-$config = require(__DIR__ . '/../config/base.php');
+$config = require(__DIR__ . '/../config/main.php');
 
 (new yii\web\Application($config))->run();
