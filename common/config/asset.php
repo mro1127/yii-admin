@@ -1,9 +1,15 @@
 <?php
 
 return [
+    'linkAssets' => true,
     'bundles' => [
+
         'Adminlte' => [
             'class' => 'common\assets\AdminlteAsset',
+        ],
+        // JQuery 及 JQuery插件
+        'JQuery' => [
+            'class' => 'common\assets\JQueryAsset',
         ],
 
         'iCheck'=> [
@@ -12,10 +18,6 @@ return [
             'js' => [YII_DEBUG ? 'icheck.js':'icheck.min.js'],
             'css' => ['all.css'],
             'depends' => ['JQuery']
-        ],
-        // JQuery 及 JQuery插件
-        'JQuery' => [
-            'class' => 'common\assets\JQueryAsset',
         ],
         'JQueryForm'=> [
             'class' => 'yii\web\AssetBundle',
@@ -55,6 +57,27 @@ return [
             'css' => ['css/select2.min.css'],
             'depends' => ['JQuery']
         ],
+        'InputMask'=> [
+            'class' => 'yii\web\AssetBundle',
+            'sourcePath' => '@bower/inputmask/dist',
+            'js' => [
+                YII_DEBUG ? 'jquery.inputmask.bundle.js' : 'min/jquery.inputmask.bundle.min.js',
+                'inputmask/inputmask.date.extensions.js'
+            ],
+            'depends' => ['JQuery']
+        ],
+        'BlueimpCanvasToBlob'=> [
+            'class' => 'yii\web\AssetBundle',
+            'sourcePath' => '@bower/blueimp-canvas-to-blob/js',
+            'js' => ['canvas-to-blob.min.js'],
+            'depends' => ['JQuery']
+        ],
+        'BlueimpLoadImage'=> [
+            'class' => 'yii\web\AssetBundle',
+            'sourcePath' => '@bower/blueimp-load-image/js',
+            'js' => ['load-image.all.min.js'],
+            'depends' => ['JQuery']
+        ],
 
         // Bootstrap 及 Bootstrap插件
         'Bootstrap' => [
@@ -65,6 +88,13 @@ return [
             'sourcePath' => '@bower/bootstrap-table/dist',
             'css' => [YII_DEBUG ? 'bootstrap-table.css' : 'bootstrap-table.min.css'],
             'js' => [YII_DEBUG ? 'bootstrap-table.js' : 'bootstrap-table.min.js'],
+            'depends' => ['Bootstrap']
+        ],
+        'BootstrapDatepicker'=> [
+            'class' => 'yii\web\AssetBundle',
+            'sourcePath' => '@bower/bootstrap-datepicker/dist',
+            'css' => [YII_DEBUG ? 'css/bootstrap-datepicker.css' : 'css/bootstrap-datepicker.min.css'],
+            'js' => [YII_DEBUG ? 'js/bootstrap-datepicker.js' : 'js/bootstrap-datepicker.min.js', 'locales/bootstrap-datepicker.zh-CN.min.js'],
             'depends' => ['Bootstrap']
         ],
 
@@ -79,6 +109,37 @@ return [
             'sourcePath' => '@bower/vue/dist',
             'js' => [YII_DEBUG ? 'vue.js' : 'vue.min.js'],
         ],
+
+
+        // 文件上传
+        'FileUpload'=> [
+            'class' => 'yii\web\AssetBundle',
+            'sourcePath' => '@bower/blueimp-file-upload',
+            'js' => [
+                'js/vendor/jquery.ui.widget.js',
+                'js/jquery.iframe-transport.js',
+                'js/jquery.fileupload.js',
+                'js/jquery.fileupload-process.js',
+                'js/jquery.fileupload-image.js',
+                'js/jquery.fileupload-audio.js',
+                'js/jquery.fileupload-video.js',
+                'js/jquery.fileupload-validate.js',
+            ],
+            'depends' => ['JQuery', 'BlueimpCanvasToBlob', 'BlueimpLoadImage']
+        ],
+        // 文件上传 - 定制
+        'FileUploadCustom'=> [
+            'class' => 'yii\web\AssetBundle',
+            'sourcePath' => '@commonStatic/lib/fileupload-custom',
+            'js' => [
+                'jquery.fileupload-custom-ui.js',
+            ],
+            'css' => [
+                'jquery.fileupload-custom-ui.css',
+            ],
+            'depends' => ['FileUpload', 'Adminlte', 'Bootstrap']
+        ],
+
         '3DLine' =>[
             'class' => 'yii\web\AssetBundle',
             'sourcePath' => '@commonStatic/lib/3d-lines',

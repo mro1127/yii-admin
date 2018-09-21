@@ -1,0 +1,193 @@
+
+/*上传插件*/
+.file-item {
+  display: inline-block;
+}
+.file-content{
+  position: relative;
+  display: block;
+  margin: 0 10px 5px 0;
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+}
+.file-content canvas, .file-content img{
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+.file-content audio {
+  margin-top: 50px;
+}
+.file-content-bar {
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  height: 25px;
+  top: -25px;
+  background-color: rgba(0,0,0, 0.5);
+  color: #FFF;
+  padding: 2px ;
+  text-align: right;
+  transition: top 0.3s;
+}
+
+.file-content:hover .file-content-bar{
+  top: 0px;
+}
+.file-content-bar span{
+  margin-right: 8px;
+  cursor:pointer;
+}
+.file-content-bar span:hover{
+  font-weight: bolder;  
+}
+
+.file-content-success {
+  display: inline-block;
+  position: absolute;
+  z-index: 2;
+  bottom: 0px;
+  right: 0px;
+  width: 0px;
+  height: 0px;
+  border-width: 15px;
+  line-height: 12px;
+  border-style: solid;
+  border-color: transparent #3c8dbc #3c8dbc transparent;
+  color: #FFF;
+}
+
+  
+.file-content-error {
+  position: absolute;
+  z-index: 2;
+  bottom: 0px;
+  width: 100%;
+  background-color: rgba(255,0,0,0.9);
+  text-align: center;
+  font-size: 12px;
+  color: #FFF;
+}
+
+.file-content-progress{
+  position: absolute;
+  width: 100%;
+  height: 10px;
+  z-index: 2;
+  bottom: 0px;
+  margin-bottom: 0px;
+  background-color: transparent;
+  border-radius:0px;
+}
+
+.file-input-button-wrap {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  margin-right: 5px;
+}
+.file-input-button-wrap input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  -ms-filter: 'alpha(opacity=0)';
+  font-size: 200px !important;
+  direction: ltr;
+  cursor: pointer;
+}
+
+/* Fixes for IE < 8 */
+@media screen\9 {
+  .file-input-button-wrap input {
+    filter: alpha(opacity=0);
+    font-size: 100%;
+    height: 100%;
+  }
+}
+
+.uploader-container .file-list{
+  min-height: 130px;
+}
+
+.file-list-fill{
+  line-height: 130px;
+  width: 100%;
+  text-align: center;
+  color: #666;
+  font-size: 20px;
+  cursor: move;
+  border: dashed 2px #ccc;
+}
+.uploader-container-single{
+  display: inline-block;
+}
+
+.uploader-container-single{
+  position: relative;
+  min-height: 120px;
+}
+
+.uploader-container-single .file-list{
+  position: absolute;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.file-input-button-single-wrap {
+  position: relative;
+  height: 120px;
+  width: 120px;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.file-input-button-single-wrap span {
+  height: 100%;
+  width: 100%;
+  line-height: 116px;
+  text-align: center;
+  color: #999;
+  font-size: 50px;
+  cursor: move;
+  border: dashed 2px #ccc;
+}
+
+
+.file-input-button-single-wrap input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  -ms-filter: 'alpha(opacity=0)';
+  font-size: 200px !important;
+  direction: ltr;
+  cursor: pointer;
+}
+
+/* Fixes for IE < 8 */
+@media screen\9 {
+  .file-input-button-single-wrap input {
+    filter: alpha(opacity=0);
+    font-size: 100%;
+    height: 100%;
+  }
+}
+div.preview {
+  text-align: center;
+  width: 120px;
+  height: 120px;
+  border: dashed 2px #ccc;
+}
+
+
+div.preview span{
+  font-size: 50px;
+  color: #666;
+  line-height: 120px;
+  font-weight: bold;
+}
