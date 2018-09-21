@@ -1,12 +1,10 @@
 <?php
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
-    require __DIR__ . '/../../common/config/params-local.php',
-    require __DIR__ . '/params.php',
-    require __DIR__ . '/params-local.php'
+    require __DIR__ . '/params.php'
 );
 
-return [
+$config = [
     'id' => 'app-backend',
     'language' => 'zh-CN',
     'basePath' => dirname(__DIR__),
@@ -23,6 +21,7 @@ return [
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
+            'cookieValidationKey' => env('BACKEND_COOKIE_VALIDATION_KEY'),
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -53,10 +52,40 @@ return [
             ],
         ],
         */
+       'fileStorage'=>[
+            'class' => 'trntv\filekit\Storage',
+            'baseUrl' => '@web/uploads',
+
+            'filesystem' => [
+                'class' => common\components\filesystem\LocalFlysystemBuilder::class,
+                'path' => '@webroot/uploads'
+            ],
+            'as log' => [
+                'class' => common\behaviors\FileStorageLogBehavior::class,
+                'component' => 'fileStorage'
+            ]
+        ],
     ],
     'params' => $params,
 
     'on beforeAction' => function ($event) {
         
     },
+
 ];
+
+if (!YII_ENV_TEST) {
+    // configuration adjustments for 'dev' environment
+    $config['bootstrap'][] = 'debug';
+    $config['modules']['debug'] = [
+        'class' => 'yii\debug\Module',
+        'allowedIPs'=> ['192.168.114.1','::1']
+    ];
+
+    $config['bootstrap'][] = 'gii';
+    $config['modules']['gii'] = [
+        'class' => 'yii\gii\Module',
+        'allowedIPs'=> ['192.168.114.1','::1']
+    ];
+}
+return $config;
