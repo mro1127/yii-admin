@@ -35,7 +35,7 @@
             // uploads, set the following option to true:
             autoUpload: false,
             paramName: 'files',
-
+            originalFile: [],
             singleFileUploads : true,   // 当前只支持每次单个文件上传，后续再支持多个
             
             elm: {},
@@ -347,6 +347,9 @@
                         .prop('href', files[0].url);
                 data.context.find('canvas.preview').wrap(link);
                 data.context.find('.file-content').append(this.options.elm.successFlag.clone(true));
+                var input = this.options.elm.input.clone(true);
+                input.attr('value', files[0].path);
+                data.context.find('.file-content').append(input);
 
             }else if(data.result.error){
                 var error = this.options.elm.errorFlag.clone(true);
@@ -371,10 +374,9 @@
         _deleteHandler: function (e) {
             e.preventDefault();
             var button = $(e.currentTarget),
-                item = button.parents('.file-item'),
-                data = item.data('data');
-            $(data.context).remove();
-
+                item = button.parents('.file-item');
+            item.remove();
+            
             if (this.options.getNumberOfFiles() < this.options.maxNumberOfFiles) 
                 this._enableFileInputButton();
         },
@@ -454,7 +456,13 @@
                 .append('<div class="progress-bar progress-bar-primary"></div>'),
             elm.successFlag = $('<div/>').addClass('file-content-success')
                 .append('<span class="fa fa-check"></span>'),
-            elm.errorFlag = $('<div/>').addClass('file-content-error').append('<span/>');
+            elm.errorFlag = $('<div/>').addClass('file-content-error').append('<span/>'),
+            elm.input = $('<input/>').attr('hidden', true);
+            if (this.options.maxNumberOfFiles == 1) {
+                elm.input.attr('name', this.options.paramName);
+            }else{
+                elm.input.attr('name', this.options.paramName + '[]');
+            }
         },
 
         _initFilesContainer: function () {
@@ -506,6 +514,35 @@
             options.fileInput = elm.fileInputButton;
         },
 
+        _initOriginalFile: function () {
+            console.log(this.options.originalFile);
+
+            var elm = this.options.elm;
+            if (this.options.originalFile.length>0 && elm.fileListFill) 
+                elm.fileListFill.remove();
+            
+            $.each(this.options.originalFile, function(index, val) {
+                var item = $('<div/>').addClass('file-item').clone(true),
+                    bar = $('<div/>').addClass('file-content-bar').append(elm.itemDeleteButton.clone(true)),
+                    node = $('<div/>').addClass('file-content').append(bar),
+                    link = $('<a>').attr('target', '_blank').prop('href', val.url),
+                    img = $('<img/>').attr('src', val.url),
+                    input = elm.input.clone(true),
+                    successFlag = elm.successFlag.clone(true);
+
+                link.append(img)
+                input.attr('value', val.path);
+                node.append(bar).append(link).append(successFlag).append(input)
+                item.append(node)
+                elm.filesContainer.append(item)
+
+            });
+
+            if (! this.options.maxNumberOfFiles > this.options.originalFile.length) {
+                this._disableFileInputButton()
+            }
+        },
+
         _initSpecialOptions: function () {
             this._super();
             var options = this.options;
@@ -516,6 +553,7 @@
             }
             this._initFilesContainer();
             this._initTemplates();
+            this._initOriginalFile();
 
         },
 
