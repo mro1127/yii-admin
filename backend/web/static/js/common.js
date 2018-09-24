@@ -239,11 +239,18 @@ function initValidate(options) {
         errorPlacement: function ( error, element ) {
             var name = $(element).attr('name');
             if (this.errorMap[name]) {
-                console.log(window.innerWidth)
                 if (window.innerWidth < 768) {
                     layer.msg(this.errorMap[name]);
                 }else if (!tip[name]) {
-                    tip[name] = layer.tips(this.errorMap[name], $(element), {tipsMore:true, time:0, tips: [2, '#DD4B39'], id:name});
+                    var type = $(element).attr('type');
+                    console.warn(type)
+                    if (type == 'checkbox' || type == 'radio') {
+                        var name = $(element).attr('name'), type = $(element).attr('type');
+                        var elm = $("input[name="+name+"][type="+type+"]:last").parents('label');
+                        tip[name] = layer.tips(this.errorMap[name], elm, {tipsMore:true, time:0, tips: [2, '#DD4B39'], id:name});
+                    }else{
+                        tip[name] = layer.tips(this.errorMap[name], $(element), {tipsMore:true, time:0, tips: [2, '#DD4B39'], id:name});
+                    }
                 }
             }
         },

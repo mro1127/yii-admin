@@ -52,25 +52,12 @@ $config = [
             ],
         ],
         */
-       'fileStorage'=>[
-            'class' => 'trntv\filekit\Storage',
-            'baseUrl' => '@web/uploads',
-
-            'filesystem' => [
-                'class' => common\components\filesystem\LocalFlysystemBuilder::class,
-                'path' => '@webroot/uploads'
-            ],
-            'as log' => [
-                'class' => common\behaviors\FileStorageLogBehavior::class,
-                'component' => 'fileStorage'
-            ]
-        ],
     ],
     'params' => $params,
 
-    'on beforeAction' => function ($event) {
+    // 'on beforeAction' => function ($event) {
         
-    },
+    // },
 
 ];
 

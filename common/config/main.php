@@ -28,6 +28,20 @@ return [
             'charset' => env('DB_CHARSET', 'utf8'),
             'enableSchemaCache' => YII_ENV_PROD,
         ],
+
+       'fileStorage'=>[
+            'class' => 'trntv\filekit\Storage',
+            'baseUrl' => '@storageUrl/source',
+
+            'filesystem' => [
+                'class' => common\components\filesystem\LocalFlysystemBuilder::class,
+                'path' => '@storage/web/source' 
+            ],
+            'as log' => [
+                'class' => common\behaviors\FileStorageLogBehavior::class,
+                'component' => 'fileStorage'
+            ]
+        ],
     ],
 
 
