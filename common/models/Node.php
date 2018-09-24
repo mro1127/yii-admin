@@ -15,9 +15,9 @@ use Yii;
  * @property string $node_system
  * @property integer $node_sort
  * @property integer $created_at
- * @property integer $created_id
+ * @property integer $created_by
  * @property integer $updated_at
- * @property integer $updated_id
+ * @property integer $updated_by
  * @property integer $status
  */
 class Node extends \yii\db\ActiveRecord
@@ -37,12 +37,23 @@ class Node extends \yii\db\ActiveRecord
     {
         return [
             [['node_name', 'node_system'], 'required'],
-            [['node_pid', 'node_level', 'node_status', 'node_sort', 'created_id', 'updated_id'], 'integer'],
+            [['node_pid', 'node_level', 'node_status', 'node_sort'], 'integer'],
             [['node_name', 'node_system'], 'string', 'max' => 50],
             [['node_path'], 'string', 'max' => 50],
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            ['class'=>\yii\behaviors\TimestampBehavior::className()],
+            ['class'=>\yii\behaviors\BlameableBehavior::className()],
+        ];
+    }
+    
     /**
      * @inheritdoc
      */
@@ -58,9 +69,10 @@ class Node extends \yii\db\ActiveRecord
             'node_system' => '节点系统',
             'node_sort' => '节点排序',
             'created_at' => 'Created At',
-            'created_id' => 'Created ID',
+            'created_by' => 'Created BY',
             'updated_at' => 'Updated At',
-            'updated_id' => 'Updated ID',
+            'updated_by' => 'Updated BY',
+            'status' => 'Status',
         ];
     }
 

@@ -77,9 +77,6 @@ class MenuForm extends Model
         $model->menu_shortcuts = $this->shortcuts;
         $model->menu_system    = $this->system;
 
-        $model->created_at  = date('Y-m-d H:i:s');
-        $model->created_id  = Yii::$app->user->id;
-        
 
         if ($model->menu_pid == 0) {
             //根菜单
@@ -129,10 +126,6 @@ class MenuForm extends Model
         $model->menu_icon      = $this->icon;
         $model->menu_shortcuts = $this->shortcuts;
         $model->menu_system    = $this->system;
-
-        $model->updated_at  = date('Y-m-d H:i:s');
-        $model->updated_id  = Yii::$app->user->id;
-
         
         if ($model->menu_pid == 0) {
             //根菜单
@@ -184,7 +177,7 @@ class MenuForm extends Model
         // 删除菜单
         $data = [
             'updated_at' => date('Y-m-d H:i:s'),
-            'updated_id' => Yii::$app->user->id,
+            'updated_by' => Yii::$app->user->id,
             'status' => 0,
         ];
         if(! $num = Menu::updateAll($data, ['menu_id'=>$menu_id]))

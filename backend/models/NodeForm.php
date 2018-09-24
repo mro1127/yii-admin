@@ -67,9 +67,6 @@ class NodeForm extends Model
         $model->node_sort   = $this->sort;
         $model->node_status = $this->status;
 
-        $model->created_at  = date('Y-m-d H:i:s');
-        $model->created_id  = Yii::$app->user->id;
-        
         if ($model->node_pid == 0) {
             //根节点
             $model->node_level = 1;
@@ -108,9 +105,6 @@ class NodeForm extends Model
         $model->node_sort   = $this->sort;
         $model->node_status = $this->status;
 
-        $model->updated_at  = date('Y-m-d H:i:s');
-        $model->updated_id  = Yii::$app->user->id;
-
         if ($model->node_pid == 0) {
             //根节点
             $model->node_level = 1;
@@ -146,8 +140,8 @@ class NodeForm extends Model
 
         // 删除节点
         $data = [
-            'updated_at' => date('Y-m-d H:i:s'),
-            'updated_id' => Yii::$app->user->id,
+            'updated_at' => time(),
+            'updated_by' => Yii::$app->user->id,
             'status' => 0,
         ];
         if(! $num = Node::updateAll($data, ['node_id'=>$node_id]))

@@ -12,9 +12,9 @@ use Yii;
  * @property int $role_sort
  * @property int $role_status
  * @property string $created_at
- * @property int $created_id
+ * @property int $created_by
  * @property string $updated_at
- * @property int $updated_id
+ * @property int $updated_by
  * @property int $status
  */
 class Role extends \yii\db\ActiveRecord
@@ -33,8 +33,7 @@ class Role extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['role_sort', 'role_status', 'created_id', 'updated_id', 'status'], 'integer'],
-            [['created_at', 'updated_at'], 'safe'],
+            [['role_sort', 'role_status', 'status'], 'integer'],
             [['role_name'], 'string', 'max' => 20],
         ];
     }
@@ -50,9 +49,9 @@ class Role extends \yii\db\ActiveRecord
             'role_sort' => 'Role Sort',
             'role_status' => 'Role Status',
             'created_at' => 'Created At',
-            'created_id' => 'Created ID',
+            'created_by' => 'Created BY',
             'updated_at' => 'Updated At',
-            'updated_id' => 'Updated ID',
+            'updated_by' => 'Updated BY',
             'status' => 'Status',
         ];
     }

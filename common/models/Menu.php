@@ -17,9 +17,10 @@ use Yii;
  * @property string $menu_system
  * @property integer $node_id
  * @property integer $created_at
- * @property integer $created_id
+ * @property integer $created_by
  * @property integer $updated_at
- * @property integer $updated_id
+ * @property integer $updated_by
+ * @property integer $status
  */
 class Menu extends \yii\db\ActiveRecord
 {
@@ -34,11 +35,22 @@ class Menu extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public function behaviors()
+    {
+        return [
+            ['class'=>\yii\behaviors\TimestampBehavior::className()],
+            ['class'=>\yii\behaviors\BlameableBehavior::className()],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
             [['menu_name'], 'required'],
-            [['menu_pid', 'menu_sort', 'menu_level', 'menu_status', 'node_id', 'created_id', 'updated_id'], 'integer'],
+            [['menu_pid', 'menu_sort', 'menu_level', 'menu_status', 'node_id'], 'integer'],
             [['menu_name', 'menu_system'], 'string', 'max' => 20],
             [['menu_icon'], 'string', 'max' => 50],
             [['menu_url'], 'string', 'max' => 255],
@@ -62,9 +74,10 @@ class Menu extends \yii\db\ActiveRecord
             'menu_system' => '所属系统',
             'node_id' => '关联节点ID',
             'created_at' => 'Created At',
-            'created_id' => 'Created ID',
+            'created_by' => 'Created BY',
             'updated_at' => 'Updated At',
-            'updated_id' => 'Updated ID',
+            'updated_by' => 'Updated BY',
+            'status' => 'Status',
         ];
     }
 
