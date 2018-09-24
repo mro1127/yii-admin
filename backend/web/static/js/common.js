@@ -241,9 +241,13 @@ function initValidate(options) {
             if (this.errorMap[name]) {
                 if (window.innerWidth < 768) {
                     layer.msg(this.errorMap[name]);
-                }else if (!tip[name]) {
+                }else if (tip[name]) {
+                    if ($('#layui-layer'+tip[name]).find('.layui-layer-content').text() != this.errorMap[name]) {
+                        layer.close(tip[name])
+                        tip[name] = layer.tips(this.errorMap[name], $(element), {tipsMore:true, time:0, tips: [2, '#DD4B39'], id:name});
+                    }
+                }else{
                     var type = $(element).attr('type');
-                    console.warn(type)
                     if (type == 'checkbox' || type == 'radio') {
                         var name = $(element).attr('name'), type = $(element).attr('type');
                         var elm = $("input[name="+name+"][type="+type+"]:last").parents('label');
