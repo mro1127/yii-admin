@@ -347,9 +347,13 @@
                         .prop('href', files[0].url);
                 data.context.find('canvas.preview').wrap(link);
                 data.context.find('.file-content').append(this.options.elm.successFlag.clone(true));
-                var input = this.options.elm.input.clone(true);
+                var input = this.options.elm.input.clone(true),
+                    input_base_url = this.options.elm.input_base_url.clone(true);
+
                 input.attr('value', files[0].path);
                 data.context.find('.file-content').append(input);
+                input_base_url.attr('value', files[0].base_url);
+                data.context.find('.file-content').append(input_base_url);
 
             }else if(data.result.error){
                 var error = this.options.elm.errorFlag.clone(true);
@@ -457,11 +461,14 @@
             elm.successFlag = $('<div/>').addClass('file-content-success')
                 .append('<span class="fa fa-check"></span>'),
             elm.errorFlag = $('<div/>').addClass('file-content-error').append('<span/>'),
-            elm.input = $('<input/>').attr('hidden', true);
+            elm.input = $('<input/>').attr('hidden', true),
+            elm.input_base_url = $('<input/>').attr('hidden', true);
             if (this.options.maxNumberOfFiles == 1) {
                 elm.input.attr('name', this.options.paramName);
+                elm.input_base_url.attr('name', this.options.paramName + '_base_url');
             }else{
                 elm.input.attr('name', this.options.paramName + '[]');
+                elm.input_base_url.attr('name', this.options.paramName + '_base_url[]');
             }
         },
 
@@ -515,24 +522,30 @@
         },
 
         _initOriginalFile: function () {
-            console.log(this.options.originalFile);
-
             var elm = this.options.elm;
             if (this.options.originalFile.length>0 && elm.fileListFill) 
                 elm.fileListFill.remove();
             
             $.each(this.options.originalFile, function(index, val) {
+                if (val.path == '') return ;
+                if (/\.(png|jpe?g|gif|svg)(\?.*)?$/.test(val.path)) {
+                    var preview = $('<img/>').addClass('preview').attr('src', val.base_url +'/'+ val.path);
+                }else{
+                    var preview = $('<div/>').addClass('preview').append('<span class="fa fa-file-o"></span>');
+                }
                 var item = $('<div/>').addClass('file-item').clone(true),
                     bar = $('<div/>').addClass('file-content-bar').append(elm.itemDeleteButton.clone(true)),
                     node = $('<div/>').addClass('file-content').append(bar),
-                    link = $('<a>').attr('target', '_blank').prop('href', val.url),
-                    img = $('<img/>').attr('src', val.url),
+                    // img = $('<img/>').attr('src', val.base_url +'/'+ val.path),
+                    link = $('<a>').attr('target', '_blank').prop('href', val.base_url +'/'+ val.path),
                     input = elm.input.clone(true),
+                    input_base_url = elm.input_base_url.clone(true),
                     successFlag = elm.successFlag.clone(true);
 
-                link.append(img)
+                link.append(preview)
                 input.attr('value', val.path);
-                node.append(bar).append(link).append(successFlag).append(input)
+                input_base_url.attr('value', val.base_url);
+                node.append(bar).append(link).append(successFlag).append(input).append(input_base_url)
                 item.append(node)
                 elm.filesContainer.append(item)
 
