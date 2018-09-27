@@ -20,7 +20,7 @@ use Yii;
 class Role extends \yii\db\ActiveRecord
 {
     /**
-     * @inheritdoc
+     * 表名
      */
     public static function tableName()
     {
@@ -28,7 +28,7 @@ class Role extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * 验证规则
      */
     public function rules()
     {
@@ -39,7 +39,17 @@ class Role extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * 行为，自动补充 created_by , created_at, updated_by , updated_at
+     */
+    public function behaviors()
+    {
+        return [
+            ['class'=>\yii\behaviors\TimestampBehavior::className()],
+            ['class'=>\yii\behaviors\BlameableBehavior::className()],
+        ];
+    }
+    /**
+     * 属性别名
      */
     public function attributeLabels()
     {
@@ -56,14 +66,15 @@ class Role extends \yii\db\ActiveRecord
         ];
     }
 
+
     /**
      * 获取角色信息，包括节点ID
      * @param  int $role_id 角色ID
      */
-    public function getRole($role_id)
+    public function getRoleInfo($role_id)
     {
         $role = $this->find()
-            ->where(['role_id' => $role_id])
+            ->where(['role_id' => $role_id, 'status' => 1])
             ->asArray()
             ->one();
 
@@ -89,5 +100,48 @@ class Role extends \yii\db\ActiveRecord
         if ($ret['total'] > 0) 
             $ret['rows'] = $query->asArray()->all();
         return $ret;
+    }
+
+
+    /**
+     * 获取全部角色
+     */
+    public static function getAllRoles($field="role_id,role_name")
+    {
+        $role = static::find()
+            ->select($field)
+            ->orderBy('role_id ASC')
+            ->where(['status' => 1])
+            ->asArray()
+            ->all();
+
+        return $role;
+    }
+
+    /**
+     * 获取用户的全部角色ID
+     */
+    public static function getUserRoles($user_id)
+    {
+        $role = RoleUser::find()->select('role_id')->where(['user_id'=>$user_id])->asArray()->all();
+        $role = array_column($role,'role_id');
+        return $role;
+    }
+
+    /**
+     * 设置用户的全部角色ID
+     */
+    public static function setUserRoles($user_id, $role_id)
+    {
+        // 删除旧授权角色
+        RoleUser::deleteAll(['user_id'=>$user_id]);
+        // 添加新授权角色
+        if (!empty($role_id)) {
+            $data = [];
+            foreach ($role_id as $k => $v) 
+                $data[] = [$user_id, $v];
+            Yii::$app->db->createCommand()->batchInsert(RoleUser::tableName(), ['user_id', 'role_id'], $data)->execute();
+        }
+        return true;
     }
 }
