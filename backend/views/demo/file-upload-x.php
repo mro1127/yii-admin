@@ -27,6 +27,18 @@ $(function () {
     $('.upload').fileupload({
         paramName : 'filesss',
         url : "<?= Url::to(['demo/upload', 'fileparam'=>'filesss']); ?>",
+
+        maxNumberOfFiles:2,
+        originalFile :[ {
+                    path: '1/xxJczBPULqzUqHZdElFHCUo1iGO8a09S.jpg',
+                    base_url: 'http://storage.yii2admin.test/source',
+                },
+                {
+                    path: '1/axzv8vVuo9v-JiFo0r_4ILNSWM9w4Pvn.xml',
+                    base_url: 'http://storage.yii2admin.test/source',
+                }
+            ]
+
     });
 
     var a = $('.upload1').fileupload({
