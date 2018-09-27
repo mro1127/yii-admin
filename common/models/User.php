@@ -3,7 +3,6 @@ namespace common\models;
 
 use Yii;
 use yii\base\NotSupportedException;
-use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 /**
@@ -22,9 +21,9 @@ use yii\web\IdentityInterface;
  * @property string $u_face
  * @property integer $u_status
  * @property string $created_at
- * @property int $created_id
+ * @property int $created_by
  * @property string $updated_at
- * @property int $updated_id
+ * @property int $updated_by
  * @property int $status
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -47,7 +46,8 @@ class User extends ActiveRecord implements IdentityInterface
     public function behaviors()
     {
         return [
-            TimestampBehavior::className(),
+            ['class'=>\yii\behaviors\TimestampBehavior::className()],
+            ['class'=>\yii\behaviors\BlameableBehavior::className()],
         ];
     }
 
@@ -89,6 +89,17 @@ class User extends ActiveRecord implements IdentityInterface
         return static::findOne(['u_username' => $username, 'u_status' => self::STATUS_ACTIVE]);
     }
 
+    /**
+     * 检查账号唯一性
+     * @Author   Armo
+     * @DateTime 2018-09-24
+     * @param    string     $username 账号
+     * @return   boolean              true/false
+     */
+    public static function checkUsernameUnique($username)
+    {
+        return empty(static::findOne(['u_username' => $username, 'status' =>1]));
+    }
     /**
      * Finds user by password reset token
      *

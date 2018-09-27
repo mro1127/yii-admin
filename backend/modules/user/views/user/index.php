@@ -90,14 +90,11 @@ $this->title = '用户列表';
     }
 
     var editUrl = "<?= Url::to(['user/edit', 'id'=>'DATA_ID']); ?>";
-    var addUrl = "<?= Url::to(['user/allot', 'id'=>'DATA_ID']); ?>";
     var delUrl = "<?= Url::to(['user/delete', 'id'=>'DATA_ID']); ?>";
     function getBtn(value, row, index) {
         var url1 = editUrl.replace(/DATA_ID/, value);
-        var url2 = addUrl.replace(/DATA_ID/, value);
         var url3 = delUrl.replace(/DATA_ID/, value);
-        var html = '<a class="btn btn-primary btn-flat btn-xs open-window" title="编辑用户 - '+row.name+'" link="'+url1+'" width="400px" height="500px">编辑</a> ';
-        html += '<a class="btn btn-info btn-flat btn-xs" href="'+url2+'">用户授权</a> ';
+        var html = '<a class="btn btn-primary btn-flat btn-xs" title="编辑用户 - '+row.name+'" href="'+url1+'">编辑</a> ';
         html += '<a class="btn btn-danger btn-flat btn-xs open-confirm" title="删除用户" msg="确认删除用户【'+row.name+'】？" link="'+url3+'" callback="cbRefreshTable">删除</a>';
         return html;
     }

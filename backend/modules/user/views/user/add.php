@@ -2,6 +2,9 @@
 use yii\helpers\Url;
 
 $this->registerAssetBundle('iCheck');
+$this->registerAssetBundle('BootstrapDatepicker');
+$this->registerAssetBundle('InputMask');
+$this->registerAssetBundle('FileUploadCustom');
 
 $this->title = Yii::$app->controller->action->id == 'add'? '添加用户':'编辑用户';
  ?>
@@ -19,33 +22,77 @@ $this->title = Yii::$app->controller->action->id == 'add'? '添加用户':'编�
     <form class="form-horizontal" method="post" action="<?= Url::to(); ?>">
         <div class="form-body">
             <div class="form-group">
-                <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-red"></i> 名称 </label>
+                <label class="col-sm-2 control-label">头像</label>
                 <div class="col-sm-6">
-                    <input type="text" name="name" value="<?= $info->menu_name ?>" class="form-control" placeholder="请输入菜单名称">
+                    <div class="face"></div>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label">链接</label>
+                <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-red"></i> 账号</label>
                 <div class="col-sm-6">
-                    <input type="text" name="url" value="<?= $info->menu_url ?>" class="form-control" placeholder="请输入菜单路径，小写">
+                    <?php if (Yii::$app->controller->action->id == 'add') { ?>
+                        <input type="text" name="username" value="<?= $info->u_username ?>" class="form-control" placeholder="请输入用户账号">
+                    <?php }else { ?>
+                        <span class="control-span"><?= $info->u_username ?></span>
+                    <?php } ?>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label">排序</label>
+                <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-red"></i>姓名</label>
                 <div class="col-sm-6">
-                    <input type="number" name="sort" value="<?= $info->menu_sort?>" class="form-control" placeholder="请输入菜单排序，越小越靠前">
+                    <input type="text" name="name" value="<?= $info->u_name ?>" class="form-control" placeholder="请输入用户姓名">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-red"></i>邮箱</label>
+                <div class="col-sm-6">
+                    <input type="text" name="email" value="<?= $info->u_email?>" class="form-control" placeholder="请输入用户邮箱">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">密码</label>
+                <div class="col-sm-6">
+                    <input type="password" name="password" class="form-control password" placeholder="请输入用户密码">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">确认密码</label>
+                <div class="col-sm-6">
+                    <input type="password" name="confirm_password" class="form-control" placeholder="请确认用户密码">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-sm-2 control-label">联系电话</label>
+                <div class="col-sm-6">
+                    <input type="text" name="tel" value="<?= $info->u_tel?>" class="form-control" placeholder="请输入用户联系电话">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-red"></i>性别</label>
+                <div class="col-sm-6">
+                     <?=yii\helpers\Html::radioList('sex',isset($info->u_sex)? $info->u_sex:NULL,['男'=>'男','女'=>'女'],['class'=>'icheck-minimal-c mr-t-6']);?>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">生日</label>
+                <div class="col-sm-6">
+                    <input type="text" name="birthday" value="<?= $info->u_birthday?>" class="form-control" id="birthday">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">状态</label>
                 <div class="col-sm-6">
-                     <?=yii\helpers\Html::radioList('status',isset($info->menu_status)? $info->menu_status:1,['1'=>'正常','0'=>'禁用'],['class'=>'icheck-minimal-c mr-t-6']);?>
+                     <?=yii\helpers\Html::radioList('status',isset($info->u_status)? $info->u_status:1,['1'=>'正常','0'=>'禁用'],['class'=>'icheck-minimal-c mr-t-6']);?>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label">快捷操作</label>
+                <label class="col-sm-2 control-label">角色</label>
                 <div class="col-sm-6">
-                     <?=yii\helpers\Html::radioList('shortcuts',isset($info->menu_shortcuts)? $info->menu_shortcuts:0,['1'=>'是','0'=>'否'],['class'=>'icheck-minimal-c mr-t-6']);?>
+                     <?=yii\helpers\Html::checkboxList('role',$user_role,$all_role,['class'=>'icheck-minimal-c mr-t-6']);?>
                 </div>
             </div>
         </div>
@@ -57,33 +104,96 @@ $this->title = Yii::$app->controller->action->id == 'add'? '添加用户':'编�
 </section>
 <!-- /.content -->
 
-<?php \Yii::$app->view->on($this::EVENT_END_PAGE, function () { ?>
+<?php \Yii::$app->view->on($this::EVENT_END_PAGE, function ($event) { ?>
 <script type="text/javascript">
 $(function() {
-    initValidate({
+
+    $('#birthday').datepicker({
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        autoclose: true
+    })
+    $('#birthday').inputmask('yyyy-mm-dd')
+
+    var uploadOptions = {
+        maxNumberOfFiles: 1,
+        paramName: 'face',
+        url: "<?= Url::to(['user/face-upload', 'fileparam'=>'face']); ?>",
+    };
+
+    <?php if(!empty($event->data['u_username'])){ ?>
+        uploadOptions.originalFile = [{
+            path: '<?= $event->data['u_face'] ?>',
+            base_url: '<?= $event->data['u_face_base_url'] ?>',    
+        }]
+
+
+    <?php } ?>
+
+    // <?php ?>
+
+    $('.face').fileupload(uploadOptions);
+    var validate = {
         rules: {
             name: {
                 required: true,
                 maxlength: 20,
             },
-            path: {
-                maxlength: 255,
+            email: {
+                required: true,
+                email: true
             },
+            sex: "required",
+
+            
+            confirm_password: {
+                equalTo: ".password"
+            },
+
         },
         messages: {
             name: {
-                required: "请输入菜单名称",
-                maxlength: "菜单名称不能超过20个字符",
+                required: "请输入用户名称",
+                maxlength: "用户名称不能超过20个字符",
             },
-            path: {
-                maxlength: "菜单路径不能超过255个字符",
+            email: {
+                required: "请输入邮箱",
+                email: "邮箱格式不正确",
+            },
+            sex: "请选择性别",
+
+            confirm_password: {
+                equalTo: "两次密码不一致"
             },
         },
-    });
+    };
 
+    <?php if (Yii::$app->controller->action->id == 'add') { ?>
+    validate.rules.username = {
+        required: true,
+        remote: '<?= Url::to(['user/check-username']); ?>'
+    };
+    validate.messages.username = {
+        required: "请输入用户账号",
+        remote: "该账号已经存在",
+    };
+
+
+    validate.rules.password = {
+        required: true,
+        minlength: 6
+    };
+    validate.messages.password = {
+        required: "请输入用户密码",
+        minlength: "用户密码最少6位",
+    };
+    validate.rules.confirm_password.required = true;
+    validate.messages.confirm_password.required = "请确认用户密码";
+    <?php } ?>
+    initValidate(validate);
 
 })
 
 
 </script>
-<?php }); ?>
+<?php }, $info); ?>
