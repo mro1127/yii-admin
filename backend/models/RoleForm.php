@@ -27,6 +27,24 @@ class RoleForm extends Model
         ];
     }
 
+    // public function scenarios()
+    // {
+    //     $base = ['name','sort','status'];
+    //     return [
+    //         'add' => $base,
+    //         'edit' => $base,
+    //     ];
+    // }
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        Yii::trace($scenarios); 
+        $base = ['name','sort','status'];
+        $scenarios['add'] = $base;
+        $scenarios['edit'] = $base;
+        return $scenarios;
+    }
+
     public function attributeLabels()
     {
         return [
@@ -51,7 +69,7 @@ class RoleForm extends Model
      * 添加角色
      * @param  array $data 前端表单
      */
-    public function add()
+    public function save()
     {
         if (!$this->validate()) 
             return ['status'=>0, 'info'=>errorsToStr($this->getErrors())];
@@ -62,34 +80,12 @@ class RoleForm extends Model
         $model->role_sort   = $this->sort;
         $model->role_status = $this->status;
 
-        $model->created_at  = date('Y-m-d H:i:s');
-        $model->created_id  = Yii::$app->user->id;
-        
         if(!$model->save())
             return ['status'=>0, 'info'=>errorsToStr($model->getErrors())];
         
-        return ['status'=>1, 'info'=>'添加成功！'];
+        return ['status'=>1, 'info'=>'提交成功！'];
     }
 
-    public function edit()
-    {
-        if (!$this->validate()) 
-            return ['status'=>0, 'info'=>errorsToStr($this->getErrors())];
-
-        $model = $this->getModel();
-
-        $model->role_name   = $this->name;
-        $model->role_sort   = $this->sort;
-        $model->role_status = $this->status;
-
-        $model->updated_at  = date('Y-m-d H:i:s');
-        $model->updated_id  = Yii::$app->user->id;
-
-        if(!$model->save())
-            return ['status'=>0, 'info'=>errorsToStr($model->getErrors())];
-        
-        return ['status'=>1, 'info'=>'编辑成功！'];
-    }
 
     public function delete($role_id)
     {
@@ -98,7 +94,7 @@ class RoleForm extends Model
         // 删除角色
         $data = [
             'updated_at' => date('Y-m-d H:i:s'),
-            'updated_id' => Yii::$app->user->id,
+            'updated_by' => Yii::$app->user->id,
             'status' => 0,
         ];
         if(! $num = Role::updateAll($data, ['role_id'=>$role_id]))

@@ -22,15 +22,16 @@ class RoleController extends \yii\web\Controller
         return $this->asJson($ret);
     }
 
-    public function actionAdd($pid=NULL)
+    public function actionAdd()
     {
         $request = Yii::$app->request;
         if ($request->isPost) {
             $model = new RoleForm();
             if (!$model->load($request->post(), '')) 
                 return $this->asJson(['status' => 0, 'info' => errorsToStr($model->getErrors())]);
-    
-            $ret = $model->add();
+
+            $model->scenario = Yii::$app->controller->action->id;   // 设置场景
+            $ret = $model->save();
             if ($ret['status'])
                 $ret['url'] = Url::to(['role/index']);
             return $this->asJson($ret);
@@ -54,7 +55,8 @@ class RoleController extends \yii\web\Controller
             if (!$model->load($request->post(), '')) 
                 return $this->asJson(['status' => 0, 'info' => errorsToStr($model->getErrors())]);
 
-            $ret = $model->edit();
+            $model->scenario = Yii::$app->controller->action->id;   // 设置场景
+            $ret = $model->save();
             if ($ret['status'])
                 $ret['url'] = Url::to(['role/index']);
             return $this->asJson($ret);
@@ -89,7 +91,7 @@ class RoleController extends \yii\web\Controller
                 $ret['url'] = Url::to(['role/index']);
             return $this->asJson($ret);
         }else{
-            $role = (new Role())->getRole($id);
+            $role = (new Role())->getRoleInfo($id);
             $node = (new Node())->getNode();
             return $this->render('allot',['role'=>$role, 'node'=>$node]);
         }
