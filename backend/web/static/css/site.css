@@ -15,6 +15,14 @@ html,body{height: 100%}
 	width: 318px;
 }
 
+.sidebar-menu{
+  white-space: nowrap;
+  cursor:pointer;
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
+}
 
 /*登录页面的动画*/
 .canvas-wrap #canvas{
@@ -85,13 +93,17 @@ html,body{height: 100%}
 .sly-tab > .nav-tabs-custom > .nav-tabs > li > a {
   white-space: nowrap;
   padding: 10px;
+  cursor:pointer;
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
 }
 .sly-tab > .nav-tabs-custom > .nav-tabs > li > a > span > .tab-icon {
   margin-right: 2px;
   color: #999;
 }
 .sly-tab > .nav-tabs-custom > .nav-tabs > li.active > a > span > .tab-icon {
-  margin-right: 2px;
   color: #666;
 }
 

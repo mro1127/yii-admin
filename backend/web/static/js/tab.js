@@ -21,8 +21,8 @@ function initTab() {
         horizontal: 1,
         itemNav: 'basic',
         speed: 50,
-        mouseDragging: 1,
-        touchDragging: 1,
+        // mouseDragging: 1,
+        // touchDragging: 1,
         smart: 1,
         elasticBounds   : true,
         prevPage: $('.backward'),
@@ -35,7 +35,6 @@ function initTab() {
         slyTab.reload();
         resetSlyW();
     });
-
 
     //sly会用round取一个接近的width，但是小于0.5px的宽度被舍弃之后，会出现ul宽度小于全部li总和，导致最后一个li不显示
     function resetSlyW() {
@@ -81,9 +80,6 @@ function initTab() {
             var iframe = $('<iframe></iframe>')
             $(iframe).attr({ src: url, link: url, index: index, id: 'iframe_'+index });
             $('.content-iframe').append($(iframe));
-            $(iframe).onload = function(){
-                console.log(111)
-            }
             this.change(index);
             this.loading(index);
 
@@ -159,6 +155,7 @@ function initTab() {
             icon.attr('unloading-class', icon_class).attr('class', 'tab-icon fa fa-spinner  fa-spin');
             $('.content-iframe').find("iframe[index="+index+"]").one("load",function(){
                 icon.attr('class', icon_class);
+                resetSlyW();
             });
         },
 
@@ -238,7 +235,7 @@ function initTab() {
         });
     })
 
-    // 信息
+    // 新增窗口
     $('.tab-new').click(function() {
         layer.prompt({title: '请输入打开的页面链接', formType: 2}, function(url, index){
             $.TAB.add(url, '新增页面', 'fa fa-plus', 0);
