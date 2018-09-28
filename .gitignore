@@ -37,6 +37,6 @@ phpunit.phar
 # laradock nignx log
 /log
 
-
+/.env
 # composer lock
 /composer.lock
