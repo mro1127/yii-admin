@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL^E_NOTICE);
+
 require __DIR__ . '/../../vendor/autoload.php';
 
 // Environment
@@ -12,4 +14,5 @@ $config = yii\helpers\ArrayHelper::merge(
     require __DIR__ . '/../../common/config/main.php',
     require __DIR__ . '/../config/main.php'
 );
+
 (new yii\web\Application($config))->run();
