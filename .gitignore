@@ -34,9 +34,6 @@ phpunit.phar
 # vagrant runtime
 /.vagrant
 
-# laradock nignx log
-/log
-
 /.env
 # composer lock
 /composer.lock
