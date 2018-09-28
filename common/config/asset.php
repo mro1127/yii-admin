@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'linkAssets' => true,
+    'linkAssets' => env('LINK_ASSETS'),
     'bundles' => [
 
         'Adminlte' => [
