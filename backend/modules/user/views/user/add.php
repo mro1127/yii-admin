@@ -31,22 +31,22 @@ $this->title = Yii::$app->controller->action->id == 'add'? '添加用户':'编�
                 <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-red"></i> 账号</label>
                 <div class="col-sm-6">
                     <?php if (Yii::$app->controller->action->id == 'add') { ?>
-                        <input type="text" name="username" value="<?= $info->u_username ?>" class="form-control" placeholder="请输入用户账号">
+                        <input type="text" name="username" value="<?= $info->username ?>" class="form-control" placeholder="请输入用户账号">
                     <?php }else { ?>
-                        <span class="control-span"><?= $info->u_username ?></span>
+                        <span class="control-span"><?= $info->username ?></span>
                     <?php } ?>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-red"></i>姓名</label>
                 <div class="col-sm-6">
-                    <input type="text" name="name" value="<?= $info->u_name ?>" class="form-control" placeholder="请输入用户姓名">
+                    <input type="text" name="name" value="<?= $info->name ?>" class="form-control" placeholder="请输入用户姓名">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-red"></i>邮箱</label>
                 <div class="col-sm-6">
-                    <input type="text" name="email" value="<?= $info->u_email?>" class="form-control" placeholder="请输入用户邮箱">
+                    <input type="text" name="email" value="<?= $info->email?>" class="form-control" placeholder="请输入用户邮箱">
                 </div>
             </div>
             <div class="form-group">
@@ -65,14 +65,14 @@ $this->title = Yii::$app->controller->action->id == 'add'? '添加用户':'编�
             <div class="form-group">
                 <label class="col-sm-2 control-label">联系电话</label>
                 <div class="col-sm-6">
-                    <input type="text" name="tel" value="<?= $info->u_tel?>" class="form-control" placeholder="请输入用户联系电话">
+                    <input type="text" name="tel" value="<?= $info->tel?>" class="form-control" placeholder="请输入用户联系电话">
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-red"></i>性别</label>
                 <div class="col-sm-6">
-                     <?=yii\helpers\Html::radioList('sex',isset($info->u_sex)? $info->u_sex:NULL,['男'=>'男','女'=>'女'],['class'=>'icheck-minimal-c mr-t-6']);?>
+                     <?=yii\helpers\Html::radioList('sex',isset($info->sex)? $info->sex:NULL,['男'=>'男','女'=>'女'],['class'=>'icheck-minimal-c mr-t-6']);?>
                 </div>
             </div>
 
@@ -80,13 +80,13 @@ $this->title = Yii::$app->controller->action->id == 'add'? '添加用户':'编�
             <div class="form-group">
                 <label class="col-sm-2 control-label">生日</label>
                 <div class="col-sm-6">
-                    <input type="text" name="birthday" value="<?= $info->u_birthday?>" class="form-control" id="birthday">
+                    <input type="text" name="birthday" value="<?= $info->birthday?>" class="form-control" id="birthday">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">状态</label>
                 <div class="col-sm-6">
-                     <?=yii\helpers\Html::radioList('status',isset($info->u_status)? $info->u_status:1,['1'=>'正常','0'=>'禁用'],['class'=>'icheck-minimal-c mr-t-6']);?>
+                     <?=yii\helpers\Html::radioList('user_status',isset($info->user_status)? $info->user_status:1,['1'=>'正常','0'=>'禁用'],['class'=>'icheck-minimal-c mr-t-6']);?>
                 </div>
             </div>
             <div class="form-group">
@@ -121,10 +121,10 @@ $(function() {
         url: "<?= Url::to(['user/face-upload', 'fileparam'=>'face']); ?>",
     };
 
-    <?php if(!empty($event->data['u_username'])){ ?>
+    <?php if(!empty($event->data['username'])){ ?>
         uploadOptions.originalFile = [{
-            path: '<?= $event->data['u_face'] ?>',
-            base_url: '<?= $event->data['u_face_base_url'] ?>',    
+            path: '<?= $event->data['face'] ?>',
+            base_url: '<?= $event->data['face_base_url'] ?>',    
         }]
 
 

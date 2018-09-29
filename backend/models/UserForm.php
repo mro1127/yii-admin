@@ -16,7 +16,7 @@ use yii\helpers\ArrayHelper;
  * @property string $sex
  * @property string $birthday
  * @property string $face
- * @property string $status
+ * @property string $user_status
  */
 
 class UserForm extends Model
@@ -31,7 +31,7 @@ class UserForm extends Model
     public $birthday;
     public $face;
     public $face_base_url;
-    public $status;
+    public $user_status;
     public $role;
 
     private $model;
@@ -39,9 +39,9 @@ class UserForm extends Model
     public function rules()
     {
         return [
-            [['name', 'email', 'sex', 'status'], 'required'],
+            [['name', 'email', 'sex', 'user_status'], 'required'],
             ['name', 'string', 'max' => 20],
-            ['status', 'in', 'range' => [0, 1]],
+            ['user_status', 'in', 'range' => [0, 1]],
             ['sex', 'in', 'range' => ['男', '女']],
             ['password', 'string', 'min' => 6],
 
@@ -53,7 +53,7 @@ class UserForm extends Model
 
     public function scenarios()
     {
-        $base = ['name','email','password','tel','sex','birthday','face','face_base_url','status','role'];
+        $base = ['name','email','password','tel','sex','birthday','face','face_base_url','user_status','role'];
         return [
             'add' => \yii\helpers\ArrayHelper::merge($base, ['username']),
             'edit' => $base,
@@ -72,7 +72,7 @@ class UserForm extends Model
             'birthday' => '生日',
             'face' => '头像',
             'face_base_url' => '头像基础路劲',
-            'status' => '状态',   
+            'user_status' => '状态',   
         ];
     }
     public function getModel()
@@ -104,7 +104,7 @@ class UserForm extends Model
         $model->birthday = $this->birthday;
         $model->face = $this->face;
         $model->face_base_url = $this->face_base_url;
-        $model->status = $this->status;   
+        $model->user_status = $this->user_status;   
 
         if ($model->getIsNewRecord()) {
             $model->generateAuthKey();

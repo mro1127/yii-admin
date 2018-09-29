@@ -19,7 +19,7 @@ use yii\web\IdentityInterface;
  * @property string $birthday
  * @property string $name
  * @property string $face
- * @property integer $status
+ * @property integer $user_status
  * @property string $created_at
  * @property int $created_by
  * @property string $updated_at
@@ -57,8 +57,8 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DISABLED]],
+            ['user_status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['user_status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DISABLED]],
         ];
     }
 
@@ -67,7 +67,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentity($id)
     {
-        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['id' => $id, 'user_status' => self::STATUS_ACTIVE]);
     }
 
     /**
@@ -86,7 +86,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByUsername($username)
     {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['username' => $username, 'user_status' => self::STATUS_ACTIVE]);
     }
 
     /**
@@ -114,7 +114,7 @@ class User extends ActiveRecord implements IdentityInterface
 
         return static::findOne([
             'password_reset_token' => $token,
-            'status' => self::STATUS_ACTIVE,
+            'user_status' => self::STATUS_ACTIVE,
         ]);
     }
 
@@ -208,12 +208,12 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $offset = empty($param['offset'])? 0:$param['offset'];
         $limit = empty($param['limit'])? 20:$param['limit'];
-        empty($field) && $field = 'id AS id, username AS username, email AS email, tel AS tel, sex AS sex, birthday AS birthday, name AS name, face AS face, status AS status';
+        empty($field) && $field = 'id AS id, username AS username, email AS email, tel AS tel, sex AS sex, birthday AS birthday, name AS name, face AS face, user_status AS status';
 
         $query = static::find()->select($field)->orderBy('id DESC')->offset($offset)->limit($limit);
         $query->andFilterWhere([
             'status' => 1,
-            'status' => $param['status'],
+            'user_status' => $param['status'],
             'sex' => $param['sex'],
         ]);
         $query->andFilterWhere(['like', 'name', $param['name']]);
