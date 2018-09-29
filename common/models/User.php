@@ -8,18 +8,18 @@ use yii\web\IdentityInterface;
 /**
  * User model
  *
- * @property integer $u_id
- * @property string $u_username
- * @property string $u_auth_key
- * @property string $u_password_hash
- * @property string $u_password_reset_token
- * @property string $u_email
- * @property string $u_tel
- * @property string $u_sex
- * @property string $u_birthday
- * @property string $u_name
- * @property string $u_face
- * @property integer $u_status
+ * @property integer $id
+ * @property string $username
+ * @property string $auth_key
+ * @property string $password_hash
+ * @property string $password_reset_token
+ * @property string $email
+ * @property string $tel
+ * @property string $sex
+ * @property string $birthday
+ * @property string $name
+ * @property string $face
+ * @property integer $status
  * @property string $created_at
  * @property int $created_by
  * @property string $updated_at
@@ -57,8 +57,8 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['u_status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['u_status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DISABLED]],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DISABLED]],
         ];
     }
 
@@ -67,7 +67,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentity($id)
     {
-        return static::findOne(['u_id' => $id, 'u_status' => self::STATUS_ACTIVE]);
+        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**
@@ -86,7 +86,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByUsername($username)
     {
-        return static::findOne(['u_username' => $username, 'u_status' => self::STATUS_ACTIVE]);
+        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**
@@ -98,7 +98,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function checkUsernameUnique($username)
     {
-        return empty(static::findOne(['u_username' => $username, 'status' =>1]));
+        return empty(static::findOne(['username' => $username, 'status' =>1]));
     }
     /**
      * Finds user by password reset token
@@ -113,8 +113,8 @@ class User extends ActiveRecord implements IdentityInterface
         }
 
         return static::findOne([
-            'u_password_reset_token' => $token,
-            'u_status' => self::STATUS_ACTIVE,
+            'password_reset_token' => $token,
+            'status' => self::STATUS_ACTIVE,
         ]);
     }
 
@@ -148,7 +148,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getAuthKey()
     {
-        return $this->u_auth_key;
+        return $this->auth_key;
     }
 
     /**
@@ -156,7 +156,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function validateAuthKey($authKey)
     {
-        return $this->getAuthKey() === $u_auth_key;
+        return $this->getAuthKey() === $auth_key;
     }
 
     /**
@@ -167,7 +167,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function validatePassword($password)
     {
-        return Yii::$app->security->validatePassword($password, $this->u_password_hash);
+        return Yii::$app->security->validatePassword($password, $this->password_hash);
     }
 
     /**
@@ -177,7 +177,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function setPassword($password)
     {
-        $this->u_password_hash = Yii::$app->security->generatePasswordHash($password);
+        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
     }
 
     /**
@@ -185,7 +185,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function generateAuthKey()
     {
-        $this->u_auth_key = Yii::$app->security->generateRandomString();
+        $this->auth_key = Yii::$app->security->generateRandomString();
     }
 
     /**
@@ -193,7 +193,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function generatePasswordResetToken()
     {
-        $this->u_password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
+        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
     }
 
     /**
@@ -201,24 +201,24 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function removePasswordResetToken()
     {
-        $this->u_password_reset_token = null;
+        $this->password_reset_token = null;
     }
 
     public function getList($param=[], $field=NULL)
     {
         $offset = empty($param['offset'])? 0:$param['offset'];
         $limit = empty($param['limit'])? 20:$param['limit'];
-        empty($field) && $field = 'u_id AS id, u_username AS username, u_email AS email, u_tel AS tel, u_sex AS sex, u_birthday AS birthday, u_name AS name, u_face AS face, u_status AS status';
+        empty($field) && $field = 'id AS id, username AS username, email AS email, tel AS tel, sex AS sex, birthday AS birthday, name AS name, face AS face, status AS status';
 
-        $query = static::find()->select($field)->orderBy('u_id DESC')->offset($offset)->limit($limit);
+        $query = static::find()->select($field)->orderBy('id DESC')->offset($offset)->limit($limit);
         $query->andFilterWhere([
             'status' => 1,
-            'u_status' => $param['status'],
-            'u_sex' => $param['sex'],
+            'status' => $param['status'],
+            'sex' => $param['sex'],
         ]);
-        $query->andFilterWhere(['like', 'u_name', $param['name']]);
-        $query->andFilterWhere(['like', 'u_username', $param['username']]);
-        $query->andFilterWhere(['like', 'u_tel', $param['tel']]);
+        $query->andFilterWhere(['like', 'name', $param['name']]);
+        $query->andFilterWhere(['like', 'username', $param['username']]);
+        $query->andFilterWhere(['like', 'tel', $param['tel']]);
 
         $ret['total'] = $query->count();
         if ($ret['total'] > 0) 

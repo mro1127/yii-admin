@@ -30,15 +30,15 @@ $this->title = '后台管理';
                 <ul class="nav navbar-nav">
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="<?= Yii::$app->user->identity->u_face_base_url .'/'. Yii::$app->user->identity->u_face ?>" class="user-image" alt="image">
-                            <span class="hidden-xs"><?= Yii::$app->user->identity->u_name ?></span>
+                            <img src="<?= Yii::$app->user->identity->face_base_url .'/'. Yii::$app->user->identity->face ?>" class="user-image" alt="image">
+                            <span class="hidden-xs"><?= Yii::$app->user->identity->name ?></span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- image -->
                             <li class="user-header">
-                                <img src="<?= Yii::$app->user->identity->u_face_base_url .'/'. Yii::$app->user->identity->u_face ?>" class="img-circle" alt="image">
-                                <p><?= Yii::$app->user->identity->u_name ?> </p>
-                                <p><?= Yii::$app->user->identity->u_username ?> </p>
+                                <img src="<?= Yii::$app->user->identity->face_base_url .'/'. Yii::$app->user->identity->face ?>" class="img-circle" alt="image">
+                                <p><?= Yii::$app->user->identity->name ?> </p>
+                                <p><?= Yii::$app->user->identity->username ?> </p>
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">

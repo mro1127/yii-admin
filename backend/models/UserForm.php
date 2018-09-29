@@ -97,18 +97,18 @@ class UserForm extends Model
             return ['status'=>0, 'info'=>errorsToStr($this->getErrors())];
         $model = $this->getModel();
 
-        $model->u_name = $this->name;
-        $model->u_email = $this->email;
-        $model->u_tel = $this->tel;
-        $model->u_sex = $this->sex;
-        $model->u_birthday = $this->birthday;
-        $model->u_face = $this->face;
-        $model->u_face_base_url = $this->face_base_url;
-        $model->u_status = $this->status;   
+        $model->name = $this->name;
+        $model->email = $this->email;
+        $model->tel = $this->tel;
+        $model->sex = $this->sex;
+        $model->birthday = $this->birthday;
+        $model->face = $this->face;
+        $model->face_base_url = $this->face_base_url;
+        $model->status = $this->status;   
 
         if ($model->getIsNewRecord()) {
             $model->generateAuthKey();
-            $model->u_username = $this->username;
+            $model->username = $this->username;
         }
         if ($this->password) {
             $model->setPassword($this->password);
@@ -117,13 +117,13 @@ class UserForm extends Model
         if(!$model->save())
             return ['status'=>0, 'info'=>errorsToStr($model->getErrors())];
         
-        Role::setUserRoles($model->u_id, $this->role);
+        Role::setUserRoles($model->id, $this->role);
 
         return ['status'=>1, 'info'=>'提交成功！'];
     }
 
 
-    public function delete($u_id)
+    public function delete($id)
     {
         // 删除
         $data = [
@@ -131,7 +131,7 @@ class UserForm extends Model
             'updated_by' => Yii::$app->user->id,
             'status' => 0,
         ];
-        if(! $num = User::updateAll($data, ['u_id'=>$u_id]))
+        if(! $num = User::updateAll($data, ['id'=>$id]))
             return ['status'=>0, 'info'=>'删除失败，请刷新页面重试！'];
         return ['status'=>1, 'info'=>'删除成功！共删除'.$num.'个用户。'];
     }
