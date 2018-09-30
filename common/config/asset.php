@@ -28,7 +28,11 @@ return [
         'JQueryValidation'=> [
             'class' => 'yii\web\AssetBundle',
             'sourcePath' => '@bower/jquery-validation/dist',
-            'js' => [YII_DEBUG ? 'jquery.validate.js' : 'jquery.validate.min.js'],
+            'js' => [
+                YII_DEBUG ? 'jquery.validate.js' : 'jquery.validate.min.js',
+                YII_DEBUG ? 'localization/messages_zh.js' : 'localization/messages_zh.min.js'
+
+            ],
             'depends' => ['JQuery']
         ],
         'JQuerySlimscroll'=> [
