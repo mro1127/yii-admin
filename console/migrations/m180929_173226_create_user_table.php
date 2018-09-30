@@ -32,7 +32,7 @@ class m180929_173226_create_user_table extends Migration
             'updated_at'           => $this->integer(11)->comment('更新时间'),
             'updated_by'           => $this->integer(11)->comment('更新操作人'),
         ]);
-
+        $this->addCommentOnTable('user', '用户表');
 
         $this->insert('user', [
             'id'                   => 1,

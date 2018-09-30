@@ -23,6 +23,7 @@ class m180930_040350_create_file_storage_item_table extends Migration
             'upload_ip'  => $this->string(20)->comment('上传IP'),
             'created_at' => $this->integer(11)->comment('添加时间')->notNull(),
         ]);
+        $this->addCommentOnTable('file_storage_item', '上传附件表');
     }
 
     /**

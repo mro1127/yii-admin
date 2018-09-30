@@ -68,6 +68,11 @@ class m180930_031147_create_rbac_table extends Migration
             'role_id' => $this->integer(11)->comment('角色ID'),
             'user_id' => $this->integer(11)->comment('用户ID'),
         ]);
+        $this->addCommentOnTable('menu', '菜单表');
+        $this->addCommentOnTable('node', '节点表');
+        $this->addCommentOnTable('role', '角色表');
+        $this->addCommentOnTable('role_node', '角色-节点关联表');
+        $this->addCommentOnTable('role_user', '角色-用户关联表');
 
         $this->batchInsert('menu',
             ['menu_id','menu_pid','menu_name','menu_icon','menu_sort','menu_url','menu_level','menu_status','menu_system','menu_shortcuts'],
