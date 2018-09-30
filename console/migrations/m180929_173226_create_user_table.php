@@ -12,7 +12,7 @@ class m180929_173226_create_user_table extends Migration
      */
     public function safeUp()
     {
-        $this->createTable('user1', [
+        $this->createTable('user', [
             'id'                   => $this->primaryKey(),
             'username'             => $this->string(50)->notNull()->comment('账号'),
             'auth_key'             => $this->string(32)->notNull(),
@@ -34,7 +34,7 @@ class m180929_173226_create_user_table extends Migration
         ]);
 
 
-        $this->insert('user1', [
+        $this->insert('user', [
             'id'                   => 1,
             'username'             => 'admin',
             'auth_key'             => 'DQO5RgixU6dFkkHim7JJ4SPqvrSheXnF',
@@ -53,6 +53,6 @@ class m180929_173226_create_user_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('user1');
+        $this->dropTable('user');
     }
 }
