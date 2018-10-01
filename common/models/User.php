@@ -208,7 +208,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $offset = empty($param['offset'])? 0:$param['offset'];
         $limit = empty($param['limit'])? 20:$param['limit'];
-        empty($field) && $field = 'id AS id, username AS username, email AS email, tel AS tel, sex AS sex, birthday AS birthday, name AS name, face AS face, user_status AS status';
+        empty($field) && $field = 'id, username, email, tel, sex, birthday, name, face, user_status AS status';
 
         $query = static::find()->select($field)->orderBy('id DESC')->offset($offset)->limit($limit);
         $query->andFilterWhere([

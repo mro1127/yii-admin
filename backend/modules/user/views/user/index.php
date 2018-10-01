@@ -64,7 +64,7 @@ $this->title = '用户列表';
                     <th data-field="tel">联系电话</th>
                     <th data-align="center" data-field="sex">性别</th>
                     <th data-align="center" data-field="birthday">生日</th>
-                    <th data-align="center" data-field="status" data-formatter="int2status">状态</th>
+                    <th data-align="center" data-field="user_status" data-formatter="int2status">状态</th>
                     <th data-align="center" data-field="id" data-formatter="getBtn">操作</th>
                 </tr>
                 </thead>
