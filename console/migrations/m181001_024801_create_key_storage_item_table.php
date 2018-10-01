@@ -18,6 +18,12 @@ class m181001_024801_create_key_storage_item_table extends Migration
             'option'      => $this->text()->comment('可选值,json'),
             'type'        => $this->string(20)->comment('类型: config,dict'),
             'application' => $this->string(20)->comment('所属应用（backend，frontend...）'),
+            'is_system'   => $this->tinyInteger(1)->notNull()->defaultValue(0)->comment('是否系统使用，是则无法删除'),
+            'status'      => $this->tinyInteger(1)->notNull()->defaultValue(1)->comment('数据状态'),
+            'created_at'  => $this->integer(11)->comment('添加时间'),
+            'created_by'  => $this->integer(11)->comment('添加操作人'),
+            'updated_at'  => $this->integer(11)->comment('更新时间'),
+            'updated_by'  => $this->integer(11)->comment('更新操作人'),
         ]);
 
         $this->addPrimaryKey('pk_key_storage_item_key', 'key_storage_item', 'key');
