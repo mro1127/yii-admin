@@ -105,4 +105,15 @@ class KeyStorageItem extends \yii\db\ActiveRecord
         }
         return $ret;
     }
+
+    public static function getOption($key)
+    {
+        $cache = Yii::$app->cache;
+        $data = $cache->getOrSet($key, function () use ($key) {
+            $dict = static::findOne(['key' => $key, 'status' =>1]);
+            Yii::trace($dict);
+            return $dict['option'];
+        });
+        return json_decode($data, true);
+    }
 }

@@ -4,6 +4,7 @@ namespace backend\controllers;
 use Yii;
 use yii\web\Controller;
 use trntv\filekit\actions\UploadAction;
+use common\models\KeyStorageItem;
 /**
 * Demo controller
 */
@@ -44,6 +45,7 @@ class DemoController extends Controller
 
     public function actionTest()
     {
-        echo env('DB_DSN');
+        $option = KeyStorageItem::getOption('test2');
+        var_dump($option);
     }
 }
