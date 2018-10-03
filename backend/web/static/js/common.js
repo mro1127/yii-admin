@@ -251,10 +251,12 @@ function initValidate(options) {
                     if (type == 'checkbox' || type == 'radio') {
                         var name = $(element).attr('name'), type = $(element).attr('type');
                         var elm = $("input[name="+name+"][type="+type+"]:last").parents('label');
-                        tip[name] = layer.tips(this.errorMap[name], elm, {tipsMore:true, time:0, tips: [2, '#DD4B39'], id:name});
+                    }else if($(element).hasClass('select2-hidden-accessible')){
+                        var elm = $(element).next('.select2-container');
                     }else{
-                        tip[name] = layer.tips(this.errorMap[name], $(element), {tipsMore:true, time:0, tips: [2, '#DD4B39'], id:name});
+                        var elm = $(element);
                     }
+                    tip[name] = layer.tips(this.errorMap[name], elm, {tipsMore:true, time:0, tips: [2, '#DD4B39'], id:name});
                 }
             }
         },
@@ -287,7 +289,6 @@ function initSearch(form, table) {
         var query_params = function(params) {
             for(i in keyword)
                 params[keyword[i].name] = keyword[i].value;
-            
             params.limit = params.limit;
             params.offset = params.offset;
             params.order = params.order;
