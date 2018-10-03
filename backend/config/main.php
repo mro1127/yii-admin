@@ -17,6 +17,9 @@ $config = [
         'user' => [
             'class' => 'backend\modules\user\Module',
         ],
+        'system' => [
+            'class' => 'backend\modules\system\Module',
+        ],
     ],
     'components' => [
         'request' => [
