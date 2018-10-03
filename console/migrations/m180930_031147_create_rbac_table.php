@@ -74,6 +74,8 @@ class m180930_031147_create_rbac_table extends Migration
         $this->addCommentOnTable('role_node', '角色-节点关联表');
         $this->addCommentOnTable('role_user', '角色-用户关联表');
 
+        $this->execute("ALTER TABLE menu AUTO_INCREMENT = 10000");  // 为系统菜单腾出空间
+
         $this->batchInsert('menu',
             ['menu_id','menu_pid','menu_name','menu_icon','menu_sort','menu_url','menu_level','menu_status','menu_system','menu_shortcuts'],
             [
