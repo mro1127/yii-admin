@@ -98,7 +98,9 @@ $this->title = '数据字典';
         var url1 = editUrl.replace(/DATA_ID/, value);
         var url3 = delUrl.replace(/DATA_ID/, value);
         var html = '<a class="btn btn-primary btn-flat btn-xs" title="编辑字典 - '+row.id+'" href="'+url1+'">编辑</a> ';
-        html += '<a class="btn btn-danger btn-flat btn-xs open-confirm" title="删除字典" msg="确认删除字典【'+row.id+'】？" link="'+url3+'" callback="cbRefreshTable">删除</a>';
+        if (row.is_system==0) {
+            html += '<a class="btn btn-danger btn-flat btn-xs open-confirm" title="删除字典" msg="确认删除字典【'+row.id+'】？" link="'+url3+'" callback="cbRefreshTable">删除</a>';
+        }
         return html;
     }
 
