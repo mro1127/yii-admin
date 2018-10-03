@@ -13,6 +13,7 @@ class m181001_024801_create_key_storage_item_table extends Migration
     public function safeUp()
     {
         $this->createTable('key_storage_item', [
+            'id'          => $this->primaryKey(),
             'key'         => $this->string(128)->notNull(),
             'value'       => $this->string(100)->comment('值'),
             'option'      => $this->text()->comment('可选值,json'),
@@ -26,7 +27,6 @@ class m181001_024801_create_key_storage_item_table extends Migration
             'updated_by'  => $this->integer(11)->comment('更新操作人'),
         ]);
 
-        $this->addPrimaryKey('pk_key_storage_item_key', 'key_storage_item', 'key');
         $this->addCommentOnTable('key_storage_item', '数据字典');
     }
 
