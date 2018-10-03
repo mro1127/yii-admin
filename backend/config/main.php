@@ -47,6 +47,15 @@ $config = [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        'cache' => [
+            'class' => 'yii\redis\Cache',
+            'keyPrefix' => 'backend_',
+            'redis' => [
+                'hostname' => 'redis',
+                'port' => 6379,
+                'database' => 0,
+            ],
+        ],
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,
