@@ -176,7 +176,7 @@ class MenuForm extends Model
         }
         // 删除菜单
         $data = [
-            'updated_at' => date('Y-m-d H:i:s'),
+            'updated_at' => time(),
             'updated_by' => Yii::$app->user->id,
             'status' => 0,
         ];

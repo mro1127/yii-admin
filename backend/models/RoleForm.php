@@ -93,7 +93,7 @@ class RoleForm extends Model
 
         // 删除角色
         $data = [
-            'updated_at' => date('Y-m-d H:i:s'),
+            'updated_at' => time(),
             'updated_by' => Yii::$app->user->id,
             'status' => 0,
         ];
