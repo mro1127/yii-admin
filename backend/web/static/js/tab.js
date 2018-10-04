@@ -249,6 +249,50 @@ function initTab() {
         $.TAB.refresh(index);
     })
 
+    // 以窗口模式打开tab
+    $('.open-with-window').click(function() {
+        var li = $('.sly-frame').find("li.active"),
+            index = li.attr('index'),
+            src = $('.content-iframe').find("iframe[index="+index+"]").contents()[0].URL,
+            title = $('.content-iframe').find("iframe[index="+index+"]").contents()[0].title;
+
+        layer.open({
+            shade: 0.5,
+            type: 2,
+            title: title,
+            shadeClose: 0,
+            maxmin: 1,
+            area: ["80%", "80%"],
+            content: src,
+            zIndex: layer.zIndex,
+            success: function(layero){
+                layer.setTop(layero);
+            }
+        });
+        console.log(title)
+    })
+
+    $('.open-with-window-infinite').click(function() {
+        var li = $('.sly-frame').find("li.active"),
+            index = li.attr('index'),
+            src = $('.content-iframe').find("iframe[index="+index+"]").contents()[0].URL,
+            title = $('.content-iframe').find("iframe[index="+index+"]").contents()[0].title;
+
+        layer.open({
+            shade: 0,
+            type: 2,
+            title: title,
+            maxmin: 1,
+            area: ["60%", "60%"],
+            content: src,
+            zIndex: layer.zIndex,
+            success: function(layero){
+                layer.setTop(layero);
+            }
+        });
+    })
+
+    
 }
 
 $(function() {

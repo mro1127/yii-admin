@@ -80,6 +80,9 @@ $this->title = '后台管理';
                     <li><a class="tab-forward"><i class="fa fa-arrow-right"></i>前进</a></li>
                     <li><a class="tab-back-all"><i class="fa fa-reply-all"></i>返回原始页</a></li>
                     <li role="separator" class="divider"></li>
+                    <li><a class="open-with-window"><i class="fa fa-window-maximize"></i>以窗口模式打开</a></li>
+                    <li><a class="open-with-window-infinite"><i class="fa fa-window-restore"></i>以无限窗口模式打开</a></li>
+                    <li role="separator" class="divider"></li>
                     <li><a class="close-all-tab"><i class="fa fa-close"></i>全部关闭</a></li>
                     <li><a class="close-other-tab"><i class="fa fa-window-close-o"></i>关闭其他页面</a></li>
                 </ul>
