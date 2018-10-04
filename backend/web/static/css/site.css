@@ -172,6 +172,7 @@ html,body{height: 100%}
 
 
 .mr-b-10 { margin-bottom: 10px;}
+.mr-b-0 { margin-bottom: 0;}
 .mr-t-6 { margin-top: 6px;}
 
 .icheck-minimal-c label + label {

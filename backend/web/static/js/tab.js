@@ -224,7 +224,7 @@ function initTab() {
             title = li.find('span').html(),
             url = li.attr('url'),
             src = $('.content-iframe').find("iframe[index="+index+"]").contents()[0].URL;
-        var html = '<table class="table table-bordered"><tr><th>标题</th><td>'+title+'</td></tr><tr><th>原始地址</th><td>'+url+'</td></tr><tr><th>当前地址</th><td>'+src+'</td></tr></table>';
+        var html = '<table class="table table-bordered mr-b-0"><tr><th width="75">标题</th><td>'+title+'</td></tr><tr><th>原始地址</th><td>'+url+'</td></tr><tr><th>当前地址</th><td>'+src+'</td></tr></table>';
         layer.open({
             title: '页面信息',
             type: 1,
