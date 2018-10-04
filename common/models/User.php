@@ -225,4 +225,31 @@ class User extends ActiveRecord implements IdentityInterface
             $ret['rows'] = $query->asArray()->all();
         return $ret;
     }
+
+    /**
+     * 获取用户的全部角色ID
+     */
+    public static function getUserRoles($user_id)
+    {
+        $role = RoleUser::find()->select('role_id')->where(['user_id'=>$user_id])->asArray()->all();
+        $role = array_column($role,'role_id');
+        return $role;
+    }
+
+    /**
+     * 设置用户的全部角色ID
+     */
+    public static function setUserRoles($user_id, $role_id)
+    {
+        // 删除旧授权角色
+        RoleUser::deleteAll(['user_id'=>$user_id]);
+        // 添加新授权角色
+        if (!empty($role_id)) {
+            $data = [];
+            foreach ($role_id as $k => $v) 
+                $data[] = [$user_id, $v];
+            Yii::$app->db->createCommand()->batchInsert(RoleUser::tableName(), ['user_id', 'role_id'], $data)->execute();
+        }
+        return true;
+    }
 }

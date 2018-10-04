@@ -82,7 +82,7 @@ class UserController extends \yii\web\Controller
         }else{
             $all_role = Role::getAllRoles();
             $all_role = ArrayHelper::map($all_role, 'role_id', 'role_name');
-            $user_role = Role::getUserRoles($id);
+            $user_role = User::getUserRoles($id);
             return $this->render('add',['info'=>$info, 'all_role'=>$all_role, 'user_role'=>$user_role]);
         }
     }

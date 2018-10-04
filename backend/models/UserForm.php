@@ -117,7 +117,7 @@ class UserForm extends Model
         if(!$model->save())
             return ['status'=>0, 'info'=>errorsToStr($model->getErrors())];
         
-        Role::setUserRoles($model->id, $this->role);
+        $model->setUserRoles($model->id, $this->role);
 
         return ['status'=>1, 'info'=>'提交成功！'];
     }
