@@ -81,13 +81,19 @@ $this->title = Yii::$app->controller->action->id == 'add'? '添加菜单':'编�
             <div class="form-group">
                 <label class="col-sm-2 control-label">状态</label>
                 <div class="col-sm-6">
-                     <?=yii\helpers\Html::radioList('status',isset($info->menu_status)? $info->menu_status:1,['1'=>'正常','0'=>'禁用'],['class'=>'icheck-minimal-c mr-t-6']);?>
+                     <?=yii\helpers\Html::radioList('status',isset($info->menu_status)? $info->menu_status:1,[1=>'正常',0=>'禁用'],['class'=>'icheck-minimal-c mr-t-6']);?>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">快捷操作</label>
                 <div class="col-sm-6">
-                     <?=yii\helpers\Html::radioList('shortcuts',isset($info->menu_shortcuts)? $info->menu_shortcuts:0,['1'=>'是','0'=>'否'],['class'=>'icheck-minimal-c mr-t-6']);?>
+                     <?=yii\helpers\Html::radioList('shortcuts',isset($info->menu_shortcuts)? $info->menu_shortcuts:0,[1=>'是',0=>'否'],['class'=>'icheck-minimal-c mr-t-6']);?>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">打开方式</label>
+                <div class="col-sm-6">
+                     <?=yii\helpers\Html::radioList('status',isset($info->menu_status)? $info->menu_status:1,[1=>'新增tab',2=>'打开tab',3=>'打开窗口'],['class'=>'icheck-minimal-c mr-t-6']);?>
                 </div>
             </div>
         </div>

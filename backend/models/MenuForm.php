@@ -19,6 +19,7 @@ class MenuForm extends Model
     public $icon;
     public $shortcuts;
     public $system;
+    public $operate;
 
     private $model;
 
@@ -28,6 +29,7 @@ class MenuForm extends Model
             [['name'], 'required'],
             [['pid', 'sort'], 'integer'],
             [['status', 'shortcuts'], 'in', 'range' => [0, 1]],
+            [['operate'], 'in', 'range' => [1,2,3]],
             [['name', 'system'], 'string', 'max' => 20],
             ['url', 'string', 'max' => 255],
             ['icon', 'string', 'max' => 50],
@@ -44,6 +46,7 @@ class MenuForm extends Model
             'sort'      => '菜单排序',
             'icon'      => '菜单图标',
             'shortcuts' => '是否快捷操作',
+            'operate'   => '打开方式'
         ];
     }
     public function getModel()
@@ -76,6 +79,7 @@ class MenuForm extends Model
         $model->menu_icon      = $this->icon;
         $model->menu_shortcuts = $this->shortcuts;
         $model->menu_system    = $this->system;
+        $model->menu_operate   = $this->operate;
 
 
         if ($model->menu_pid == 0) {
@@ -126,6 +130,7 @@ class MenuForm extends Model
         $model->menu_icon      = $this->icon;
         $model->menu_shortcuts = $this->shortcuts;
         $model->menu_system    = $this->system;
+        $model->menu_operate   = $this->operate;
         
         if ($model->menu_pid == 0) {
             //根菜单

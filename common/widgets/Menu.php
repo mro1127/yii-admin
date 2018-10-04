@@ -56,7 +56,8 @@ class Menu extends \yii\bootstrap\Widget
         if (!empty($this->shortcuts)) {
             $html .= '<li class="header">快捷操作</li>';
             foreach ($this->shortcuts as $k => $v) {
-                $html .= '<li><a link="'.Url::to(['/'.$v['menu_url']]).'" icon="'.$v['menu_icon'].'" title="'.$v['menu_name'].'" bind="0" class="open-tab"><i class="'.$v['menu_icon'].'"></i> <span>'.$v['menu_name'].'</span></a></li>';
+                $operate = [1=>'open-tab', 2=>'add-tab', 3=>'open-window'];
+                $html .= '<li><a link="'.Url::to(['/'.$v['menu_url']]).'" icon="'.$v['menu_icon'].'" title="'.$v['menu_name'].'" bind="0" class="'.$operate[$v['menu_operate']].'" maxmin="1"><i class="'.$v['menu_icon'].'"></i> <span>'.$v['menu_name'].'</span></a></li>';
             }
         }
         $html .= '</ul>';
@@ -65,11 +66,11 @@ class Menu extends \yii\bootstrap\Widget
 
     protected function getMenuTreeHtml($menu)
     {
-        Yii::trace($menu);
         $html = '';
         foreach ($menu as $k => $v) {
             if (empty($v['_child'])) {
-                $html .= '<li><a link="'.Url::to(['/'.$v['menu_url']]).'" icon="'.$v['menu_icon'].'" title="'.$v['menu_name'].'" bind="0" class="open-tab"><i class="'.$v['menu_icon'].'"></i> <span>'.$v['menu_name'].'</span></a></li>';
+                $operate = [1=>'open-tab', 2=>'add-tab', 3=>'open-window'];
+                $html .= '<li><a link="'.Url::to(['/'.$v['menu_url']]).'" icon="'.$v['menu_icon'].'" title="'.$v['menu_name'].'" bind="0" class="'.$operate[$v['menu_operate']].'" maxmin="1"><i class="'.$v['menu_icon'].'"></i> <span>'.$v['menu_name'].'</span></a></li>';
                 if ($v['menu_shortcuts'] == 1) {
                     $this->shortcuts[] = $v;
                 }
