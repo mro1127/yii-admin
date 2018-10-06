@@ -50,7 +50,7 @@ class Menu extends \yii\db\ActiveRecord
     {
         return [
             [['menu_name'], 'required'],
-            [['menu_pid', 'menu_sort', 'menu_level', 'menu_status', 'node_id'], 'integer'],
+            [['menu_pid', 'menu_sort', 'menu_level', 'menu_status', 'node_id', 'menu_operate'], 'integer'],
             [['menu_name', 'menu_system'], 'string', 'max' => 20],
             [['menu_icon'], 'string', 'max' => 50],
             [['menu_url'], 'string', 'max' => 255],
@@ -78,6 +78,7 @@ class Menu extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
             'updated_by' => 'Updated BY',
             'status' => 'Status',
+            'menu_operate' => '打开方式'
         ];
     }
 
@@ -213,4 +214,16 @@ class Menu extends \yii\db\ActiveRecord
         return $arr;
     }
 
+    public static function getAllChild($menu_id)
+    {
+        $child = [];
+        $parent_t = $menu_id;
+        while (1) {
+            $child_t = static::find()->select('menu_id')->where(['menu_pid' => $parent_t])->asArray()->all();
+            if (empty($child_t)) break;
+            $parent_t = array_column($child_t, 'menu_id');
+            $child = \yii\helpers\ArrayHelper::merge($child, $parent_t);
+        }
+        return $child;
+    }
 }

@@ -144,6 +144,7 @@ class MenuForm extends Model
             if (empty($parent))
                 return ['status'=>0, 'info'=>'父菜单不存在，请刷新页面重试！'];
 
+            $level_count = ($parent['menu_level'] + 1) - $model->menu_level;
             $model->menu_level = $parent['menu_level'] + 1;
             $model->menu_system= $parent['menu_system'];
         }
@@ -162,6 +163,13 @@ class MenuForm extends Model
 
         if(!$model->save())
             return ['status'=>0, 'info'=>errorsToStr($model->getErrors())];
+
+        // 后台菜单的level都递增或递减
+        if ($level_count != 0) {
+            $child = $model->getAllChild($model->menu_id);
+            if (!empty($child)) 
+                Menu::updateAllCounters( ['menu_level' => $level_count], ['menu_id' => $child] );
+        }
 
         return ['status'=>1, 'info'=>'编辑成功！'];
     }
@@ -190,4 +198,9 @@ class MenuForm extends Model
         return ['status'=>1, 'info'=>'删除成功！共删除'.$num.'个菜单。'];
     }
 
+    public static function test()
+    {
+        
+        // 后台菜单的level都加一
+    }
 }
