@@ -38,7 +38,6 @@ class RoleForm extends Model
     public function scenarios()
     {
         $scenarios = parent::scenarios();
-        Yii::trace($scenarios); 
         $base = ['name','sort','status'];
         $scenarios['add'] = $base;
         $scenarios['edit'] = $base;

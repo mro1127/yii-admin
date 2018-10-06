@@ -55,7 +55,7 @@ class UserForm extends Model
     {
         $base = ['name','email','password','tel','sex','birthday','face','face_base_url','user_status','role'];
         return [
-            'add' => \yii\helpers\ArrayHelper::merge($base, ['username']),
+            'add' => ArrayHelper::merge($base, ['username']),
             'edit' => $base,
         ];
     }
