@@ -103,7 +103,9 @@ class KeyStorageItemForm extends Model
 
         if(!$model->save())
             return ['status'=>0, 'info'=>errorsToStr($model->getErrors())];
-        
+        // 设置缓存
+        $cache = Yii::$app->cache;
+        $cache->set($model->key, $model->option);
         return ['status'=>1, 'info'=>'提交成功！'];
     }
 

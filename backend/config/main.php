@@ -5,7 +5,7 @@ $params = array_merge(
 );
 
 $config = [
-    'id' => 'app-backend',
+    'id' => 'backend',
     'language' => 'zh-CN',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
@@ -28,7 +28,8 @@ $config = [
         ],
         'user' => [
             'identityClass' => 'common\models\User',
-            'enableAutoLogin' => true,
+            'enableAutoLogin' => false,
+            'enableAutoLogin' => false,
             'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
         ],
         'session' => [
@@ -65,11 +66,18 @@ $config = [
         ],
         */
     ],
-    'params' => $params,
 
-    // 'on beforeAction' => function ($event) {
-        
-    // },
+    // 'as actionTimeFilter' => [
+    //     'class'=> backend\components\ActionTimeFilter::class
+    // ],
+
+    'as globalAccessFilter' => [
+        'class'=> backend\components\GlobalAccessFilter::class,
+        'openAction' => [
+            'site/logout',
+        ]
+    ],
+    'params' => $params,
 
 ];
 

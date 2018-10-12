@@ -253,4 +253,21 @@ class User extends ActiveRecord implements IdentityInterface
         }
         return true;
     }
+
+
+    /**
+     * 获取自己的node
+     */
+    public static function getMyNodes()
+    {
+        $user_id = Yii::$app->user->id;
+        $cache = Yii::$app->cache;
+        $nodes = $cache->getOrSet("nodes.{$user_id}", function () use ($user_id) {
+                    $roles = static::getUserRoles($user_id);
+                    if (empty($roles)) return [];
+                    $nodes = Node::getNodeId($roles);
+                    return $nodes;
+                });
+        return $nodes;
+    }
 }

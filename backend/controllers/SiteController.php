@@ -6,6 +6,7 @@ use yii\web\Controller;
 use yii\helpers\Url;
 use backend\models\LoginForm;
 use common\models\Menu;
+use common\models\User;
 /**
  * Site controller
  */
@@ -23,11 +24,9 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        if (Yii::$app->user->isGuest) 
-            return $this->redirect(['site/login']);
-
-
-        $menu = (new Menu())->getMenu([], 'backend');
+        // 获取自己的node
+        $nodes = User::getMyNodes();
+        $menu = (new Menu())->getMenu($nodes, Yii::$app->id);
         return $this->render('index', ['menu'=>$menu]);
     }
 
@@ -57,9 +56,6 @@ class SiteController extends Controller
 
     public function actionLogout()
     {
-        if (Yii::$app->user->isGuest) 
-            return $this->redirect(['site/login']);
-
         Yii::$app->user->logout();
         if (Yii::$app->request->isAjax) 
             return $this->asJson(['status'=>1, 'info'=>'退出成功！', 'url'=>Url::to(['site/login'])]);

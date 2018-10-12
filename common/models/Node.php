@@ -81,20 +81,20 @@ class Node extends \yii\db\ActiveRecord
      * @param  array  $role   角色
      * @param  array  $system 系统
      */
-    public function getNode($role=[], $system=[], $status=[])
+    public static function getNode($role=[], $system=[], $status=[])
     {
         $where = [];
         $where['status'] = 1;
         
         if (!empty($role)) {
-            $node_id = $this->getNodeId($role);
+            $node_id = static::getNodeId($role);
             if (empty($node_id)) return NULL;
             $where['node_id'] = $node_id;
         }
       
         if (!empty($system)) $where['node_system'] = $system;
         if (!empty($status)) $where['node_status'] = $status;
-        $node = $query = $this->find()
+        $node = $query = static::find()
                     ->asArray()
                     ->orderBy('node_level desc, node_sort asc,node_system asc')
                     ->select('node_id,node_name,node_path,node_pid,node_level,node_status,node_system,node_sort')
@@ -103,7 +103,7 @@ class Node extends \yii\db\ActiveRecord
                     // ->createCommand()->getRawSql();
         if (empty($node)) return [];
 
-        $tree = $this->node2tree($node);
+        $tree = static::node2tree($node);
         if (empty($tree)) return [];
         foreach ($tree as $k => $v) {
             $tree[$v['node_system']] = $v;
@@ -117,7 +117,7 @@ class Node extends \yii\db\ActiveRecord
      * @param  array $node 数据库查询出来的数组
      * @return array       树状节点
      */
-    protected function node2tree($node)
+    protected static function node2tree($node)
     {
         $tree = [];
         foreach ($node as $k => $v) {
@@ -202,7 +202,7 @@ class Node extends \yii\db\ActiveRecord
      * @param  array/string $role 角色ID
      * @return array       节点ID
      */
-    public function getNodeId($role=[])
+    public static function getNodeId($role=[])
     {
         !empty($role) && $where['role_id'] = $role;
         $node_id = RoleNode::find()->distinct()->select('node_id')->where($where)->asArray()->all();
@@ -251,10 +251,10 @@ class Node extends \yii\db\ActiveRecord
      * @param  string $url  url
      * @return int          节点ID
      */
-    public function url2node($url)
+    public static function url2node($url, $add=0)
     {
         $paths  = explode("/", $url);
-        $tree   = $this->getNode([], $paths[0]);
+        $tree   = static::getNode([], $paths[0]);
         $id     = 0;
         $pid    = 0;
         $level  = 0;
@@ -273,6 +273,7 @@ class Node extends \yii\db\ActiveRecord
             }
 
             if ($find) continue;
+            if (!YII_ENV_DEV && !$add) return false;    // 如果不是开发环境，而且不是自动添加节点，直接返回false
             // 找不到则添加
             $node = new self();
             $node->node_name   = $path;

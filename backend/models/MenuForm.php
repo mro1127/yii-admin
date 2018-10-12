@@ -101,7 +101,9 @@ class MenuForm extends Model
         // 菜单关联节点
         if (!empty($model->menu_url) && $model->menu_pid != 0 ) {
             $url = $model->menu_system .'/'. $model->menu_url;
-            $model->node_id = (new Node())->url2node($url);
+            $model->node_id = Node::url2node($url, 1);
+        }else{
+            $model->node_id = 0;
         }
 
         // 默认排序
@@ -152,7 +154,9 @@ class MenuForm extends Model
         // 菜单关联节点
         if (!empty($model->menu_url) && $model->menu_pid != 0 ) {
             $url = $model->menu_system .'/'. $model->menu_url;
-            $model->node_id = (new Node())->url2node($url);
+            $model->node_id = Node::url2node($url, 1);
+        }else{
+            $model->node_id = 0;
         }
 
         // 默认排序

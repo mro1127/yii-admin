@@ -63,6 +63,7 @@ class LoginForm extends Model
             $this->addError('error', '登录失败，请重试！');
             return false;
         }
+        Yii::$app->cache->delete("nodes.".Yii::$app->user->id);     // 刷新权限缓存
         return true;
     }
 
