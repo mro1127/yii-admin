@@ -1,6 +1,7 @@
 <?php 
 use yii\helpers\Url;
-$this->registerAssetBundle('3DLine');
+// $this->registerAssetBundle('3DLine');
+$this->registerAssetBundle('BgBubbles');
  ?>
 <div class="hold-transition login-page ">
     <div class="canvas-wrap">
@@ -35,7 +36,7 @@ $this->registerAssetBundle('3DLine');
                 <!-- /.login-box-body -->
             </div>
         </div>
-        <div id="canvas" class="gradient"></div>
+        <div id="canvas" class="gradient bg-bubbles"></div>
     </div>
         
 </div>

@@ -154,6 +154,14 @@ return [
                 '3d-lines-animation.js',
                 'color.js',
             ],
+            'css' => ['style.css'],
+        ],
+        'BgBubbles' =>[
+            'class' => 'yii\web\AssetBundle',
+            'sourcePath' => '@commonStatic/lib/bg-bubbles',
+            'js' => ['main.js'],
+            'css' => ['style.css'],
+            'depends' => ['JQuery']
         ],
     ],
 ];
