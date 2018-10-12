@@ -10,7 +10,7 @@ function initSubmit(btn, callback, validate) {
         $this = $(this);
         $form = $(this).parents('form');
         if (validate) {
-            var pass = validate();
+            var pass = validate($form);
             if (!pass) return false;
         }else{
             if (!$form.valid()) return false;   // 默认 JQueryValidation  
