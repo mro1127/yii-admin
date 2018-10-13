@@ -57,14 +57,14 @@ $config = [
                 'database' => 0,
             ],
         ],
-        /*
+        
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
-        */
+        
     ],
 
     // 'as actionTimeFilter' => [
