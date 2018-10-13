@@ -45,7 +45,7 @@ class KeyStorageItemController extends \yii\web\Controller
 
         $info = (new KeyStorageItem())->findOne($id);
         if (empty($info) || $info['status']!=1) 
-            throw new \yii\web\HttpException(400, '找不到该用户！');
+            throw new \yii\web\HttpException(400, '找不到该数据！');
 
         if ($request->isPost) {
             $model = new KeyStorageItemForm();
