@@ -6,6 +6,8 @@
  * @param  {function} validate 自定义验证方法，返回fasle则中断提交
  */
 function initSubmit(btn, callback, validate) {
+    if (!btn || btn == '')
+        btn = '.ajax-submit';
     $(btn).click(function () {
         $this = $(this);
         $form = $(this).parents('form');
@@ -189,6 +191,65 @@ function batchConfirm(btn, param, get_post_data) {
     })
 }
 
+function batchPrompt(btn, param, get_post_data) {
+    $(document).on('click', btn, function() {
+        if (get_post_data){
+            var post_data = get_post_data();
+            if (post_data === false) return false;
+        }else{
+            // 默认获取 bootstrap-table的checkbox数据
+            var post_data = {},
+                selections = $('table').bootstrapTable('getSelections');
+            post_data.id = $.map(selections, function(item, index) {
+                return item.id;
+            });
+            if (post_data.id.length == 0) {
+                layer.msg('请选择数据！');    
+                return false;
+            }
+        }
+
+        var token = $('meta[name="csrf-token"]').attr('content');
+        if (token) {
+            var token_name = $('meta[name="csrf-param"]').attr('content');
+            post_data[token_name] = token;
+        }
+
+        var param_default = {
+            formType : 0,
+            name : 'value',
+        }
+        var param_elm = {
+            title : $(this).attr('title'),
+            value : $(this).attr('value'),
+            formType : $(this).attr('form-type'),
+            link : $(this).attr('link'),
+            callback : $(this).attr('callback'),
+            name : $(this).attr('name'),
+        }
+        param = $.extend(param_default, param, param_elm);
+        layer.prompt(param, function(value, index, elem){
+            post_data[param.name] = value;
+            $.post(param.link, post_data, function(data) {
+                if (data.status) {
+                    layer.msg(data.info, {icon: 1});
+                    setTimeout(function () {
+                        layer.close(index)
+                    }, 1000)
+                } else {
+                    layer.msg(data.info, {icon: 2});    
+                }
+                if (param.callback){
+                    window[param.callback](data);
+                }
+            }, "JSON");
+        });
+        return false;
+    })
+}
+
+
+
 function openWindow(btn, param) {
     var param_default = {
         title       : '窗口',
@@ -198,6 +259,7 @@ function openWindow(btn, param) {
         resize      : 0,
         shadeClose  : 0,
         maxmin      : 0,
+        shade       : 0.5
     }
     $(document).on('click', btn, function() {
         var param_elm = {
@@ -208,11 +270,12 @@ function openWindow(btn, param) {
             resize      : $(this).attr('resize'),
             shadeClose  : $(this).attr('shadeClose'),
             maxmin      : $(this).attr('maxmin'),
+            shade       : $(this).attr('shade'),
         }
         param = $.extend(param_default, param , param_elm);
-        
+        if (param.shade == '0') param.shade = false;
         layer.open({
-            shade: 0.5,
+            shade: param.shade,
             type: 2,
             resize: param.resize,
             title: param.title,
@@ -305,27 +368,71 @@ function initSearch(form, table) {
 }
 
 /**
+ * 执行post提交
+ */
+function doPost(url, data, btn, callback, alert) {
+    if (btn) loading(btn);
+    var token = $('meta[name="csrf-token"]').attr('content');
+    if (token) {
+        var token_name = $('meta[name="csrf-param"]').attr('content');
+        data[token_name] = token;
+    }
+
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        data: data,
+        url: url,
+        success: function (data, textStatus, errorThrown, form) {
+            if (btn) stopLoading(btn);
+            if (alert != 0) {
+                if (data.status == 1) {
+                    layer.msg(data.info, {icon: 1});
+                } else {
+                    layer.msg(data.info, {icon: 2});    
+                }
+            }
+            if (callback) {
+                callback(data);
+            } else if (data.url) {
+                setTimeout(function () {
+                   window.location.href = data.url;
+                }, 1000)
+            }
+        },
+        error: function (data, textStatus, errorThrown, form) {
+            layer.msg("系统错误：" + errorThrown, {icon: 2});
+                if (btn) stopLoading(btn);
+            
+        }
+    })
+    return false;
+}
+
+
+/**
  * 一些默认的绑定
  * @Author   Armo
  * @DateTime 2018-02-12
  */
 $(function () {
     // 默认绑定 common-ajax-submit
-    if ($('.common-ajax-submit').length > 0) {
+    if ($('.common-ajax-submit').length > 0) 
         initSubmit('.common-ajax-submit');
-    }
 
-    if ($('.search-form').length > 0) {
+    if ($('.search-form').length > 0) 
         initSearch('.search-form', 'table');
-    }
 
-    openConfirm('.open-confirm');
     openWindow('.open-window');
+    openConfirm('.open-confirm');
     batchConfirm('.batch-confirm');
+    batchPrompt('.batch-prompt'); 
+    batchPrompt('.open-prompt',{},function() {
+        return {};
+    }); 
 
-    if ($('.select2').length > 0) {
+    if ($('.select2').length > 0) 
         $('.select2').select2();
-    }
 
     // 初始化minimal类的checkbox跟radio
     if ($('input[type="checkbox"].icheck-minimal, input[type="radio"].icheck-minimal').length > 0) {
