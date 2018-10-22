@@ -31,7 +31,7 @@ function initSubmit(btn, callback, validate) {
             data: data,
             success: function (data, textStatus, errorThrown, form) {
                 if (data.status == 1) {
-                        layer.msg(data.info, {icon: 1});
+                    layer.msg(data.info, {icon: 1});
                 } else {
                     layer.msg(data.info, {icon: 2});    
                     stopLoading($this);
@@ -250,7 +250,41 @@ function batchPrompt(btn, param, get_post_data) {
     })
 }
 
-
+function batchJump(btn, param, get_id) {
+    var param_default = {
+        title: '新增页面',
+        link:  '/',
+        icon:  'fa fa-file-o',
+        bind:  0,
+    }
+    $(document).on('click', btn, function() {
+        
+        if (get_id){
+            var id = get_id();
+            if (id === false) return false;
+        }else{
+            // 默认获取 bootstrap-table的checkbox数据
+            var selections = $('table').bootstrapTable('getSelections'),
+                id = $.map(selections, function(item, index) {
+                return item.id;
+            });
+            if (id.length == 0) {
+                layer.msg('请选择数据！');    
+                return false;
+            }
+        }
+        var param_elm = {
+            title: $(this).attr('title'),
+            link:  $(this).attr('link'),
+            icon:  $(this).attr('icon'),
+            bind:  $(this).attr('bind'),
+        }
+        param = $.extend(param_default, param , param_elm);
+        var link = param.link.replace(/ID/, id.join('_'));
+        parent.$.TAB.add(link, param.title, param.icon, param.bind);
+        return false;
+    })
+}
 
 function openWindow(btn, param) {
     var param_default = {
@@ -425,6 +459,7 @@ $(function () {
     if ($('.search-form').length > 0) 
         initSearch('.search-form', 'table');
 
+    batchJump('.batch-jump');
     openWindow('.open-window');
     openConfirm('.open-confirm');
     batchConfirm('.batch-confirm');
