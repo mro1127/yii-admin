@@ -292,14 +292,13 @@ function initTab() {
         });
     })
 
-    
 }
 
 $(function() {
 
     if (parent.$.TAB) {
         // 子页面打开tab，有则显示无则添加
-        $('.open-tab-c').click(function() {
+        $(document).on('click','.open-tab-c',function() {
             var icon = $(this).attr('icon'),
                 bind = $(this).attr('bind'),
                 link = $(this).attr('link'),
@@ -309,7 +308,7 @@ $(function() {
         });
 
         // 子页面打开tab，一定为新增页面
-        $('.add-tab-c').click(function() {
+        $(document).on('click','.add-tab-c',function() {
             var icon = $(this).attr('icon'),
                 bind = $(this).attr('bind'),
                 link = $(this).attr('link'),
@@ -319,12 +318,12 @@ $(function() {
         });
 
         // 关闭当前tab
-        $('.close-self-tab').click(function() {
+        $(document).on('click','.close-self-tab',function() {
             var index = getIndex();
             parent.$.TAB.close(parent.$('.sly-frame').find("li").eq(index).attr('index'));
         });
         // 
-        $('.warn-self-tab').click(function() {
+        $(document).on('click','.warn-self-tab',function() {
             var index = getIndex();
             parent.$.TAB.warn(parent.$('.sly-frame').find("li").eq(index).attr('index'));
         });
