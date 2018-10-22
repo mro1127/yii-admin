@@ -42,6 +42,8 @@ function initSubmit(btn, callback, validate) {
                     setTimeout(function () {
                        window.location.href = data.url;
                     }, 1000)
+                }else{
+                    stopLoading($this);
                 }
             },
             error: function (data, textStatus, errorThrown, form) {
