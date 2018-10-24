@@ -58,7 +58,7 @@ function initTab() {
             // tab的html
             var tab = this.template.clone();
             $(tab).find('span').append(name);
-            $(tab).find('.tab-icon').addClass(icon);
+            $(tab).find('.tab-icon').addClass(icon).attr('icon',icon);
             $(tab).attr({ index: index, url: url, bind: bind });
 
             // tab的绑定事件
@@ -151,10 +151,10 @@ function initTab() {
         // iframe加载时，图标loading
         loading : function(index){
             var icon = $('.sly-frame').find("li[index="+index+"]").find('.tab-icon'),
-                icon_class= icon.attr('class');
-            icon.attr('unloading-class', icon_class).attr('class', 'tab-icon fa fa-spinner  fa-spin');
+                icon_class= icon.attr('icon');
+            icon.attr('class', 'tab-icon fa fa-spinner fa-spin');
             $('.content-iframe').find("iframe[index="+index+"]").one("load",function(){
-                icon.attr('class', icon_class);
+                icon.attr('class', icon_class).addClass('tab-icon');
                 resetSlyW();
             });
         },

@@ -78,6 +78,7 @@ html,body{height: 100%}
   user-select:none;
 }
 .sly-tab > .nav-tabs-custom > .nav-tabs > li > a > span > .tab-icon {
+  width: 1em;
   margin-right: 2px;
   color: #999;
 }
