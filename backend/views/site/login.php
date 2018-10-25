@@ -1,7 +1,7 @@
 <?php 
 use yii\helpers\Url;
-// $this->registerAssetBundle('3DLine');
-$this->registerAssetBundle('BgBubbles');
+$this->registerAssetBundle('3DLine');
+// $this->registerAssetBundle('BgBubbles');
  ?>
 <div class="hold-transition login-page ">
     <div class="canvas-wrap">
