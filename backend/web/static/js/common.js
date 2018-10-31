@@ -252,7 +252,7 @@ function batchPrompt(btn, param, get_post_data) {
 
 function batchJump(btn, param, get_id) {
     var param_default = {
-        type:       2,
+        type:       1,
         title:      '新增页面',
         link:       '/',
         icon:       'fa fa-file-o',
