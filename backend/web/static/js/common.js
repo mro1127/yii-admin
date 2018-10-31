@@ -252,10 +252,17 @@ function batchPrompt(btn, param, get_post_data) {
 
 function batchJump(btn, param, get_id) {
     var param_default = {
-        title: '新增页面',
-        link:  '/',
-        icon:  'fa fa-file-o',
-        bind:  0,
+        type:       2,
+        title:      '新增页面',
+        link:       '/',
+        icon:       'fa fa-file-o',
+        bind:       0,
+        width:      '50%',
+        height:     '75%',
+        resize:     0,
+        shadeClose: 0,
+        maxmin:     0,
+        shade:      0.5
     }
     $(document).on('click', btn, function() {
         
@@ -274,14 +281,35 @@ function batchJump(btn, param, get_id) {
             }
         }
         var param_elm = {
-            title: $(this).attr('title'),
-            link:  $(this).attr('link'),
-            icon:  $(this).attr('icon'),
-            bind:  $(this).attr('bind'),
+            type:       $(this).attr('type'),
+            title:      $(this).attr('title'),
+            link:       $(this).attr('link'),
+            icon:       $(this).attr('icon'),
+            bind:       $(this).attr('bind'),
+            width:      $(this).attr('width'),
+            height:     $(this).attr('height'),
+            resize:     $(this).attr('resize'),
+            shadeClose: $(this).attr('shadeClose'),
+            maxmin:     $(this).attr('maxmin'),
+            shade:      $(this).attr('shade'),
         }
         param = $.extend(param_default, param , param_elm);
         var link = param.link.replace(/ID/, id.join('_'));
-        parent.$.TAB.add(link, param.title, param.icon, param.bind);
+        if (param.type==1) {
+            if (param.shade == '0') param.shade = false;
+            layer.open({
+                shade: param.shade,
+                type: 2,
+                resize: param.resize,
+                title: param.title,
+                shadeClose: param.shadeClose,
+                maxmin: param.maxmin,
+                area: [param.width, param.height],
+                content: param.link, //iframe的url，no代表不显示滚动条
+            });
+        }else{
+            parent.$.TAB.add(link, param.title, param.icon, param.bind);
+        }
         return false;
     })
 }
