@@ -305,7 +305,7 @@ function batchJump(btn, param, get_id) {
                 shadeClose: param.shadeClose,
                 maxmin: param.maxmin,
                 area: [param.width, param.height],
-                content: param.link, //iframe的url，no代表不显示滚动条
+                content: link, //iframe的url，no代表不显示滚动条
             });
         }else{
             parent.$.TAB.add(link, param.title, param.icon, param.bind);
