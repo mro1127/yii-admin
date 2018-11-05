@@ -16,6 +16,12 @@ class GlobalAccessFilter extends ActionFilter
 
     public function beforeAction($action)
     {
+        if (Yii::$app->requestedRoute != Yii::$app->user->loginUrl[0]
+                && Yii::$app->user->isGuest) {
+            Yii::$app->user->loginRequired();       // 判断登录
+            return false;
+        }
+        
         $openAction = ArrayHelper::merge(
                                         $this->openAction, 
                                         [Yii::$app->errorHandler->errorAction, Yii::$app->user->loginUrl[0]]
@@ -24,24 +30,17 @@ class GlobalAccessFilter extends ActionFilter
             // 绕过调试工具及开发的操作
             return parent::beforeAction($action);       
         }
-        if (Yii::$app->requestedRoute != Yii::$app->user->loginUrl[0]
-                && Yii::$app->user->isGuest) {
-            Yii::$app->user->loginRequired();       // 判断登录
-            return false;
+        // 判断权限
+        $node_id = Node::url2node(Yii::$app->id .'/'. $action->uniqueId);
+        if (!$node_id) 
+            throw new NotFoundHttpException('找不到该操作！');
+        $user_id = Yii::$app->user->id;
+        if ($user_id != 1) {
 
-        }else{
-            // 判断权限
-            $node_id = Node::url2node(Yii::$app->id .'/'. $action->uniqueId);
-            if (!$node_id) 
-                throw new NotFoundHttpException('找不到该操作！');
-            $user_id = Yii::$app->user->id;
-            if ($user_id != 1) {
-
-                $nodes = User::getMyNodes();
-                if (!in_array($node_id, $nodes)) {
-                    throw new ForbiddenHttpException('没有权限');
-                    return false;
-                }
+            $nodes = User::getMyNodes();
+            if (!in_array($node_id, $nodes)) {
+                throw new ForbiddenHttpException('没有权限');
+                return false;
             }
         }
 
