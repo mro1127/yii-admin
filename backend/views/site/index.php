@@ -30,13 +30,13 @@ $this->title = '后台管理';
                 <ul class="nav navbar-nav">
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="<?= Yii::$app->user->identity->face_base_url .'/'. Yii::$app->user->identity->face ?>" class="user-image" alt="image">
+                            <img src="<?= Yii::$app->user->identity->face_base_url .'/'. Yii::$app->user->identity->face ?>" class="user-image" onerror="this.src='/static/images/default_face.png'">
                             <span class="hidden-xs"><?= Yii::$app->user->identity->name ?></span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- image -->
                             <li class="user-header">
-                                <img src="<?= Yii::$app->user->identity->face_base_url .'/'. Yii::$app->user->identity->face ?>" class="img-circle" alt="image">
+                                <img src="<?= Yii::$app->user->identity->face_base_url .'/'. Yii::$app->user->identity->face ?>" class="img-circle" onerror="this.src='/static/images/default_face.png'">
                                 <p><?= Yii::$app->user->identity->name ?> </p>
                                 <p><?= Yii::$app->user->identity->username ?> </p>
                             </li>
