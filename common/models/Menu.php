@@ -100,6 +100,7 @@ class Menu extends \yii\db\ActiveRecord
                 ->where($where)
                 // ->createCommand()->getRawSql();
                 ->all();
+        // p($menu);
         $tree = $this->menu2tree($menu);
         if ($filter) $tree = $this->menuFilter($tree);
 
@@ -225,5 +226,21 @@ class Menu extends \yii\db\ActiveRecord
             $child = \yii\helpers\ArrayHelper::merge($child, $parent_t);
         }
         return $child;
+    }
+
+    public static function updateNode()
+    {
+        $menu = static::find()->where(['status' => 1])->all();
+        foreach ($menu as $k => $v) {
+            if (empty($v->menu_url)) {
+                $node_id = 0;
+            }else{
+                $node_id = Node::url2node($v->menu_system .'/'. $v->menu_url);
+            }
+            if ($v->node_id !== $node_id) {
+                $v->node_id = $node_id;
+                $v->save();
+            }
+        }
     }
 }
