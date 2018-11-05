@@ -17,12 +17,12 @@ class GlobalAccessFilter extends ActionFilter
     public function beforeAction($action)
     {
         $openAction = ArrayHelper::merge(
-                            $this->openAction, 
-                            [Yii::$app->errorHandler->errorAction, Yii::$app->user->loginUrl[0]]
-                        );    // 错误处理必须公开，不然错误会文字显示
-        if (in_array($action->controller->module->id, ['debug','gii']) 
-                || in_array($action->uniqueId, $openAction)) {
-            return parent::beforeAction($action);       // 绕过调试工具及开发的操作
+                                        $this->openAction, 
+                                        [Yii::$app->errorHandler->errorAction, Yii::$app->user->loginUrl[0]]
+                                    );    // 错误处理必须公开，不然错误会文字显示
+        if (in_array($action->controller->module->id, ['debug','gii']) || in_array($action->uniqueId, $openAction)) {
+            // 绕过调试工具及开发的操作
+            return parent::beforeAction($action);       
         }
         if (Yii::$app->requestedRoute != Yii::$app->user->loginUrl[0]
                 && Yii::$app->user->isGuest) {

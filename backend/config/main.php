@@ -74,7 +74,7 @@ $config = [
     'as globalAccessFilter' => [
         'class'=> backend\components\GlobalAccessFilter::class,
         'openAction' => [
-            'site/logout',
+            'site/logout','site/index','site/home'
         ]
     ],
     'params' => $params,
