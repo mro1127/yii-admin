@@ -513,4 +513,34 @@ $(function () {
             radioClass: 'iradio_minimal-blue'
         });
     }
+
+    // 初始化minimal类的checkbox跟radio
+    if ($('input[type="checkbox"].icheck-minimal-red, input[type="radio"].icheck-minimal-red').length > 0) {
+        $('input[type="checkbox"].icheck-minimal-red, input[type="radio"].icheck-minimal-red').iCheck({
+            checkboxClass: 'icheckbox_minimal-red',
+            radioClass: 'iradio_minimal-red'
+        });
+    }
+    // 初始化minimal-c下面的checkbox跟radio
+    if ($('.icheck-minimal-c-red input[type="checkbox"], .icheck-minimal-c-red input[type="radio"]').length > 0) {
+        $('.icheck-minimal-c-red input[type="checkbox"], .icheck-minimal-c-red input[type="radio"]').iCheck({
+            checkboxClass: 'icheckbox_minimal-red',
+            radioClass: 'iradio_minimal-red'
+        });
+    }
+
+    // 初始化minimal类的checkbox跟radio
+    if ($('input[type="checkbox"].icheck-minimal-green, input[type="radio"].icheck-minimal-green').length > 0) {
+        $('input[type="checkbox"].icheck-minimal-green, input[type="radio"].icheck-minimal-green').iCheck({
+            checkboxClass: 'icheckbox_minimal-green',
+            radioClass: 'iradio_minimal-green'
+        });
+    }
+    // 初始化minimal-c下面的checkbox跟radio
+    if ($('.icheck-minimal-c-green input[type="checkbox"], .icheck-minimal-c-green input[type="radio"]').length > 0) {
+        $('.icheck-minimal-c-green input[type="checkbox"], .icheck-minimal-c-green input[type="radio"]').iCheck({
+            checkboxClass: 'icheckbox_minimal-green',
+            radioClass: 'iradio_minimal-green'
+        });
+    }
 })  
