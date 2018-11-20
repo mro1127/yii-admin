@@ -36,6 +36,7 @@ class RoleController extends \yii\web\Controller
                 $ret['url'] = Url::to(['role/index']);
             return $this->asJson($ret);
         }else{
+            $this->layout='@app/views/layouts/main';
             return $this->render('add');
         }
     }
@@ -61,6 +62,7 @@ class RoleController extends \yii\web\Controller
                 $ret['url'] = Url::to(['role/index']);
             return $this->asJson($ret);
         }else{
+            $this->layout='@app/views/layouts/main';
             return $this->render('add',['info'=>$info]);
         }
     }
