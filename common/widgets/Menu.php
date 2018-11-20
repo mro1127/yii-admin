@@ -70,7 +70,7 @@ class Menu extends \yii\bootstrap\Widget
         foreach ($menu as $k => $v) {
             if (empty($v['_child'])) {
                 $operate = [1=>'open-tab', 2=>'add-tab', 3=>'open-window'];
-                $html .= '<li><a href="'.Url::to(['/'.$v['menu_url']]).'" link="'.Url::to(['/'.$v['menu_url']]).'" icon="'.$v['menu_icon'].'" title="'.$v['menu_name'].'" bind="0" class="'.$operate[$v['menu_operate']].'" maxmin="1"><i class="'.$v['menu_icon'].'"></i> <span>'.$v['menu_name'].'</span></a></li>';
+                $html .= '<li><a href="'.Url::to(['/'.$v['menu_url']]).'" icon="'.$v['menu_icon'].'" title="'.$v['menu_name'].'" bind="0" class="'.$operate[$v['menu_operate']].'" maxmin="1"><i class="'.$v['menu_icon'].'"></i> <span>'.$v['menu_name'].'</span></a></li>';
                 if ($v['menu_shortcuts'] == 1) {
                     $this->shortcuts[] = $v;
                 }
