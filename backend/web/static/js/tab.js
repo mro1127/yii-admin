@@ -78,7 +78,7 @@ function initTab() {
 
             // iframe
             var iframe = $('<iframe></iframe>')
-            $(iframe).attr({ src: url, link: url, index: index, id: 'iframe_'+index });
+            $(iframe).attr({ src: url, href: url, index: index, id: 'iframe_'+index });
             $('.content-iframe').append($(iframe));
             this.change(index);
             this.loading(index);
@@ -165,9 +165,9 @@ function initTab() {
     $('.open-tab').click(function() {
         var icon = $(this).attr('icon'),
             bind = $(this).attr('bind'),
-            link = $(this).attr('link'),
+            href = $(this).attr('href'),
             title= $(this).attr('title');
-        $.TAB.open(link, title, icon, bind);
+        $.TAB.open(href, title, icon, bind);
         return false;
     })
 
@@ -175,9 +175,9 @@ function initTab() {
     $('.add-tab').click(function() {
         var icon = $(this).attr('icon'),
             bind = $(this).attr('bind'),
-            link = $(this).attr('link'),
+            href = $(this).attr('href'),
             title= $(this).attr('title');
-        $.TAB.add(link, title, icon, bind);
+        $.TAB.add(href, title, icon, bind);
         return false;
     })
 
@@ -197,7 +197,7 @@ function initTab() {
     $('.tab-back-all').click(function() {
         var choose = $('.sly-frame').find("li.active").attr('index');
         var i = $('.content-iframe').find("iframe[index="+choose+"]");
-        i.attr('src', i.attr('link'));
+        i.attr('src', i.attr('href'));
     })
 
     // 指定iframe前进后退功能无法实现，以下实现效果与浏览器前进后退功能一样
@@ -301,9 +301,9 @@ $(function() {
         $(document).on('click','.open-tab-c',function() {
             var icon = $(this).attr('icon'),
                 bind = $(this).attr('bind'),
-                link = $(this).attr('link'),
+                href = $(this).attr('href'),
                 title= $(this).attr('title');
-            parent.$.TAB.open(link, title, icon, bind);
+            parent.$.TAB.open(href, title, icon, bind);
             return false;
         });
 
@@ -311,9 +311,9 @@ $(function() {
         $(document).on('click','.add-tab-c',function() {
             var icon = $(this).attr('icon'),
                 bind = $(this).attr('bind'),
-                link = $(this).attr('link'),
+                href = $(this).attr('href'),
                 title= $(this).attr('title');
-            parent.$.TAB.add(link, title, icon, bind);
+            parent.$.TAB.add(href, title, icon, bind);
             return false;
         });
 
@@ -332,13 +332,13 @@ $(function() {
     $(document).on('click', '.yii-debug-toolbar__title', function() {
         var icon = 'fa fa-bug',
             bind = 0,
-            link = $(this).find('a').attr('href'),
+            href = $(this).find('a').attr('href'),
             title= 'Yii-debug';
         if ($.TAB) {
-            $.TAB.open(link, title, icon, bind);
+            $.TAB.open(href, title, icon, bind);
             return false;
         }else if(parent.$.TAB){
-            parent.$.TAB.open(link, title, icon, bind);
+            parent.$.TAB.open(href, title, icon, bind);
             return false;
         }
             return false;

@@ -15,9 +15,12 @@ class AppAsset extends AssetBundle
         'css/site.css',
     ];
     public $js = [
-        'js/tab.js',
         'js/common.js',
     ];
     public $depends = ['JQuery', 'Bootstrap', 'Adminlte', 'JQueryForm','JQueryValidation', 'Layer', 'FontAwesome'];
 
+    public function __construct()
+    {
+        if (env('LAYOUT_TYPE')==1) $this->js[] = 'js/tab.js';
+    }
 }
