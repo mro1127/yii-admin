@@ -20,7 +20,7 @@ $this->beginPage();
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body class="skin-blue sidebar-mini fixed">
+<body class="<?= env('ADMINLTE_SKIN') ?> sidebar-mini fixed">
 <?php $this->beginBody() ?>
 
 <?= $content ?>
