@@ -1,6 +1,7 @@
 <?php 
 use yii\helpers\Url;
-use common\widgets\Menu;
+use common\widgets\Menu AS MenuWidgets;
+use common\models\User;
 $this->registerAssetBundle('JQuerySlimscroll');
 $this->registerAssetBundle('Sly');
 // $this->registerAssetBundle('Vue');
@@ -58,7 +59,7 @@ $this->title = '后台管理';
     <aside class="main-sidebar">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
-            <?= Menu::widget(['menu' => $menu]) ?>
+            <?= MenuWidgets::widget(['menu' => User::getMyMenu(Yii::$app->id)]) ?>
         </section>
         <!-- /.sidebar -->
     </aside>

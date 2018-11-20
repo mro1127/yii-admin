@@ -254,7 +254,6 @@ class User extends ActiveRecord implements IdentityInterface
         return true;
     }
 
-
     /**
      * 获取自己的node
      */
@@ -269,5 +268,14 @@ class User extends ActiveRecord implements IdentityInterface
                     return $nodes;
                 });
         return $nodes;
+    }
+
+    /**
+     * 获取自己的menu
+     */
+    public static function getMyMenu($system='')
+    {
+        $nodes = static::getMyNodes();
+        return Menu::getMenu($nodes, $system);
     }
 }

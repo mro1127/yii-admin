@@ -82,7 +82,7 @@ class Menu extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getMenu($node = [], $system=[], $filter=TRUE, $status=[])
+    public static function getMenu($node = [], $system=[], $filter=TRUE, $status=[])
     {
         $where = [];
         $where['status'] = 1;
@@ -94,15 +94,15 @@ class Menu extends \yii\db\ActiveRecord
         if (!empty($system)) $where['menu_system'] = $system;
         if (!empty($status)) $where['menu_status'] = $status;
 
-        $menu = $this->find()
+        $menu = static::find()
                 ->asArray()
                 ->orderBy('menu_level desc, menu_sort asc, menu_system asc')
                 ->where($where)
                 // ->createCommand()->getRawSql();
                 ->all();
         // p($menu);
-        $tree = $this->menu2tree($menu);
-        if ($filter) $tree = $this->menuFilter($tree);
+        $tree = static::menu2tree($menu);
+        if ($filter) $tree = static::menuFilter($tree);
 
         if (is_array($system)) {
             foreach ($tree as $k => $v) {
@@ -116,7 +116,7 @@ class Menu extends \yii\db\ActiveRecord
         return $tree;
     }
 
-    protected function menu2tree($menu)
+    protected static function menu2tree($menu)
     {
         $tree = [];
         foreach ($menu as $k => $v) {
@@ -139,11 +139,11 @@ class Menu extends \yii\db\ActiveRecord
      * 没有子菜单&&没有url 的菜单删除
      * @param [array] $menu 树形菜单
      */
-    protected function menuFilter($menu)
+    protected static function menuFilter($menu)
     {
         foreach ($menu as $k => $v) {
             if (!empty($v['_child'])) 
-                $menu[$k]['_child'] = $this->menuFilter($v['_child']);
+                $menu[$k]['_child'] = static::menuFilter($v['_child']);
             if (empty($menu[$k]['_child']) && empty($v['menu_url'])) 
                 unset($menu[$k]);
         }

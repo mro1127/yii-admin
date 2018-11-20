@@ -3,7 +3,7 @@ use yii\helpers\Url;
 
  ?>
 <div class="">
-home
+<?= $info ?>
 </div>
 <!-- ./wrapper -->
 <?php $this->on($this::EVENT_END_PAGE, function () {    ?>

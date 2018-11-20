@@ -24,15 +24,20 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        // 获取自己的node
-        $nodes = User::getMyNodes();
-        $menu = (new Menu())->getMenu($nodes, Yii::$app->id);
-        return $this->render('index', ['menu'=>$menu]);
+        if (env('LAYOUT_TYPE')==1) {
+            // 获取自己的node
+            $nodes = User::getMyNodes();
+            $menu = Menu::getMenu($nodes, Yii::$app->id);
+            return $this->render('index', ['menu'=>$menu]);
+        }else{
+            return $this->actionHome();
+        }
     }
 
     public function actionHome()
     {
-        return $this->render('home');
+        $info = 'hello world';
+        return $this->render('home',['info'=>$info]);
     }
 
     public function actionLogin()
@@ -40,6 +45,7 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest) 
             return $this->goHome();
 
+        $this->layout = 'main';
         $request = Yii::$app->request;
         if (!$request->isPost) 
             return $this->render('login');
