@@ -8,7 +8,7 @@ $config = [
     'id' => 'backend',
     'language' => 'zh-CN',
     'basePath' => dirname(__DIR__),
-    'layout' => env('LAYOUT_TYPE')==1? 'main':'main2',
+    'layout' => env('LAYOUT_TYPE')==1? 'main':'menu',
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [

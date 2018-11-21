@@ -25,10 +25,7 @@ class SiteController extends Controller
     public function actionIndex()
     {
         if (env('LAYOUT_TYPE')==1) {
-            // 获取自己的node
-            $nodes = User::getMyNodes();
-            $menu = Menu::getMenu($nodes, Yii::$app->id);
-            return $this->render('index', ['menu'=>$menu]);
+            return $this->render('index');
         }else{
             return $this->actionHome();
         }
