@@ -51,7 +51,7 @@ function initTab() {
             tabs: new Array(),
         },
         index: 0,
-        template : $('<li><a><span><i class="fa-lg tab-icon"></i></span><i class="fa fa-times-circle tab-close"></i></a></li>'),
+        template : $('<li><a><i class="fa-lg tab-icon"></i><span></span><i class="fa fa-times-circle tab-close"></i></a></li>'),
         add : function(url, name, icon, bind){
             var $this = this,
                 index = this.index;
@@ -158,7 +158,11 @@ function initTab() {
                 resetSlyW();
             });
         },
-
+        
+        rename : function(index, title){
+            $('.sly-frame').find("li[index="+index+"]").find('span').text(title);
+            resetSlyW();
+        },
     }
 
     // 打开tab，有则显示无则添加
@@ -269,7 +273,6 @@ function initTab() {
                 layer.setTop(layero);
             }
         });
-        console.log(title)
     })
 
     $('.open-with-window-infinite').click(function() {
@@ -293,7 +296,14 @@ function initTab() {
     })
 
 }
-
+if (parent.$.TAB) {
+    window.onload = function(){
+        if (document.title) {
+            var index = getIndex();
+            parent.$.TAB.rename(index, document.title);
+        }
+    };
+}
 $(function() {
 
     if (parent.$.TAB) {
@@ -327,6 +337,7 @@ $(function() {
             var index = getIndex();
             parent.$.TAB.warn(parent.$('.sly-frame').find("li").eq(index).attr('index'));
         });
+
     }
 
     $(document).on('click', '.yii-debug-toolbar__title', function() {

@@ -77,12 +77,12 @@ html,body{height: 100%}
   -ms-user-select:none;
   user-select:none;
 }
-.sly-tab > .nav-tabs-custom > .nav-tabs > li > a > span > .tab-icon {
+.sly-tab > .nav-tabs-custom > .nav-tabs > li > a > .tab-icon {
   width: 1em;
   margin-right: 2px;
   color: #999;
 }
-.sly-tab > .nav-tabs-custom > .nav-tabs > li.active > a > span > .tab-icon {
+.sly-tab > .nav-tabs-custom > .nav-tabs > li.active > a > .tab-icon {
   color: #666;
 }
 
@@ -91,7 +91,7 @@ html,body{height: 100%}
 }
 
 .sly-tab > .nav-tabs-custom > .nav-tabs > li.tab-warn > a > span,
-.sly-tab > .nav-tabs-custom > .nav-tabs > li.tab-warn > a > span > .tab-icon {
+.sly-tab > .nav-tabs-custom > .nav-tabs > li.tab-warn > a > .tab-icon {
   color: #dd4b39;
 }
 
