@@ -55,6 +55,8 @@ class m181128_145313_reset_menu_node extends Migration
             INSERT INTO `node`(`node_id`, `node_pid`, `node_name`, `node_path`, `node_level`, `node_status`, `node_system`, `node_sort`, `status`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES (34, 8, '编辑节点', 'edit', 4, 1, 'backend', 100, 1, 1542711159, 1, 1542711159, 1);
             INSERT INTO `node`(`node_id`, `node_pid`, `node_name`, `node_path`, `node_level`, `node_status`, `node_system`, `node_sort`, `status`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES (35, 13, '上传用户头像', 'face-upload', 4, 1, 'backend', 100, 1, 1541429998, 1, 1541429998, 1);
             INSERT INTO `node`(`node_id`, `node_pid`, `node_name`, `node_path`, `node_level`, `node_status`, `node_system`, `node_sort`, `status`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES (36, 13, '检查用户名', 'check-username', 4, 1, 'backend', 100, 1, 1541430046, 1, 1541430046, 1);
+            INSERT INTO `node`(`node_id`, `node_pid`, `node_name`, `node_path`, `node_level`, `node_status`, `node_system`, `node_sort`, `status`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES (37, 8, '添加节点', 'add', 4, 1, 'backend', 100, 1, NULL, 1, NULL, 1);
+            INSERT INTO `node`(`node_id`, `node_pid`, `node_name`, `node_path`, `node_level`, `node_status`, `node_system`, `node_sort`, `status`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES (38, 8, '删除节点', 'delete', 4, 1, 'backend', 100, 1, NULL, 1, NULL, 1);
         ");
         
         $this->execute("
