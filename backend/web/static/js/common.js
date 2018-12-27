@@ -38,6 +38,7 @@ function initSubmit(btn, callback, validate) {
                 }
                 if (callback) {
                     callback(data);
+                    stopLoading($this);
                 } else if (data.url) {
                     setTimeout(function () {
                        window.location.href = data.url;
