@@ -21,9 +21,6 @@ $config = [
         'system' => [
             'class' => 'backend\modules\system\Module',
         ],
-        'hotel' => [
-            'class' => 'backend\modules\hotel\Module',
-        ],
     ],
     'components' => [
         'request' => [
