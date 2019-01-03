@@ -26,6 +26,9 @@ use common\models\User;
                 <span class="sr-only">Toggle navigation</span>
             </a>
 
+            <div class="navbar-logo text-center">
+                <span class="logo-lg"><b>Admin</b>LTE</span>
+            </div>
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <li class="dropdown user user-menu">
