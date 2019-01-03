@@ -15,6 +15,16 @@ html,body{height: 100%}
 	width: 318px;
 }
 
+.canvas-wrap {
+  background: #FFAE40;
+  background: -webkit-linear-gradient(top left, #FFc473 0%, #FF7800 100%);
+  background: linear-gradient(to bottom right, #FFc473 0%, #FF7800 100%);
+}
+
+.logo img{
+    height: 50px;
+}
+
 .navbar-logo {
   display: none;
 }
