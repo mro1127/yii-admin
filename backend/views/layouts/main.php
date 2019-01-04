@@ -3,6 +3,7 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use Yii;
 use backend\assets\AppAsset;
 use yii\helpers\Html;
 
@@ -17,7 +18,7 @@ $this->beginPage();
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
+    <title><?= empty($this->title)? Html::encode(Yii::$app->params['appName']) : Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
 <body class="<?= env('ADMINLTE_SKIN') ?> sidebar-mini fixed">
