@@ -2,7 +2,7 @@
 use yii\helpers\Url;
 $this->registerAssetBundle('Sly');
 
-$this->title = '后台管理';
+$this->title = Yii::$app->params['appName'];
 $this->context->layout = '@app/views/layouts/menu';
  ?>
 <?php $this->on($this::EVENT_BEGIN_BODY, function () {   ?>
