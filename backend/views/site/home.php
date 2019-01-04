@@ -1,10 +1,7 @@
 <?php 
 use yii\helpers\Url;
-
+$this->title = "首页";
  ?>
-<div class="">
-<?= $info ?>
-</div>
 <!-- ./wrapper -->
 <?php $this->on($this::EVENT_END_PAGE, function () {    ?>
 
