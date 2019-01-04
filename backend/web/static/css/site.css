@@ -28,6 +28,7 @@ html,body{height: 100%}
 .navbar-logo {
   display: none;
 }
+/*手机端优化*/
 @media (max-width: 767px) {
   .navbar-custom-menu{
     position: fixed;
@@ -55,6 +56,10 @@ html,body{height: 100%}
   }
   .main-sidebar {
     padding-top: 50px;
+  }
+  .content-iframe {
+    -webkit-overflow-scrolling: touch;
+    overflow-y: scroll;
   }
 }
 
@@ -170,10 +175,6 @@ html,body{height: 100%}
   border-bottom-color: #d2d6de;
 }
 
-.content-iframe {
-  -webkit-overflow-scrolling: touch;
-  overflow-y: scroll;
-}
 .content-iframe > iframe {
   width: 100%;
   height: 100%;
