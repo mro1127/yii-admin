@@ -8,7 +8,7 @@ function getIndex() {
     $(window.parent.document).find("iframe").each(function(i){
         var frameCode=$(this.contentWindow.document).find("body").attr("code");
         if (frameCode == code) {
-            index = i;
+            index = $(this).attr('index');
             return false;
         }
     });
