@@ -12,7 +12,7 @@ html,body{height: 100%}
 }
 
 .login-logo img{
-	width: 318px;
+  width: 100%;
 }
 
 .canvas-wrap {
