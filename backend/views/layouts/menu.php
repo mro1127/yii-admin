@@ -48,7 +48,7 @@ use common\models\User;
                                     <a href="#" class="btn btn-default btn-flat">资料</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="<?= Url::to(['site/logout']) ?>" class="btn btn-default btn-flat">退出</a>
+                                    <a href="<?= Url::to(['/site/logout']) ?>" class="btn btn-default btn-flat">退出</a>
                                 </div>
                             </li>
                         </ul>
