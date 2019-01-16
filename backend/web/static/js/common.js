@@ -544,4 +544,17 @@ $(function () {
             radioClass: 'iradio_minimal-green'
         });
     }
+
+
+    if ($('.common-export').length > 0) {
+        $(".common-export").click(function(event) {
+            var link = $(this).attr('link'),
+                params = {},
+                keyword = $(".search-form").serializeArray();
+            link += "?";
+            for(i in keyword)
+                link += keyword[i].name +"="+ keyword[i].value +"&";
+            location.href = link;
+        });
+    }
 })  
