@@ -553,7 +553,7 @@ $(function () {
                 keyword = $(".search-form").serializeArray();
             link += "?";
             for(i in keyword)
-                link += keyword[i].name +"="+ keyword[i].value +"&";
+                link += keyword[i].name +"="+ encodeURIComponent(keyword[i].value) +"&";
             location.href = link;
         });
     }
