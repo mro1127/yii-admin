@@ -108,12 +108,7 @@ $this->title = Yii::$app->controller->action->id == 'add'? '添加用户':'编�
 <script type="text/javascript">
 $(function() {
 
-    $('#birthday').datepicker({
-        language: 'zh-CN',
-        format: 'yyyy-mm-dd',
-        autoclose: true
-    })
-    $('#birthday').inputmask('yyyy-mm-dd')
+    initDateInput($('#birthday'));
 
     var uploadOptions = {
         maxNumberOfFiles: 1,
