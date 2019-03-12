@@ -163,5 +163,12 @@ return [
             'css' => ['style.css'],
             'depends' => ['JQuery']
         ],
+        'LoadingOverlay' =>[
+            'class' => 'yii\web\AssetBundle',
+            'sourcePath' => '@bower/gasparesganga-jquery-loading-overlay/dist',
+            'js' => [YII_DEBUG ? 'loadingoverlay.min.js':'loadingoverlay.js'],
+            'depends' => ['JQuery']
+        ],
+
     ],
 ];

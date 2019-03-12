@@ -14,9 +14,8 @@ function initSubmit(btn, callback, validate) {
         if (validate) {
             var pass = validate($form);
             if (!pass) return false;
-        }else{
-            if (!$form.valid()) return false;   // 默认 JQueryValidation  
         }
+        if (!$form.valid()) return false;   // 默认 JQueryValidation  
 
         loading($this);
         var data = {};
@@ -415,12 +414,12 @@ function initSearch(form, table) {
         var keyword = $(form).serializeArray();
 
         var query_params = function(params) {
+            var get_params = getParam();
+            for(i in get_params)
+                params[i] = get_params[i];
+
             for(i in keyword)
                 params[keyword[i].name] = keyword[i].value;
-            params.limit = params.limit;
-            params.offset = params.offset;
-            params.order = params.order;
-            params.sort = params.sort;
             return params;
         }
         $(table).bootstrapTable('refreshOptions', {queryParams: query_params, pageNumber:1});
@@ -474,7 +473,46 @@ function doPost(url, data, btn, callback, alert) {
     return false;
 }
 
+function getParam(variable)
+{
+    var query  = window.location.search.substring(1);
+    var vars   = query.split("&");
+    var param  = {};
+    for (var i = 0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(variable && pair[0] == variable){return pair[1];}
+        param[pair[0]] = pair[1];
+    }
+    if (!variable) return param;
+    return '';
+}
 
+function queryParams(params) {
+    var get_params = getParam();
+    for(i in get_params)
+        params[i] = get_params[i];
+    return params;
+}
+
+function overlay(elm) {
+    elm.LoadingOverlay("show", {
+        background: "rgba(255, 255, 255, 0.5)",
+        image:      "",
+        zIndex:     1000
+    });
+}
+function hideOverlay(elm) {
+    elm.LoadingOverlay("hide");
+}
+
+function initDateInput(elm) {
+    elm.datepicker({
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        autoclose: true
+    })
+    elm.inputmask('yyyy-mm-dd')
+}
 /**
  * 一些默认的绑定
  * @Author   Armo
@@ -496,6 +534,7 @@ $(function () {
     batchPrompt('.open-prompt',{},function() {
         return {};
     }); 
+
 
     if ($('.select2').length > 0) 
         $('.select2').select2();
