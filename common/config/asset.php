@@ -82,6 +82,13 @@ return [
             'js' => ['load-image.all.min.js'],
             'depends' => ['JQuery']
         ],
+        
+        'Moment'=> [
+            'class' => 'yii\web\AssetBundle',
+            'sourcePath' => '@bower/moment/min',
+            'js' => [YII_DEBUG ? 'moment-with-locales.js':'moment-with-locales.min.js'],
+        ],
+
 
         // Bootstrap 及 Bootstrap插件
         'Bootstrap' => [
@@ -100,6 +107,14 @@ return [
             'css' => [YII_DEBUG ? 'css/bootstrap-datepicker.css' : 'css/bootstrap-datepicker.min.css'],
             'js' => [YII_DEBUG ? 'js/bootstrap-datepicker.js' : 'js/bootstrap-datepicker.min.js', 'locales/bootstrap-datepicker.zh-CN.min.js'],
             'depends' => ['Bootstrap']
+        ],
+
+        'DateRangePicker'=> [
+            'class' => 'yii\web\AssetBundle',
+            'sourcePath' => '@bower/bootstrap-daterangepicker',
+            'css' => ['daterangepicker.css'],
+            'js' => ['daterangepicker.js'],
+            'depends' => ['Bootstrap','JQuery', 'Moment']
         ],
 
         'FontAwesome'=> [
