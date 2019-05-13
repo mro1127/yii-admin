@@ -63,7 +63,7 @@ class UserController extends \yii\web\Controller
     {
         $request = Yii::$app->request;
 
-        $info = (new User())->findOne($id);
+        $info = User::findOne($id);
         if (empty($info) || $info['status']!=1) 
             throw new \yii\web\HttpException(400, '找不到该用户！');
 
