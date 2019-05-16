@@ -505,14 +505,35 @@ function hideOverlay(elm) {
     elm.LoadingOverlay("hide");
 }
 
-function initDateInput(elm) {
-    elm.datepicker({
+// 初始化日期选择
+function initDateInput(elm, config, default_value) {
+    var default_config = {
         language: 'zh-CN',
         format: 'yyyy-mm-dd',
-        autoclose: true
-    })
+        autoclose: true,
+    };
+    config = $.extend(default_config, config);
+    elm.datepicker(config)
+    if (default_value) elm.val(default_value);
     elm.inputmask('yyyy-mm-dd')
 }
+
+// 初始化日期区间选择
+function initDateRangePicker(elm, config) {
+    var default_config = {
+        autoApply: true,
+        linkedCalendars: false,
+        autoUpdateInput: false,
+        locale: {
+            format: 'YYYY-MM-DD'
+        }
+    };
+    config = $.extend(default_config, config);
+    elm.daterangepicker(config, function(start, end, label) {
+        elm.val(start.format('YYYY-MM-DD') + '~' + end.format('YYYY-MM-DD'));
+    });
+}
+
 /**
  * 一些默认的绑定
  * @Author   Armo
