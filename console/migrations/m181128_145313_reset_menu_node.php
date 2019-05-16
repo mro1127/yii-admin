@@ -15,8 +15,10 @@ class m181128_145313_reset_menu_node extends Migration
         $this->delete('node');
         $this->delete('menu');
 
-        $this->execute("ALTER TABLE node AUTO_INCREMENT = 10000");
-        $this->execute("ALTER TABLE menu AUTO_INCREMENT = 10000");
+        if (env('SITE_NAME') != 'yii-admin') {
+            $this->execute("ALTER TABLE node AUTO_INCREMENT = 10000");
+            $this->execute("ALTER TABLE menu AUTO_INCREMENT = 10000");
+        }
 
         $this->execute("
             INSERT INTO `node`(`node_id`, `node_pid`, `node_name`, `node_path`, `node_level`, `node_status`, `node_system`, `node_sort`, `status`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES (1, 0, '后台名称', 'backend', 1, 1, 'backend', 100, 1, 1541432930, 1, 1541432930, 1);
