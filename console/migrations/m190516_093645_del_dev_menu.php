@@ -14,7 +14,7 @@ class m190516_093645_del_dev_menu extends Migration
     {
         if (env('SITE_NAME') != 'yii-admin') {
             $this->execute("
-                UPDATE `menu` SET `menu_status` = 0 WHERE `menu_id` in (37,38,39,40,43);
+                UPDATE `menu` SET `status` = 0 WHERE `menu_id` in (37,38,39,40,43);
             ");
         }
     }
