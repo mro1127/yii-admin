@@ -535,6 +535,7 @@ function initDateRangePicker(elm, config) {
 }
 
 function date(integer, format='YYYY-MM-DD') {
+    if (integer=='' || integer==null) return '';
     return moment.unix(integer).format(format);
 }
 /**
