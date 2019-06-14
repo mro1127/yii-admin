@@ -534,6 +534,9 @@ function initDateRangePicker(elm, config) {
     });
 }
 
+function date(integer, format='YYYY-MM-DD') {
+    return moment.unix(integer).format(format);
+}
 /**
  * 一些默认的绑定
  * @Author   Armo
