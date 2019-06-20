@@ -418,8 +418,15 @@ function initSearch(form, table) {
             for(i in get_params)
                 params[i] = get_params[i];
 
-            for(i in keyword)
-                params[keyword[i].name] = keyword[i].value;
+            for(i in keyword){
+                if (keyword[i].name.substr(-2) == '[]') {
+                    k = keyword[i].name.slice(0,-2);
+                    if (!params[k]) params[k] = [];
+                    params[k].push(keyword[i].value);
+                }else{
+                    params[keyword[i].name] = keyword[i].value;
+                }
+            }
             return params;
         }
         $(table).bootstrapTable('refreshOptions', {queryParams: query_params, pageNumber:1});
