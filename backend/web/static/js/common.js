@@ -395,10 +395,10 @@ function initValidate(options) {
             }
         },
         highlight: function ( element, errorClass, validClass ) {
-            $( element ).parents( ".form-group" ).addClass( "has-error" ).removeClass( "has-success" );
+            $( element ).parents( ".form-group" ).addClass( "has-error" );
         },
         unhighlight: function ( element, errorClass, validClass ) {
-            $( element ).parents( ".form-group" ).addClass( "has-success" ).removeClass( "has-error" );
+            $( element ).parents( ".form-group" ).removeClass( "has-error" );
         }
     }, options));
 }
