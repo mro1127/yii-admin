@@ -5,7 +5,7 @@
  * @param  {function} callback 回调方法，不传则一秒后跳转到data.url，data.url也没有则不处理
  * @param  {function} validate 自定义验证方法，返回fasle则中断提交
  */
-function initSubmit(btn, callback, validate) {
+function initSubmit(btn, callback, validate, getData) {
     if (!btn || btn == '')
         btn = '.ajax-submit';
     $(btn).click(function () {
@@ -18,7 +18,11 @@ function initSubmit(btn, callback, validate) {
         if (!$form.valid()) return false;   // 默认 JQueryValidation  
 
         loading($this);
-        var data = {};
+        if (getData) {
+            var data = getData();
+        }else{
+            var data = {};
+        }
         var token = $('meta[name="csrf-token"]').attr('content');
         if (token) {
             var token_name = $('meta[name="csrf-param"]').attr('content');
