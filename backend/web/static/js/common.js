@@ -501,12 +501,13 @@ function queryParams(params) {
     return params;
 }
 
-function overlay(elm) {
-    elm.LoadingOverlay("show", {
+function overlay(elm, image=false) {
+    option = {
         background: "rgba(255, 255, 255, 0.5)",
-        image:      "",
         zIndex:     1000
-    });
+    };
+    if (!image) option.image = image;
+    elm.LoadingOverlay("show", option);
 }
 function hideOverlay(elm) {
     elm.LoadingOverlay("hide");
