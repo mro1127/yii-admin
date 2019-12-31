@@ -28,7 +28,7 @@ $this->registerAssetBundle('3DLine');
                                 <!-- <img src="" alt=""> -->
                             </div>
                             <div class="col-xs-5">
-                                <button class="btn btn-primary btn-block btn-flat common-ajax-submit">登录</button>
+                                <a class="btn btn-primary btn-block btn-flat common-ajax-submit">登录</a>
                             </div>
                         </div>
                     </form>
