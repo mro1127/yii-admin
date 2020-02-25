@@ -45,7 +45,7 @@ $this->title = '数据字典';
     </div>
     <div class="row">
         <div class="col-xs-12">
-            <table id="table" data-toggle="table" data-url="<?= Url::to(['get-list'])?>" data-classes="table table-hover table-condensed"
+            <table id="bootstrap-table" data-url="<?= Url::to(['get-list'])?>" data-classes="table table-hover table-condensed"
                     data-side-pagination="server" data-pagination="true" data-side-pagination="server" >
                 <thead>
                 <tr>
@@ -105,7 +105,6 @@ $this->title = '数据字典';
     }
 
     $(function() {
-
     })
 
 </script>

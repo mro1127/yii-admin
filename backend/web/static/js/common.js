@@ -408,40 +408,67 @@ function initValidate(options) {
 }
 
 
+// /* 
+// * 带有search-form类的form提交时会触发，获取表单参数
+// * 重新赋值boostrap-table的queryParams参数
+// */ 
+// function initSearch(form, table) {
+//     $(form).submit(function() {
+//         $(table).bootstrapTable('removeAll');
+//         var keyword = $(form).serializeArray();
+
+//         var query_params = function(params) {
+//             var get_params = getParam();
+//             for(i in get_params)
+//                 params[i] = get_params[i];
+
+//             for(i in keyword){
+//                 if (keyword[i].name.substr(-2) == '[]') {
+//                     k = keyword[i].name.slice(0,-2);
+//                     if (!params[k]) params[k] = [];
+//                     params[k].push(keyword[i].value);
+//                 }else{
+//                     params[keyword[i].name] = keyword[i].value;
+//                 }
+//             }
+//             return params;
+//         }
+//         $(table).bootstrapTable('refreshOptions', {queryParams: query_params, pageNumber:1});
+//         $(form).find('button').prop('disabled',true);
+//         $(table).on('load-success.bs.table',function(data){
+//             $(form).find('button').prop('disabled',false);
+//         });
+//         return false;
+//     });
+// }
+
 /* 
-* 带有search-form类的form提交时会触发，获取表单参数
-* 重新赋值boostrap-table的queryParams参数
+* 初始化搜索参数跟boostrap-table
 */ 
-function initSearch(form, table) {
-    $(form).submit(function() {
-        $(table).bootstrapTable('removeAll');
+function initBootstrapTable(form, table) {
+    var param = getParam();
+    for(i in param){
+        if (i=='' || param[i]=='') continue;
+        $(form).find('[name='+i+']').val(param[i]);
+    }
+    var query_params = function(params) {
         var keyword = $(form).serializeArray();
+        for(i in param)
+            params[i] = param[i];
 
-        var query_params = function(params) {
-            var get_params = getParam();
-            for(i in get_params)
-                params[i] = get_params[i];
-
-            for(i in keyword){
-                if (keyword[i].name.substr(-2) == '[]') {
-                    k = keyword[i].name.slice(0,-2);
-                    if (!params[k]) params[k] = [];
-                    params[k].push(keyword[i].value);
-                }else{
-                    params[keyword[i].name] = keyword[i].value;
-                }
+        for(i in keyword){
+            if (keyword[i].name.substr(-2) == '[]') {
+                k = keyword[i].name.slice(0,-2);
+                if (!params[k]) params[k] = [];
+                params[k].push(keyword[i].value);
+            }else{
+                params[keyword[i].name] = keyword[i].value;
             }
-            return params;
         }
-        $(table).bootstrapTable('refreshOptions', {queryParams: query_params, pageNumber:1});
-        $(form).find('button').prop('disabled',true);
-        $(table).on('load-success.bs.table',function(data){
-            $(form).find('button').prop('disabled',false);
-        });
-        return false;
-    });
+        return params;
+    }
+    $(table).bootstrapTable({queryParams: query_params, pageNumber:1});
 }
-
 /**
  * 执行post提交
  */
@@ -560,8 +587,8 @@ $(function () {
     if ($('.common-ajax-submit').length > 0) 
         initSubmit('.common-ajax-submit');
 
-    if ($('.search-form').length > 0) 
-        initSearch('.search-form', 'table');
+    if ($('#bootstrap-table').length > 0) 
+        initBootstrapTable('.search-form', '#bootstrap-table');
 
     batchJump('.batch-jump');
     openWindow('.open-window');

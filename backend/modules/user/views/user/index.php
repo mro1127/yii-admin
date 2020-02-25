@@ -52,7 +52,7 @@ $this->title = '用户列表';
     </div>
     <div class="row">
         <div class="col-xs-12">
-            <table id="table" data-toggle="table" data-url="<?= Url::to(['user/get-list'])?>" data-classes="table table-hover table-condensed"
+            <table id="bootstrap-table"data-url="<?= Url::to(['user/get-list'])?>" data-classes="table table-hover table-condensed"
                     data-side-pagination="server" data-pagination="true" data-side-pagination="server" >
                 <thead>
                 <tr>
