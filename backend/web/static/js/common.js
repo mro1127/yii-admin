@@ -449,7 +449,16 @@ function initBootstrapTable(form, table) {
     var param = getParam();
     for(i in param){
         if (i=='' || param[i]=='') continue;
-        $(form).find('[name='+i+']').val(param[i]);
+        if ($(form).find('[name='+i+']').length!=0) {
+            $(form).find('[name='+i+']').val(param[i]);
+        }else{
+            var input = $('<input/>').attr({
+                name: i,
+                type: 'hidden',
+                value: param[i]
+            });
+            $(form).append(input)
+        }
     }
     var query_params = function(params) {
         var keyword = $(form).serializeArray();
