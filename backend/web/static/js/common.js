@@ -158,7 +158,7 @@ function batchConfirm(btn, param, get_post_data) {
         }else{
             // 默认获取 bootstrap-table的checkbox数据
             var post_data = {},
-                selections = $('table').bootstrapTable('getSelections');
+                selections = $('#bootstrap-table').bootstrapTable('getSelections');
             post_data.id = $.map(selections, function(item, index) {
                 return item.id;
             });
