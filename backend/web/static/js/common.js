@@ -205,7 +205,7 @@ function batchPrompt(btn, param, get_post_data) {
         }else{
             // 默认获取 bootstrap-table的checkbox数据
             var post_data = {},
-                selections = $('table').bootstrapTable('getSelections');
+                selections = $('#bootstrap-table').bootstrapTable('getSelections');
             post_data.id = $.map(selections, function(item, index) {
                 return item.id;
             });
@@ -275,7 +275,7 @@ function batchJump(btn, param, get_id) {
             if (id === false) return false;
         }else{
             // 默认获取 bootstrap-table的checkbox数据
-            var selections = $('table').bootstrapTable('getSelections'),
+            var selections = $('#bootstrap-table').bootstrapTable('getSelections'),
                 id = $.map(selections, function(item, index) {
                 return item.id;
             });
