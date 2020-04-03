@@ -523,6 +523,7 @@ function doPost(url, data, btn, callback, alert) {
 function getParam(variable)
 {
     var query  = unescape(decodeURI(window.location.search.substring(1)));
+    query = query.replace('+', ' ');
     var vars   = query.split("&");
     var param  = {};
     for (var i = 0;i<vars.length;i++) {
